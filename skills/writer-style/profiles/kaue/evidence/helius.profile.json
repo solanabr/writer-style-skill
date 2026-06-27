@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "n_pieces": 93,
+    "n_words": 357974,
+    "n_sentences": 21013,
+    "n_paragraphs": 297,
+    "fenced_code_blocks": 0,
+    "inline_code_spans": 0,
+    "corpus_cleaned": true,
+    "paragraph_metric_valid": true,
+    "warnings": []
+  },
+  "raw": {
+    "sentence_len": {
+      "median": 16,
+      "mean": 17.0,
+      "p10": 3,
+      "p90": 29,
+      "min": 0,
+      "max": 194,
+      "stdev": 11.6,
+      "cv": 0.68
+    },
+    "paragraph_sentences": {
+      "median": 12,
+      "p90": 233,
+      "valid": true
+    },
+    "punct_per_1k_words": {
+      ",": 60.4,
+      ";": 2.7,
+      ":": 10.0,
+      "\u2014": 2.1,
+      "(": 9.3,
+      "?": 1.4,
+      "!": 0.4,
+      "...": 0.2
+    },
+    "openers": {
+      "counts": {
+        "data": 3,
+        "claim": 263,
+        "question": 25,
+        "story": 5,
+        "quote": 1
+      },
+      "pct": {
+        "data": 1,
+        "claim": 89,
+        "question": 8,
+        "story": 2,
+        "quote": 0
+      },
+      "n": 297
+    },
+    "lexical": {
+      "content_word_ratio": 0.627,
+      "type_token_ratio": 0.041,
+      "long_word_frac": 0.332,
+      "flesch_kincaid_grade": 12.6
+    },
+    "stance": {
+      "hedges_per_1k": 2.8,
+      "boosters_per_1k": 1.5,
+      "perspective": {
+        "first": 28,
+        "second": 15,
+        "third": 56
+      }
+    },
+    "teaching": {
+      "definition_per_1k": 4.9,
+      "analogy_per_1k": 0.4,
+      "example_per_1k": 1.4,
+      "numeric_per_1k": 13.6,
+      "code_blocks_per_1k": 0.0,
+      "question_per_1k": 0.0
+    },
+    "connectives": {
+      "causal_per_1k": 3.5,
+      "contrastive_per_1k": 2.9,
+      "additive_per_1k": 27.0
+    },
+    "signature_content_words": [
+      ["solana", 3504],
+      ["can", 1820],
+      ["transaction", 1313],
+      ["transactions", 1176],
+      ["program", 1136],
+      ["account", 1135],
+      ["network", 1074],
+      ["data", 1019],
+      ["validator", 954],
+      ["validators", 939],
+      ["stake", 850],
+      ["new", 834],
+      ["will", 811],
+      ["accounts", 774],
+      ["block", 754]
+    ],
+    "signature_bigrams": [
+      ["of the", 1294],
+      ["in the", 939],
+      ["to the", 867],
+      ["solana s", 719],
+      ["is a", 639],
+      ["on solana", 515],
+      ["with the", 504],
+      ["can be", 501],
+      ["on the", 489],
+      ["and the", 482],
+      ["as a", 466],
+      ["the network", 462]
+    ],
+    "signature_trigrams": [
+      ["of solana s", 108],
+      ["one of the", 107],
+      ["the number of", 89],
+      ["the network s", 86],
+      ["zero knowledge proofs", 84],
+      ["proof of stake", 74],
+      ["the meta dao", 73],
+      ["i e the", 70],
+      ["based on the", 64],
+      ["of the total", 62]
+    ]
+  },
+  "card_suggestions": {
+    "sentence_length": {
+      "median": 16,
+      "short_punch_floor": 3,
+      "long_reach": 29,
+      "burstiness_min": 9
+    },
+    "readability_grade": {
+      "min": 10,
+      "max": 14
+    },
+    "lexical_density": "high",
+    "hedge_boost_lean": 0,
+    "person_perspective": {
+      "first": 28,
+      "second": 15,
+      "third": 56
+    },
+    "example_density": "low",
+    "code_density": "none",
+    "rhetorical_question_rate": "none",
+    "definition_marker_rate_per_1k": 4.9,
+    "analogy_per_1k": 0.4,
+    "top_connectives_seen": ["and", "so", "also", "but", "however", "because"]
+  }
+}

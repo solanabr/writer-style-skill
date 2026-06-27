@@ -1,0 +1,22 @@
+# Hotz secondary-voice move-demo bank — the signature compression-and-collapse moves in NEUTRAL voice
+# (idiolect stripped). They show how to APPLY each move in Kaue's voice, not how to copy Hotz.
+# For a Hotz-routed backbone the writer loads all 3 — the bank is small and each is a distinct move.
+voice: hotz
+role: secondary
+always_load: []                                   # secondary craft layer — no per-piece naturalness floor of its own
+default_load: [mechanistic-reframe, naive-then-collapse, therefore-chain]   # load all 3 for a Hotz backbone
+body_by_job:                                       # if loading selectively, match the move to the lesson shape
+  reframe: [mechanistic-reframe]                   # "the best model of X is Y" demystification
+  refute: [naive-then-collapse]                    # steelman the wrong answer, then collapse it
+  derive: [therefore-chain]                        # short, auditable X→Y→Z reasoning
+  default: [mechanistic-reframe]
+slots:
+  - { slot: mechanistic-reframe, file: 01-mechanistic-reframe-account-rent.md,    move: "best model of X is Y + discriminating question + honest concession" }
+  - { slot: naive-then-collapse, file: 02-naive-then-collapse-program-account.md, move: "build the naive wrong model, collapse it in one move" }
+  - { slot: therefore-chain,     file: 03-therefore-chain-proof-of-history.md,     move: "visible X, so Y, so Z chain + discriminating question" }
+note: >
+  Distilled from 128 pieces / ~91,411 words (see evidence/hotz.profile.json). The #1 guardrail: keep the
+  compression and the reframe, drop the attitude — the nerve stays INVITING (letting the reader in on a simple
+  truth), never dismissive. ROUTING: only send a topic here when an honest "X is just Y" exists; if the
+  collapse needs an asterisk it's a Vitalik derivation, and security never leads here. Exemplars are the
+  strongest voice signal — lean on them harder than on the prose descriptors.

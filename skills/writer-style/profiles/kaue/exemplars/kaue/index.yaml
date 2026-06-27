@@ -1,0 +1,48 @@
+# Kaue primary-voice exemplar bank — real on-register passages across TWO registers, for diversity +
+# humane texture. The writer loads ~4: ALWAYS the seam (the naturalness anchor), one opener, the close,
+# plus 1 body slot by job. Lean on these harder than on the prose descriptors — exemplars are the top signal.
+voice: kaue
+role: primary
+
+sources:                      # diversity across registers — do NOT overfit to one post
+  thread/humane: "Kaue's X threads — his most HUMANE, uneven, seam-rich register (the texture to emulate)"
+  written-longform: "his Medium technical guides — the target written register for lessons"
+
+always_load: [seam]           # non-negotiable per piece; ROTATE type: 04 confession · 10 tool-credit · 11 honest-caveat
+default_load: [opener, seam, close]   # per piece: ONE opener (01/09 pain · 07 scope · 14 scenario) + ONE seam + ONE close (06/13)
+body_by_job:                  # add ONE body slot, matched to the routed job
+  derivation:  [derivation, verdict]   # a why-this-decision / mechanism lesson
+  analogy:     [analogy]               # a hard concept that needs one civilizational analogy
+  transition:  [transition]            # a long piece needing zoom-out-to-stakes seams
+  default:     [verdict]
+
+slots:                          # multiple files per slot = a POOL; pick ONE by register + hook, ROTATE across sections
+  # opener — pick by register (thread vs longform) and hook (pain vs scope vs scenario); never open on a definition
+  - { slot: opener,     file: 01-opener-pain-latam.md,          register: thread/humane,    move: felt-pain number → order-of-magnitude → verdict → LATAM }
+  - { slot: opener,     file: 09-opener-pain-written.md,        register: written-longform, move: felt-pain number in essay prose ($4 to send, $5 in fees) — written twin of 01 }
+  - { slot: opener,     file: 07-opener-scope.md,               register: written-longform, move: self-aware scope + self-deprecating qualifier }
+  - { slot: opener,     file: 14-opener-imagine-scenario.md,    register: written-longform, move: invitation/scenario ("Imagine…") → "this isn't science fiction" }
+  - { slot: derivation, file: 02-derivation-why-decision.md,    register: written-longform, move: what→why on the interesting decision; routine runs terse }
+  - { slot: transition, file: 03-transition-zoomout.md,         register: written-longform, move: concession-pivot + zoom-out to stakes (anti-rent-economy) }
+  - { slot: analogy,    file: 08-analogy-firenze.md,            register: written-longform, move: ONE civilizational analogy (GitHub = Firenze) + credit-by-name }
+  # seam — ALWAYS load one; ROTATE the TYPE across sections so nothing bonds the same way twice
+  - { slot: seam,       file: 04-seam-confession.md,            register: written-longform, move: confessed-failure ("guilty of that, big time") }
+  - { slot: seam,       file: 10-seam-tool-credit.md,           register: written-longform, move: enumeration→collapse + tool-credit ("I used Spark") + "a godsend" }
+  - { slot: seam,       file: 11-seam-honest-caveat.md,         register: written-longform, move: honest tradeoff + parenthetical self-correction ("Even (especially)…") }
+  - { slot: verdict,    file: 05-verdict-number.md,             register: written-longform, move: comparison → verdict + order-of-magnitude (one-liner) }
+  - { slot: verdict,    file: 12-verdict-orders-of-magnitude.md, register: written-longform, move: I-ran-the-test → verdict on a real number ("6 orders of magnitude") }
+  - { slot: close,      file: 06-close-happy-hacking.md,        register: written-longform, move: ran-long → personal dedication → "Happy hacking!" }
+  - { slot: close,      file: 13-close-happy-coding.md,         register: written-longform, move: "it just works" payoff → sign-off → dare the reader further }
+
+rotation:                     # vary these across a multi-section piece so nothing loops
+  seam_types: [confession, "real number from your own use", "collaborator credited by first name", tool-credit, "this ran long"]
+  sign_offs:  ["Happy building! 🚀", "lfb", "cya 👋", "what a time to be alive!", "DMs are always open 🤝"]
+  verdict_forms: ["This isn't X, it's Y (≤1/800w)", "that's the message, he ships.", "an order-of-magnitude fewer", "a godsend"]
+
+note: >
+  14 exemplars across 7 slots, sourced from Kaue's X threads (humane) + four Medium technical guides
+  (written): self-host, hackathon, defis-core, mcp-services. Most slots are now a POOL — pick by register and
+  hook, and rotate so a multi-section piece never repeats an opener or a seam type. Read them for RHYTHM and
+  SEAMS, not topic. Fidelity is corpus-bounded, but the humane tweets show what "him, not a rule-follower"
+  actually reads like. To deepen further, add more REAL passages (breadth); never stretch one with synthetic
+  text — a fabricated "Kaue" line is worth less than a short real one.

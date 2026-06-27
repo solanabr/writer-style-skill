@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "n_pieces": 4,
+    "n_words": 6493,
+    "n_sentences": 297,
+    "n_paragraphs": 21,
+    "fenced_code_blocks": 0,
+    "inline_code_spans": 0,
+    "corpus_cleaned": true,
+    "paragraph_metric_valid": true,
+    "warnings": []
+  },
+  "raw": {
+    "sentence_len": {
+      "median": 18,
+      "mean": 21.9,
+      "p10": 2,
+      "p90": 40,
+      "min": 0,
+      "max": 236,
+      "stdev": 22.4,
+      "cv": 1.02
+    },
+    "paragraph_sentences": {
+      "median": 3,
+      "p90": 33,
+      "valid": true
+    },
+    "punct_per_1k_words": {
+      ",": 49.6,
+      ";": 0.5,
+      ":": 17.7,
+      "\u2014": 0.9,
+      "(": 8.2,
+      "?": 1.5,
+      "!": 2.6,
+      "...": 0.0
+    },
+    "openers": {
+      "counts": {
+        "claim": 20,
+        "quote": 1
+      },
+      "pct": {
+        "claim": 95,
+        "quote": 5
+      },
+      "n": 21
+    },
+    "lexical": {
+      "content_word_ratio": 0.593,
+      "type_token_ratio": 0.294,
+      "long_word_frac": 0.242,
+      "flesch_kincaid_grade": 11.9
+    },
+    "stance": {
+      "hedges_per_1k": 5.5,
+      "boosters_per_1k": 1.7,
+      "perspective": {
+        "first": 33,
+        "second": 49,
+        "third": 18
+      }
+    },
+    "teaching": {
+      "definition_per_1k": 1.8,
+      "analogy_per_1k": 1.1,
+      "example_per_1k": 0.6,
+      "numeric_per_1k": 16.5,
+      "code_blocks_per_1k": 0.0,
+      "question_per_1k": 0.0
+    },
+    "connectives": {
+      "causal_per_1k": 6.5,
+      "contrastive_per_1k": 5.4,
+      "additive_per_1k": 26.6
+    },
+    "signature_content_words": [
+      ["appflowy", 64],
+      ["can", 41],
+      ["cloud", 26],
+      ["sudo", 22],
+      ["project", 21],
+      ["docker", 21],
+      ["even", 19],
+      ["team", 18],
+      ["new", 17],
+      ["create", 17],
+      ["now", 16],
+      ["blockchain", 16],
+      ["way", 16],
+      ["backup", 16],
+      ["using", 15]
+    ],
+    "signature_bigrams": [
+      ["appflowy cloud", 26],
+      ["you can", 24],
+      ["if you", 19],
+      ["on the", 14],
+      ["of the", 14],
+      ["the same", 11],
+      ["in the", 10],
+      ["to the", 10],
+      ["your team", 10],
+      ["sudo apt", 9],
+      ["of your", 8],
+      ["your own", 8]
+    ],
+    "signature_trigrams": [
+      ["as you can", 6],
+      ["sudo apt install", 6],
+      ["password new pwd", 5],
+      ["appflowy cloud appflowy", 5],
+      ["appflowy cloud nginx", 5],
+      ["npm i g", 4],
+      ["as well as", 4],
+      ["your appflowy instance", 4],
+      ["on the next", 3],
+      ["you can do", 3]
+    ]
+  },
+  "card_suggestions": {
+    "sentence_length": {
+      "median": 18,
+      "short_punch_floor": 3,
+      "long_reach": 40,
+      "burstiness_min": 18
+    },
+    "readability_grade": {
+      "min": 9,
+      "max": 13
+    },
+    "lexical_density": "high",
+    "hedge_boost_lean": -1,
+    "person_perspective": {
+      "first": 33,
+      "second": 49,
+      "third": 18
+    },
+    "example_density": "low",
+    "code_density": "none",
+    "rhetorical_question_rate": "none",
+    "definition_marker_rate_per_1k": 1.8,
+    "analogy_per_1k": 1.1,
+    "top_connectives_seen": ["and", "so", "but", "also", "though", "thus"]
+  }
+}

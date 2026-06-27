@@ -1,0 +1,13 @@
+# The package.json "files" allowlist already restricts the payload to the skill
+# bundle; this file removes build/OS junk that can appear *inside* those dirs.
+
+# Python bytecode / caches — never ship compiled artifacts
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp

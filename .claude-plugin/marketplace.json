@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "stbr",
+  "owner": {
+    "name": "Superteam Brazil",
+    "email": "core@superteam.com.br"
+  },
+  "description": "Superteam Brazil — Claude Code skills and plugins for Solana/Web3 builders.",
+  "plugins": [
+    {
+      "name": "writer-style-skill",
+      "source": "./",
+      "description": "Voice and tone specialist: original author-voiced technical content, facts verified first."
+    }
+  ]
+}

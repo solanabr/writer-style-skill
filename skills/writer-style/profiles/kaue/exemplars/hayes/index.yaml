@@ -1,0 +1,22 @@
+# Hayes secondary-voice move-demo bank — the author's signature moves in NEUTRAL voice (idiolect stripped).
+# These show how to APPLY the engagement move in Kaue's voice, not how to copy Hayes. Load the demos for any
+# long-form / cold-audience piece routed to this engagement-&-stamina backbone.
+voice: hayes
+role: secondary
+always_load: [organizing-metaphor-spine]   # the spine demo is the load-bearing engagement floor for length
+default_load: [organizing-metaphor-spine, stakes-escalator]   # spine + the reason-to-keep-reading
+body_by_job:                                # add the demo whose move the section needs
+  vivid-causality: [forces-as-actors]       # make an invisible mechanism legible (forces-as-actors + Socratic + kinetic verbs)
+  reader-stake: [stakes-escalator]          # second-person stake + toy-number + recap checkpoint
+  default: [forces-as-actors]
+slots:
+  - { slot: organizing-metaphor-spine, file: 01-organizing-metaphor-spine.md, move: concrete-scene metaphor as spine + stakes + roadmap + toy number }
+  - { slot: forces-as-actors,          file: 02-forces-as-actors.md,          move: force-as-actor + Socratic beat + kinetic verbs + falsifiable/actionable close }
+  - { slot: stakes-escalator,          file: 03-stakes-escalator.md,          move: second-person stakes escalator + toy-number walkthrough + recap checkpoint }
+note: >
+  Distilled from a 76-piece Arthur Hayes corpus (engagement & stamina), rendered in a NEUTRAL builder-optimist
+  voice — the surface idiolect (profanity, nicknames, trader identity, sign-offs, anti-fiat ideology) is stripped;
+  see hayes.md EXCLUDES and hayes.card.yaml notes. The #1 guardrail is TONE: keep these warm and bullish-on-the-tech,
+  honest about real risk, never trader-cynical, never villainizing, never doom. Each demo carries a DIFFERENT move set
+  and a DIFFERENT Solana-economics topic, so a multi-section piece can rotate them without looping. Exemplars are the
+  strongest voice signal — lean on them harder than on the card's prose descriptors.

@@ -1,0 +1,60 @@
+voice: kaue
+role: primary
+register: medium-technical-guide
+persona_ref: kaue.md
+exemplars_ref: exemplars/kaue/
+
+# Dials curated from evidence/kaue.profile.json (card_suggestions) + the persona. Scalar dials are MEASURED;
+# the two mapping dials carry source: persona_override (the small 4-post sample under-measures them — the
+# persona is authoritative for the primary voice). Where sample and persona disagree, the persona wins.
+dials:
+  sentence_length: { median: 18, short_punch_floor: 4, long_reach: 38, burstiness_min: 9 }
+    # WRITER: typical sentence ~18 words, but spread HARD — ≥1 short punch (≤4w) and ≥1 long run (≥38w) per
+    # section. The spread is the point ("write unevenly"). VALIDATOR: generated stdev must clear 9 (≥250w).
+  readability_grade: { min: 9, max: 13 }       # college-accessible; concrete words in the body.
+  lexical_density: high                         # he packs content; but let function words breathe at the seams.
+  hedge_boost_lean: { value: +1, source: persona_override, measured: -1,
+                      why: "lands verdicts confidently AND always names the trade-off; the marker ratio misreads the small sample" }
+  person_perspective: { first: 33, second: 49, third: 18 }   # build-in-public "I" + co-builder "you/let's".
+  example_density: { value: high, source: persona_override, measured: low,
+                     why: "concreteness via lived pain-scenarios + order-of-magnitude numbers; marker count ('for example') undercounts it" }
+  definition_density: { enum: just-in-time, per_1k: 1.8 }   # name the concept only after the reader wants it (and sparingly — 1.8/1k).
+  code_density: medium                          # exact command for the INTERESTING step; routine steps run terse.
+  rhetorical_question_rate: low                 # one pre-empt-the-doubt question per section, answered at once.
+
+favor:
+  connectives: [So, Well, Now, "Oh,", "With that in mind", "On the flip side", "Either way", "Beyond that"]
+  moves:
+    - "pain-first hook — open on a felt problem; name the concept after they want it"
+    - "build-in-public, first person — including a confessed mistake"
+    - "what → why on the interesting decisions; routine steps run terse"
+    - "comparison → a one-word verdict"
+    - "always name the trade-off (cost / where it breaks / when not to use it)"
+    - "order-of-magnitude number as proof, not an adjective"
+    - "one civilizational analogy per hard concept"
+    - "a human seam per passage — rotate the type (confession / real number / named credit / 'this ran long')"
+    - "LATAM-strength framing, backed by numbers, as opportunity (never grievance)"
+    - "forward-looking close: vision → encouragement → open door → ONE sign-off"
+
+avoid:
+  # robust/seamless/leverage are deliberately NOT here — they have honest technical uses (and Kaue uses them),
+  # and are already covered by the gentler Tier-3 density gate. Always-flagging them sands the author's own
+  # vocabulary out of his own voice.
+  words: [delve, utilize, boasts, "a testament to",
+          "it's important to note", "in today's fast-paced world", "navigating the", "in the realm of"]
+  connectives: ["Moreover,", "Furthermore,", "Additionally,", "In conclusion,", "First and foremost"]
+
+ai_tells:
+  - { id: false-antithesis, cap_per_800w: 2 }   # "This isn't X, it's Y" is a real Kaue verdict (his exemplar 01) — allow ~2/800w; advisory, not hard.
+  - { id: em-dash-overuse, max: 4, kind: guardrail }   # NOT corpus-measured (Kaue ~0.9/1k); a safety ceiling, not a voice signal.
+  - { id: uniform-cadence, min: 9 }             # even cadence is the #1 tell — write unevenly. (enforced on full lessons ≥250w)
+  - { id: delve-class, cap: 0 }
+  - { id: even-enthusiasm, rule: spike-then-cool }   # enthusiasm at open/seams/verdicts/close; ~100-200 flat words between spikes.
+
+notes:
+  corpus: >
+    On-register sample is 4 technical posts (~6.5k words). Scalar dials are measured from evidence; the two
+    mapping dials (example_density, hedge_boost_lean) are persona_override because marker-based counts
+    under-measure Kaue's lived-scenario concreteness and confident-but-honest verdicts on so small a sample.
+    Fidelity is corpus-bounded and grows as more on-register writing is added.
+  exemplars: "the bank in exemplars/kaue/ is the strongest signal — load ~4 per piece (always the seam) and lean on them."

@@ -1,0 +1,20 @@
+# Vitalik secondary-voice move-demo bank — signature derivation moves in NEUTRAL voice (idiolect stripped).
+# These show how to APPLY the move in Kaue's voice, not how to copy Vitalik. Slots are the author's key moves.
+# For a secondary backbone, the writer loads these move-demos (alongside Kaue's own seam/opener/close).
+voice: vitalik
+role: secondary
+always_load: []                              # secondary craft layer rides on the host (Kaue) seam/opener/close
+default_load: [question-ladder]              # the core engine; load when a piece is derivation-driven
+body_by_job:                                 # add ONE more, matched to the routed job
+  derivation: [question-ladder, naive-fixes-in-tiers]   # full path-to-the-idea / rule-out-the-naive-fixes
+  taxonomy: [named-taxonomy]                  # when the lesson is a vocabulary to think with
+  default: [naive-fixes-in-tiers]
+slots:
+  - { slot: question-ladder,     file: 01-question-ladder.md,     move: status-quo limit → motivating question → naive fixes in tiers → reframe-then-keep-deriving }
+  - { slot: naive-fixes-in-tiers, file: 02-naive-fixes-in-tiers.md, move: rule out the easy answers in tiers, each with its fatal flaw, before the real one }
+  - { slot: named-taxonomy,      file: 03-named-taxonomy.md,       move: coin a named taxonomy, reason inside it, place every example in the frame }
+note: >
+  Distilled from Vitalik Buterin's essays (390 pieces / ~738k words; see evidence/vitalik.profile.json).
+  NEUTRAL voice — the reasoning craft only, no surface tics (no Alice/Bob, no rhetorical-question headers,
+  no "kind of"/"in expectation" hedges, no em-dash asides). Each demo leads with a DIFFERENT move so the
+  writer can pick the one the lesson needs. Apply the derivation engine in Kaue's voice; never impersonate.

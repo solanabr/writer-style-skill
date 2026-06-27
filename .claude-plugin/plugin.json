@@ -1,0 +1,24 @@
+{
+  "name": "writer-style-skill",
+  "description": "Write original educational and long-form technical content in a specific author's voice — facts verified first, AI tells engineered out. Ships the kaue pack (Kaue / Superteam Brazil, Solana/Web3).",
+  "version": "1.0.0",
+  "author": {
+    "name": "Superteam Brazil",
+    "email": "core@superteam.com.br"
+  },
+  "homepage": "https://github.com/solanabr/writer-style-skill",
+  "repository": "https://github.com/solanabr/writer-style-skill",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "voice",
+    "tone",
+    "style",
+    "content",
+    "solana",
+    "web3",
+    "education",
+    "kaue",
+    "superteam"
+  ]
+}

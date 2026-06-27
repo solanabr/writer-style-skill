@@ -1,0 +1,50 @@
+{
+  "name": "@stbr/writer-style-skill",
+  "version": "1.0.0",
+  "description": "A Claude Code skill: write original educational and long-form technical content in a specific author's voice — facts verified first, AI tells engineered out. Ships the kaue pack (Solana/Web3).",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skill",
+    "writing",
+    "voice",
+    "tone",
+    "style",
+    "solana",
+    "web3",
+    "superteam"
+  ],
+  "homepage": "https://github.com/solanabr/writer-style-skill#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solanabr/writer-style-skill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/solanabr/writer-style-skill/issues"
+  },
+  "license": "MIT",
+  "author": "Superteam Brazil <core@superteam.com.br>",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "writer-style-skill": "bin/install.js"
+  },
+  "scripts": {
+    "prepack": "rm -rf skills/writer-style/tools/__pycache__",
+    "postinstall": "node bin/install.js"
+  },
+  "files": [
+    "skills/",
+    "agents/",
+    "commands/",
+    "assets/",
+    ".claude-plugin/",
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16"
+  }
+}

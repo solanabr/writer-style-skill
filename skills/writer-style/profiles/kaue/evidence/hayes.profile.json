@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "n_pieces": 76,
+    "n_words": 317969,
+    "n_sentences": 17381,
+    "n_paragraphs": 209,
+    "fenced_code_blocks": 0,
+    "inline_code_spans": 0,
+    "corpus_cleaned": true,
+    "paragraph_metric_valid": true,
+    "warnings": []
+  },
+  "raw": {
+    "sentence_len": {
+      "median": 17,
+      "mean": 18.3,
+      "p10": 6,
+      "p90": 32,
+      "min": 0,
+      "max": 133,
+      "stdev": 10.2,
+      "cv": 0.56
+    },
+    "paragraph_sentences": {
+      "median": 2,
+      "p90": 275,
+      "valid": true
+    },
+    "punct_per_1k_words": {
+      ",": 44.9,
+      ";": 1.0,
+      ":": 2.4,
+      "\u2014": 1.0,
+      "(": 4.7,
+      "?": 2.6,
+      "!": 0.6,
+      "...": 0.0
+    },
+    "openers": {
+      "counts": {
+        "claim": 195,
+        "question": 11,
+        "data": 2,
+        "scenario": 1
+      },
+      "pct": {
+        "claim": 93,
+        "question": 5,
+        "data": 1,
+        "scenario": 0
+      },
+      "n": 209
+    },
+    "lexical": {
+      "content_word_ratio": 0.558,
+      "type_token_ratio": 0.048,
+      "long_word_frac": 0.231,
+      "flesch_kincaid_grade": 10.1
+    },
+    "stance": {
+      "hedges_per_1k": 3.5,
+      "boosters_per_1k": 3.6,
+      "perspective": {
+        "first": 39,
+        "second": 12,
+        "third": 49
+      }
+    },
+    "teaching": {
+      "definition_per_1k": 4.6,
+      "analogy_per_1k": 0.6,
+      "example_per_1k": 0.4,
+      "numeric_per_1k": 12.4,
+      "code_blocks_per_1k": 0.0,
+      "question_per_1k": 0.0
+    },
+    "connectives": {
+      "causal_per_1k": 6.8,
+      "contrastive_per_1k": 4.8,
+      "additive_per_1k": 25.8
+    },
+    "signature_content_words": [
+      ["will", 2754],
+      ["fed", 1281],
+      ["money", 1225],
+      ["bitcoin", 1184],
+      ["can", 1158],
+      ["market", 1072],
+      ["crypto", 863],
+      ["financial", 834],
+      ["government", 763],
+      ["bank", 748],
+      ["treasury", 735],
+      ["banks", 727],
+      ["price", 589],
+      ["system", 584],
+      ["must", 573]
+    ],
+    "signature_bigrams": [
+      ["of the", 1793],
+      ["in the", 1410],
+      ["the fed", 1026],
+      ["to the", 839],
+      ["the us", 783],
+      ["on the", 594],
+      ["and the", 581],
+      ["is the", 532],
+      ["is a", 503],
+      ["that the", 471],
+      ["for the", 451],
+      ["will be", 434]
+    ],
+    "signature_trigrams": [
+      ["the price of", 138],
+      ["the fed s", 138],
+      ["the us treasury", 123],
+      ["in order to", 109],
+      ["due to the", 101],
+      ["the amount of", 96],
+      ["i don t", 87],
+      ["the banking system", 86],
+      ["there is no", 86],
+      ["this is the", 85]
+    ]
+  },
+  "card_suggestions": {
+    "sentence_length": {
+      "median": 17,
+      "short_punch_floor": 6,
+      "long_reach": 32,
+      "burstiness_min": 8
+    },
+    "readability_grade": {
+      "min": 8,
+      "max": 12
+    },
+    "lexical_density": "high",
+    "hedge_boost_lean": 0,
+    "person_perspective": {
+      "first": 39,
+      "second": 12,
+      "third": 49
+    },
+    "example_density": "low",
+    "code_density": "none",
+    "rhetorical_question_rate": "none",
+    "definition_marker_rate_per_1k": 4.6,
+    "analogy_per_1k": 0.6,
+    "top_connectives_seen": ["and", "but", "because", "so", "therefore", "also"]
+  }
+}

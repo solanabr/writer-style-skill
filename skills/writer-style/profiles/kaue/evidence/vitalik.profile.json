@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "n_pieces": 390,
+    "n_words": 738401,
+    "n_sentences": 30373,
+    "n_paragraphs": 9216,
+    "fenced_code_blocks": 0,
+    "inline_code_spans": 0,
+    "corpus_cleaned": true,
+    "paragraph_metric_valid": true,
+    "warnings": []
+  },
+  "raw": {
+    "sentence_len": {
+      "median": 21,
+      "mean": 24.3,
+      "p10": 6,
+      "p90": 46,
+      "min": 0,
+      "max": 285,
+      "stdev": 17.4,
+      "cv": 0.72
+    },
+    "paragraph_sentences": {
+      "median": 2.0,
+      "p90": 6,
+      "valid": true
+    },
+    "punct_per_1k_words": {
+      ",": 53.1,
+      ";": 2.4,
+      ":": 10.4,
+      "\u2014": 0.1,
+      "(": 12.5,
+      "?": 2.1,
+      "!": 0.5,
+      "...": 0.6
+    },
+    "openers": {
+      "counts": {
+        "claim": 7951,
+        "question": 652,
+        "data": 178,
+        "story": 294,
+        "scenario": 116,
+        "quote": 25
+      },
+      "pct": {
+        "claim": 86,
+        "question": 7,
+        "data": 2,
+        "story": 3,
+        "scenario": 1,
+        "quote": 0
+      },
+      "n": 9216
+    },
+    "lexical": {
+      "content_word_ratio": 0.542,
+      "type_token_ratio": 0.035,
+      "long_word_frac": 0.241,
+      "flesch_kincaid_grade": 13.0
+    },
+    "stance": {
+      "hedges_per_1k": 6.1,
+      "boosters_per_1k": 1.8,
+      "perspective": {
+        "first": 38,
+        "second": 17,
+        "third": 46
+      }
+    },
+    "teaching": {
+      "definition_per_1k": 4.5,
+      "analogy_per_1k": 0.5,
+      "example_per_1k": 1.1,
+      "numeric_per_1k": 16.4,
+      "code_blocks_per_1k": 0.0,
+      "question_per_1k": 0.0
+    },
+    "connectives": {
+      "causal_per_1k": 7.2,
+      "contrastive_per_1k": 7.0,
+      "additive_per_1k": 24.7
+    },
+    "signature_content_words": [
+      ["can", 4877],
+      ["one", 2796],
+      ["block", 1967],
+      ["will", 1927],
+      ["chain", 1733],
+      ["even", 1581],
+      ["time", 1558],
+      ["state", 1545],
+      ["make", 1424],
+      ["proof", 1411],
+      ["also", 1392],
+      ["data", 1387],
+      ["get", 1385],
+      ["ethereum", 1376],
+      ["two", 1344]
+    ],
+    "signature_bigrams": [
+      ["of the", 3650],
+      ["in the", 2641],
+      ["to be", 1441],
+      ["to the", 1420],
+      ["is a", 1403],
+      ["that the", 1133],
+      ["on the", 1045],
+      ["this is", 1041],
+      ["the same", 1033],
+      ["can be", 1028],
+      ["and the", 1016],
+      ["there is", 984]
+    ],
+    "signature_trigrams": [
+      ["there is a", 384],
+      ["be able to", 249],
+      ["one of the", 239],
+      ["part of the", 204],
+      ["at the same", 203],
+      ["the same time", 199],
+      ["a lot of", 198],
+      ["need to be", 185],
+      ["proof of stake", 185],
+      ["this is a", 168]
+    ]
+  },
+  "card_suggestions": {
+    "sentence_length": {
+      "median": 21,
+      "short_punch_floor": 6,
+      "long_reach": 46,
+      "burstiness_min": 14
+    },
+    "readability_grade": {
+      "min": 11,
+      "max": 15
+    },
+    "lexical_density": "medium",
+    "hedge_boost_lean": -1,
+    "person_perspective": {
+      "first": 38,
+      "second": 17,
+      "third": 46
+    },
+    "example_density": "low",
+    "code_density": "none",
+    "rhetorical_question_rate": "none",
+    "definition_marker_rate_per_1k": 4.5,
+    "analogy_per_1k": 0.5,
+    "top_connectives_seen": ["and", "but", "so", "also", "because", "however"]
+  }
+}

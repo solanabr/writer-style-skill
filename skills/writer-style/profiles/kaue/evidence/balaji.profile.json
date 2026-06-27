@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "n_pieces": 87,
+    "n_words": 166511,
+    "n_sentences": 8989,
+    "n_paragraphs": 150,
+    "fenced_code_blocks": 0,
+    "inline_code_spans": 0,
+    "corpus_cleaned": true,
+    "paragraph_metric_valid": false,
+    "warnings": ["paragraph_metric_suspect: blank lines lost upstream"]
+  },
+  "raw": {
+    "sentence_len": {
+      "median": 16,
+      "mean": 18.5,
+      "p10": 5,
+      "p90": 34,
+      "min": 0,
+      "max": 348,
+      "stdev": 13.6,
+      "cv": 0.74
+    },
+    "paragraph_sentences": {
+      "median": 37.5,
+      "p90": 143,
+      "valid": false
+    },
+    "punct_per_1k_words": {
+      ",": 58.1,
+      ";": 0.9,
+      ":": 5.7,
+      "\u2014": 2.0,
+      "(": 5.4,
+      "?": 2.5,
+      "!": 1.1,
+      "...": 0.2
+    },
+    "openers": {
+      "counts": {
+        "data": 4,
+        "claim": 130,
+        "question": 7,
+        "story": 5,
+        "quote": 1,
+        "scenario": 3
+      },
+      "pct": {
+        "data": 3,
+        "claim": 87,
+        "question": 5,
+        "story": 3,
+        "quote": 1,
+        "scenario": 2
+      },
+      "n": 150
+    },
+    "lexical": {
+      "content_word_ratio": 0.56,
+      "type_token_ratio": 0.075,
+      "long_word_frac": 0.258,
+      "flesch_kincaid_grade": 11.1
+    },
+    "stance": {
+      "hedges_per_1k": 6.6,
+      "boosters_per_1k": 1.6,
+      "perspective": {
+        "first": 31,
+        "second": 21,
+        "third": 47
+      }
+    },
+    "teaching": {
+      "definition_per_1k": 3.6,
+      "analogy_per_1k": 1.4,
+      "example_per_1k": 0.7,
+      "numeric_per_1k": 11.6,
+      "code_blocks_per_1k": 0.0,
+      "question_per_1k": 0.0
+    },
+    "connectives": {
+      "causal_per_1k": 6.1,
+      "contrastive_per_1k": 7.0,
+      "additive_per_1k": 30.0
+    },
+    "signature_content_words": [
+      ["can", 950],
+      ["like", 759],
+      ["will", 566],
+      ["crypto", 552],
+      ["new", 528],
+      ["one", 449],
+      ["just", 440],
+      ["people", 434],
+      ["world", 413],
+      ["network", 400],
+      ["bitcoin", 395],
+      ["digital", 355],
+      ["now", 335],
+      ["state", 315],
+      ["many", 300]
+    ],
+    "signature_bigrams": [
+      ["of the", 755],
+      ["in the", 636],
+      ["to the", 376],
+      ["and the", 329],
+      ["on the", 291],
+      ["for the", 254],
+      ["you can", 227],
+      ["it s", 219],
+      ["in a", 211],
+      ["the world", 209],
+      ["is a", 208],
+      ["of a", 194]
+    ],
+    "signature_trigrams": [
+      ["around the world", 65],
+      ["the network state", 53],
+      ["the network school", 48],
+      ["one of the", 44],
+      ["in the world", 43],
+      ["be able to", 40],
+      ["earn in btc", 39],
+      ["of the world", 36],
+      ["this is a", 35],
+      ["the number of", 34]
+    ]
+  },
+  "card_suggestions": {
+    "sentence_length": {
+      "median": 16,
+      "short_punch_floor": 5,
+      "long_reach": 34,
+      "burstiness_min": 11
+    },
+    "readability_grade": {
+      "min": 9,
+      "max": 13
+    },
+    "lexical_density": "high",
+    "hedge_boost_lean": -2,
+    "person_perspective": {
+      "first": 31,
+      "second": 21,
+      "third": 47
+    },
+    "example_density": "low",
+    "code_density": "none",
+    "rhetorical_question_rate": "none",
+    "definition_marker_rate_per_1k": 3.6,
+    "analogy_per_1k": 1.4,
+    "top_connectives_seen": ["and", "but", "so", "because", "also", "though"]
+  }
+}

@@ -1,0 +1,72 @@
+voice: hayes
+role: secondary
+register: long-form-engagement
+persona_ref: hayes.md
+exemplars_ref: ../exemplars/hayes/
+
+# Dials curated from evidence/hayes.profile.json (card_suggestions) + the persona. This is a SECONDARY
+# craft layer: lift the engagement ARCHITECTURE, not the idiolect. Where the raw stylometry encodes the
+# author's trader-cynical idiolect, the persona EXCLUDES note wins — render every dial as an affectionate
+# builder-optimist (see notes).
+dials:
+  sentence_length: { median: 17, short_punch_floor: 6, long_reach: 32, burstiness_min: 8 }
+    # WRITER: typical sentence ~17 words, but spread it — ≥1 short punch (≤6w) and ≥1 long run (≥32w) per
+    # section so length never reads as a flat slog. VALIDATOR: generated stdev must clear 8.
+  readability_grade: { min: 8, max: 12 }       # general-reader accessible; carry a cold audience through length.
+  lexical_density: high                         # content-dense, but let function words breathe at the seams/recaps.
+  hedge_boost_lean: 0                           # balanced: bullish on the tech AND honest on the risk — neither hype nor doom.
+  person_perspective: { first: 38, second: 13, third: 49 }   # third-person forces-as-actors + a direct second-person stake.
+  example_density: low                          # few but load-bearing: one round-number toy example walked all the way through.
+  definition_density: { enum: just-in-time, per_1k: 4.6 }   # define each term in one clause the moment it's first needed — never a glossary (4.6/1k).
+  code_density: none                            # prose engine; no fenced snippets in this register.
+  rhetorical_question_rate: low                 # the Socratic question-then-answer beat to convert exposition into momentum.
+
+favor:
+  connectives: [So, But, Because, "And", "Now", "Here's the route", "To recap", "Picture"]
+  moves:
+    - "open on a concrete scene; extract its principle in a plain sentence; make it the recurring organizing metaphor / spine"
+    - "state the stake as a concrete second-person consequence, right after the hook"
+    - "one-paragraph roadmap naming the route the piece will take"
+    - "named section headers that double as a skim-path (read alone, they trace the argument)"
+    - "concretize a force as an actor with a motive (the network mints; the protocol routes) — never a villain"
+    - "round-number toy example walked one step at a time"
+    - "the Socratic question-then-answer beat to build momentum through dense material"
+    - "define as you go, in one clause"
+    - "kinetic verbs for invisible events (tokens flow, fees burn, the deposit unlocks)"
+    - "mid-piece recap checkpoints (compress what's established into a short numbered list)"
+    - "the callback bookend — return to the opening scene, now recontextualized"
+    - "close on 'what to watch / how you'd know I'm wrong / what to do now'"
+
+avoid:
+  words: [delve, utilize, leverage, seamless, robust, boasts, "a testament to",
+          "it's important to note", "in today's fast-paced world", "navigating the", "in the realm of",
+          "I aped in", "schmuck", "money printer", "fiat", "debasement", "ponzi", "casino",
+          "rug", "degen", "the fund", "my position", "my bags", "to the moon"]
+    # AI-tell defaults PLUS the hayes EXCLUDES idiolect: profanity/crude imagery, recurring nicknames for
+    # public figures, the autobiographical trader identity ("I aped in" / the fund / positions / bags),
+    # song-title sign-offs, the lone-exotic-word essay-title tic, and the anti-fiat / monetary-doom framing.
+  connectives: ["Moreover,", "Furthermore,", "Additionally,", "In conclusion,", "First and foremost"]
+
+ai_tells:
+  - { id: false-antithesis, cap_per_800w: 1 }   # "not X, it's Y" — at most one per ~800 words, as a real verdict.
+  - { id: em-dash-overuse, max: 4, kind: guardrail }   # guardrail, NOT corpus-measured (every voice <2.2/1k) — a safety ceiling, not a voice signal.
+  - { id: uniform-cadence, min: 8 }             # even cadence is the #1 tell — vary it (min = burstiness_min).
+  - { id: delve-class, cap: 0 }                 # delve/intricate/realm/tapestry/multifaceted/underscores.
+  - { id: even-enthusiasm, rule: spike-then-cool }   # warmth at hook/stake/close; ~100-200 flat words between spikes.
+
+notes:
+  craft: >
+    SECONDARY craft layer — keep the engagement ARCHITECTURE (organizing-metaphor spine, stakes escalator,
+    roadmap + skim-path headers + recap checkpoints, forces-as-actors, round-number toy example, falsifiable
+    + actionable close). Applied in KAUE's voice to produce ORIGINAL work — this is not a Hayes impersonation.
+  tone: >
+    The hardest leak to catch is TONE. The author's native register is trader-cynicism and contempt — the
+    reader as mark, the ecosystem as a casino, the future as collapse. Render the OPPOSITE: an affectionate
+    builder-optimist — bullish on the technology, honest about real risk, warm toward the reader. Concretize
+    forces as actors WITHOUT casting them as villains (the network "mints to pay validators," not "prints to
+    debase you"). Never acidic, never sneering, never doom. This is the #1 guardrail for hayes.
+  corpus: >
+    Distilled from a 76-piece, ~318k-word Arthur Hayes corpus (builder-internal evidence only). The dials are
+    the transferable engagement engine; the surface idiolect (profanity, nicknames, trader identity, sign-offs,
+    anti-fiat ideology) is deliberately stripped — see hayes.md EXCLUDES.
+  exemplars: "the 3 move-demos in exemplars/hayes/ are the strongest signal — load them for any long/cold-audience piece routed to this backbone."

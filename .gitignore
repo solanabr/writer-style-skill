@@ -1,0 +1,115 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  writer-style — .gitignore
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Local dev config — not part of the skill, never shipped.
+/.claude/
+/.mcp.json
+/.gitmodules
+CLAUDE.local.md
+
+# Build-provenance corpus — third-party copyrighted text (Vitalik/Hayes/Hotz/Balaji/Helius).
+# Kept on disk for analysis/comparison; MUST NOT be packaged or committed.
+tone-lora/
+
+# Secrets / local env — never commit.
+.env
+.env.*
+*.pem
+*.keypair.json
+id_rsa
+id_ed25519
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+wheels/
+*.egg
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.dmypy.json
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# ── Node / JavaScript / TypeScript (incl. .mjs / ESM tooling) ──
+node_modules/
+jspm_packages/
+.pnp.*
+.yarn/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.pnpm-store/
+*.tsbuildinfo
+.eslintcache
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+.vite/
+.parcel-cache/
+.cache/
+coverage/
+
+# ── Logs & temp / junk ──
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+tmp/
+.tmp/
+
+# ── macOS ──
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.DocumentRevisions-V100
+.VolumeIcon.icns
+
+# ── Windows ──
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ── Linux ──
+*~
+.directory
+.Trash-*
+
+# ── Editors / IDEs ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+.history/

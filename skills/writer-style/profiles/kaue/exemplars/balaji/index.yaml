@@ -1,0 +1,23 @@
+# Balaji secondary-voice move-demos — the signature FRAMING & SCOPE moves, in NEUTRAL voice (idiolect
+# stripped). They show how to APPLY each move in Kaue's voice, not how to impersonate Balaji.
+# For a secondary backbone, load the demos matched to the routed job (see body_by_job).
+voice: balaji
+role: secondary
+always_load: []                              # secondary has no naturalness-floor slot of its own
+default_load: [analogy-extended]             # the signature move — one analogy extended into consequences
+body_by_job:                                 # add demos matched to the routed job
+  analogy:   [analogy-extended]              # reframe a domain via one extended analogy
+  thesis:    [scaling-ladder]                # earn a bold claim rung by rung
+  lineage:   [lineage-chain]                 # situate the idea as the resolution of a chain of near-misses
+  default:   [analogy-extended, scaling-ladder]
+slots:
+  - { slot: analogy-extended, file: 01-analogy-extended.md, move: extend one anchor analogy into a cascade of consequences }
+  - { slot: scaling-ladder,   file: 02-scaling-ladder.md,   move: the scaling ladder — earn a bold claim one agreeable rung at a time }
+  - { slot: lineage-chain,    file: 03-lineage-chain.md,     move: lineage as a chain of near-misses — name the missing ingredient each time }
+note: >
+  SECONDARY craft layer — framing & scope. Distilled from 87 pieces / ~166,511 words (19 guest-reposts
+  excluded during profiling). Keep the framing ARCHITECTURE; strip the idiolect — no coinages/slogans, no
+  rule-of-three "Not X, but Y" anaphora, no named-exemplar/civilizational cast or empire/printing-press
+  parallels, no prophetic register, no one-sentence-per-paragraph cadence. Hold the altitude at PEER level,
+  never oracular — a peer offering a frame. Exemplars are the strongest voice signal — lean on them harder
+  than on the prose descriptors.

@@ -1,0 +1,20 @@
+# Helius secondary-voice move-demo bank — signature craft moves in NEUTRAL voice (idiolect stripped).
+# These show how to APPLY a structure-and-evidence move in the host voice (Kaue), not impersonate Helius.
+# When the helius craft layer is routed in, load the move(s) matched to the lesson's need.
+voice: helius
+role: secondary
+always_load: []                                   # secondary backbone: no mandatory seam — load by need
+default_load: [show-the-real-artifact]            # the dominant move; the worked field-by-field walk
+body_by_job:                                      # add the move matched to the routed job
+  reference: [front-load-a-findings-index]        # a piece the reader consults, not reads through
+  explainer: [anchor-to-the-known]                # teaching an unfamiliar mechanism from a known one
+  default: [show-the-real-artifact]
+slots:
+  - { slot: show-the-real-artifact,        file: 01-show-the-real-artifact.md, move: show the real struct and walk it field by field }
+  - { slot: front-load-a-findings-index,   file: 02-findings-index.md,         move: open with self-contained conclusion bullets }
+  - { slot: anchor-to-the-known,           file: 03-anchor-to-the-known.md,    move: map the new mechanism onto the reader's known model }
+note: >
+  Distilled from 93 Helius pieces (~358k words; Lostin + 0xIchigo). Idiolect is STRIPPED: apply the moves
+  (findings index, overview-then-teardown in dataflow order, real artifact walked field by field, inline
+  glossing, capability-with-its-limit) in Kaue's voice — never the ritual labels, "anon" closers, or the
+  "(i.e., …)" tic. These move-demos are the craft signal; lean on them over the prose descriptors.

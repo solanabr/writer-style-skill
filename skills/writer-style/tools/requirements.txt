@@ -1,0 +1,4 @@
+# writer-style tools — no runtime dependencies.
+# profile_corpus.py, validate_voice.py, style_lexicons.py and test_tools.py are
+# pure-Python (stdlib only): re, json, statistics, argparse, pathlib, collections.
+# Run offline. Python 3.10+ (uses X | Y type unions and the walrus/match-free style).
