@@ -54,12 +54,12 @@ the last transform over verified facts, never the medium facts are discovered in
 |---|---|---|
 | **A: Facts** | Outline + every claim, number, code line, version-sensitive API, in plain neutral prose. Ground against the Solana doc MCPs (`solana-dev`, `context7`, Helius), **not** model memory. Output: a fact-sheet. | **OFF** |
 | **Gate: Verify** | Fact-check the terse fact-sheet before any styling. (Cheap: facts aren't buried in warm prose.) Nothing proceeds until facts are frozen. | — |
-| **B: Voice** | Load `kaue.md` + `kaue.card.yaml` + ~4 exemplars + the routed secondary. **Restyle the frozen facts**: "every number, code line, and named API is frozen; rephrase around them, never change them." Apply the naturalness floor. | **ON** |
-| **B.5: Blind-compare** | Re-read the draft against the **loaded exemplars** (seam + opener) — *"him, or a rule-follower?"* If it's even/polished/definition-led, regenerate toward a felt-pain opener + uneven rhythm + rotating seams. **Loaded exemplars only, never the corpus** (at write-time the corpus is token-waste). | **ON** |
-| **C: Lint** | AI-tell scan + **fact-preservation diff** (no number/identifier mutated A→C) + repetition audit. A changed `0.002 SOL` or renamed instruction is a **hard fail**. | — |
+| **B: Voice** | Load `kaue.md` + `kaue.card.yaml` + ~4 exemplars + the routed secondary. **Check the card's `markers:` gates** (identity beats need their gate keywords in the fact-sheet — write the marker budget ledger first) and scan `themes.md` for fitting substance. **Restyle the frozen facts**: "every number, code line, and named API is frozen; rephrase around them, never change them." Apply the naturalness floor (incl. the plainness quota). Long-form (≥1,200w): section-by-section with the ledger. | **ON** |
+| **B.5: Blind-compare** | Re-read the draft against the **loaded exemplars** (seam + opener) — *"him, or a rule-follower?"* If it's even/polished/definition-led, regenerate toward a felt-pain opener + uneven rhythm + rotating seams. Run the removal test on every marker: *would the piece survive its removal unchanged? then remove it.* **Loaded exemplars only, never the corpus** (at write-time the corpus is token-waste). | **ON** |
+| **C: Lint** | AI-tell scan + **fact-preservation diff** (no number/identifier mutated A→C) + **marker density/gates** (an identity beat with no gate keyword in the fact-sheet or a doubled sign-off is a **hard fail**) + repetition audit (intra-doc for long pieces). A changed `0.002 SOL` or renamed instruction is a **hard fail**. | — |
 
-`tools/validate_voice.py` runs the Pass-C checks (`tells`, `diff`, `audit`); the **voice-validator** agent
-wraps them.
+`tools/validate_voice.py` runs the Pass-C checks (`tells`, `density`, `diff`, `audit`); the **voice-validator**
+agent wraps them.
 
 > **Running the bundled tools (any install).** The validator and data live inside this skill's own directory,
 > so call them with **absolute paths**. Resolve the directory once and let **`$SKILL`** stand for it below
@@ -101,9 +101,12 @@ long"). Even enthusiasm + even polish is the #1 AI tell. Always load the **seam*
 
 ## What you load at generation time (Pass B)
 
-`profiles/kaue/kaue.md` (primary prose) · `kaue.card.yaml` (dials) · ~4 exemplars from `exemplars/kaue/`
-(always the **seam** + opener + close + 1 body slot by job) · the **one** routed secondary (`secondary/<v>.md`
-+ card + its move-demos). **Never** read `evidence/*.profile.json`. That is builder/validator-only.
+`profiles/kaue/kaue.md` (primary prose) · `kaue.card.yaml` (dials + `markers:` budgets/gates) ·
+`profiles/kaue/themes.md` (the substance bank — pull FITTING stances/anecdotes instead of recycling
+exemplar content) · ~4 exemplars from `exemplars/kaue/` (always the **seam** + opener + close + 1 body slot
+by job; exemplars are rhythm donors, never content donors) · the **one** routed secondary
+(`secondary/<v>.md` + card + its move-demos). **Never** read `evidence/*.profile.json` or
+`calibration/` — builder/validator-only.
 
 ## Self-check before returning (Pass C)
 - **Burstiness:** sentence lengths vary hard (≥1 short punch & ≥1 long run per section); stdev clears the
@@ -113,7 +116,11 @@ long"). Even enthusiasm + even polish is the #1 AI tell. Always load the **seam*
   with plain-word swaps, crypto-boilerplate, copula/gloss, machine-paste fingerprints, Markdown hygiene).
 - **Deslop judgment** (`rules/deslop.md`): clear cliché *clusters*, run the paragraph-reshuffle /
   "what's-new" / read-aloud tests, but keep the specific detail, mixed feelings, and asides that read human.
-- **Naturalness:** a human seam in every passage; enthusiasm spiked at edges, flat in the body.
+- **Naturalness:** a human seam in every passage; enthusiasm spiked at edges, flat in the body; ≥1 in 3
+  sections marker-free (the plainness quota).
+- **Markers:** run `python3 "$SKILL/tools/validate_voice.py" density --file <draft> --card "$SKILL/profiles/kaue/kaue.card.yaml" --facts <fact-sheet>`.
+  An identity beat with no gate keyword in the fact-sheet, or a doubled sign-off, is a **hard fail**; for
+  ≥1,200w also run `audit --file <draft>` (section-to-section repetition).
 - **Facts:** every number/identifier from the fact-sheet survived styling unchanged (run `python3 "$SKILL/tools/validate_voice.py" diff`).
 - **In-voice:** reads like the primary against `kaue.md` + the loaded exemplars.
 
@@ -126,8 +133,10 @@ long"). Even enthusiasm + even polish is the #1 AI tell. Always load the **seam*
 | The style-card schema, exemplar convention, builder/writer/validator boundary | [style-card-schema.md](style-card-schema.md) |
 | The full router (per-lane triggers, stacking, failure modes) | [profiles/kaue/ROUTING.md](profiles/kaue/ROUTING.md) |
 | The primary voice (Kaue) | [profiles/kaue/kaue.md](profiles/kaue/kaue.md) |
+| The substance bank (stances/anecdotes/analogies with receipts) | [profiles/kaue/themes.md](profiles/kaue/themes.md) |
 | A secondary voice's craft | `profiles/kaue/secondary/<voice>.md` |
 | **Building/refreshing a voice** (the adversarial method) | [authoring-personas.md](authoring-personas.md) → `method/` |
+| **Empirical calibration** (the 8-brief testbed + owner-feedback rounds) | [testbed/MATRIX.md](testbed/MATRIX.md) + `profiles/kaue/calibration/` |
 
 ## Agents & commands
 
@@ -142,4 +151,5 @@ long"). Even enthusiasm + even polish is the #1 AI tell. Always load the **seam*
 | [/write-in-voice](../../commands/write-in-voice.md) | Draft a piece in a pack's voice (facts-first) |
 | [/new-persona](../../commands/new-persona.md) | Build a new voice via the persona-builder |
 | [/profile-corpus](../../commands/profile-corpus.md) | Regenerate builder-internal evidence + card dials |
-| [/validate-voice](../../commands/validate-voice.md) | Run audit / tells / diff on generated output |
+| [/validate-voice](../../commands/validate-voice.md) | Run audit / tells / density / diff on generated output |
+| [/calibrate-voice](../../commands/calibrate-voice.md) | Run a calibration round: regenerate the 8-brief matrix, collect owner ratings, codify changes |

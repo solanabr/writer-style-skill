@@ -1,0 +1,137 @@
+#!/usr/bin/env python3
+"""
+check_round.py — mechanical regression runner over one calibration round.
+
+Loads every brief in testbed/briefs/, finds the round's piece for each, runs the
+validator suite (density with the brief as gate source, tells+deslop, fact diff),
+and asserts the brief's `expect:` block. Also prints cross-piece marker coverage —
+the "stamp" metric (a marker appearing in nearly every piece is the portfolio-level
+repetition the per-piece caps can't see; Round 0 baseline: sign-off in 7/8 pieces).
+
+    python3 check_round.py --round <round-dir> --card <voice>.card.yaml [--markers <yaml>] [--briefs <dir>]
+
+Exit 1 on any expectation violation or hard validator failure. Pure Python, no deps.
+"""
+from __future__ import annotations
+import argparse, re, sys
+from pathlib import Path
+
+SKILL = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(SKILL / "tools"))
+
+from validate_voice import (read_card_markers, read_card_targets, marker_density,   # noqa: E402
+                            ai_tell_lint, deslop_flags, fact_diff, intra_doc_audit,
+                            read_one, _strip_meta)
+
+
+def load_brief(path: Path) -> dict:
+    raw = path.read_text("utf-8", "replace")
+    m = re.match(r"\A﻿?\s*---\n(.*?)\n---", raw, re.S)
+    fm = m.group(1) if m else ""
+    brief: dict = {"path": path, "expect": {}}
+    for key in ("id", "title", "words_target", "dominant_job", "route_expected"):
+        km = re.search(rf"^{key}:\s*(.+)$", fm, re.M)
+        if km:
+            brief[key] = km.group(1).strip().strip('"')
+    em = re.search(r"^expect:\s*\n((?:[ \t]+\S.*\n?)*)", fm, re.M)
+    if em:
+        for line in em.group(1).splitlines():
+            lm = re.match(r"\s+([\w][\w-]*(?:_max|_sections_max)?):\s*(\S+)", line)
+            if lm:
+                k, v = lm.group(1), lm.group(2)
+                brief["expect"][k] = int(v) if v.isdigit() else v
+    brief["body"] = _strip_meta(raw)   # brief prose + FROZEN fact-sheet = the gate source
+    return brief
+
+
+def check_piece(brief: dict, piece_path: Path, markers: list[dict], card: dict) -> dict:
+    text = read_one(str(piece_path))
+    dens = marker_density(text, markers, gate_text=brief["body"])
+    tl = ai_tell_lint(text, card)
+    ds = deslop_flags(text)
+    fd = fact_diff(brief["body"], text)
+    cadence_hard = any("uniform cadence" in f for f in tl["flags"])
+    hard = dens["hard"] or ds["hard"] or fd["hard"] or cadence_hard
+    counts = {m["id"]: m for m in dens["markers"]}
+    fails, notes = [], []
+    for k, v in brief["expect"].items():
+        if k == "hard_fails":
+            if hard and v == 0:
+                srcs = [s for s, h in (("density", dens["hard"]), ("deslop", ds["hard"]),
+                                       ("fact-diff", fd["hard"]), ("cadence", cadence_hard)) if h]
+                fails.append(f"hard_fails: expected 0, got hard ({'+'.join(srcs)})")
+            continue
+        if v == "allow":
+            notes.append(f"{k}: allow (human-rated cell)")
+            continue
+        if k.endswith("_sections_max"):
+            mid = k[: -len("_sections_max")]
+            got = len(counts.get(mid, {}).get("sections_hit", []))
+            if got > int(v):
+                fails.append(f"{k}: marker in {got} sections > max {v}")
+        elif k.endswith("_max"):
+            mid = k[: -len("_max")]
+            got = counts.get(mid, {}).get("count", 0)
+            if got > int(v):
+                fails.append(f"{k}: count {got} > max {v}")
+        else:
+            got = counts.get(k, {}).get("count", 0)
+            if got != int(v):
+                fails.append(f"{k}: count {got} != {v}")
+    advisories = sum(1 for f in dens["flags"] + tl["flags"] + ds["flags"]
+                     if not f.startswith("ok:") and "[HARD]" not in f and "HARD" not in f)
+    return {"fails": fails, "notes": notes, "hard": hard, "advisories": advisories,
+            "marker_counts": {m["id"]: m["count"] for m in dens["markers"]},
+            "words": dens["words"]}
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description="calibration round regression runner")
+    ap.add_argument("--round", required=True, help="round dir with <brief-id>.md pieces")
+    ap.add_argument("--card", required=True, help="<voice>.card.yaml (tells targets + markers block)")
+    ap.add_argument("--markers", default=None, help="standalone markers yaml (overrides the card's block)")
+    ap.add_argument("--briefs", default=str(SKILL / "testbed" / "briefs"))
+    a = ap.parse_args(argv)
+    markers = read_card_markers(a.markers) if a.markers else read_card_markers(a.card)
+    if not markers:
+        print("check_round: no markers definition — pass --markers or a card with a markers: block")
+        return 2
+    card = read_card_targets(a.card)
+    briefs = sorted(Path(a.briefs).glob("*.md"))
+    if not briefs:
+        print(f"check_round: no briefs in {a.briefs}")
+        return 2
+    rdir = Path(a.round)
+    rows, any_fail, portfolio, n_pieces = [], False, {}, 0
+    for bp in briefs:
+        b = load_brief(bp)
+        piece = rdir / f"{b.get('id', bp.stem)}.md"
+        if not piece.is_file():
+            rows.append((b.get("id", bp.stem), "MISSING", ["piece file not found"]))
+            any_fail = True
+            continue
+        r = check_piece(b, piece, markers, card)
+        n_pieces += 1
+        for mid, c in r["marker_counts"].items():
+            if c > 0:
+                portfolio[mid] = portfolio.get(mid, 0) + 1
+        status = "FAIL" if r["fails"] else "PASS"
+        any_fail = any_fail or bool(r["fails"])
+        detail = r["fails"] + r["notes"] + [f"{r['words']}w, {r['advisories']} advisory"]
+        rows.append((b.get("id", bp.stem), status, detail))
+    print(f"check_round: {a.round}  ({len(rows)} briefs)")
+    for bid, st, det in rows:
+        print(f"  [{st}] {bid}")
+        for d in det:
+            print(f"        - {d}")
+    if portfolio and n_pieces:
+        print("  cross-piece marker coverage (pieces containing each marker):")
+        for mid, c in sorted(portfolio.items(), key=lambda kv: -kv[1]):
+            stamp = "   <- STAMP: rotate this across pieces" if c >= max(3, round(0.6 * n_pieces)) else ""
+            print(f"        {mid}: {c}/{n_pieces}{stamp}")
+    print("RESULT: " + ("FAIL" if any_fail else "PASS"))
+    return 1 if any_fail else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

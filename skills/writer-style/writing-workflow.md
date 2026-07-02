@@ -43,10 +43,17 @@ Fact-check the fact-sheet. It's cheap precisely because the facts are terse and 
 
 Now load the pack:
 1. **Primary**: `profiles/kaue/kaue.md` + `kaue.card.yaml` (always).
-2. **Route** the dominant *job* → pick the backbone secondary (+ ≤1 guest on a different lane). See
+2. **Marker gate check**: read the card's `markers:` block; decide per marker whether THIS brief earns it
+   (identity/community markers need their `gate` keywords genuinely in the fact-sheet). Write the **marker
+   budget ledger** before drafting — live markers with budgets, gated-off ones at `—` with their `fallback`.
+3. **Route** the dominant *job* → pick the backbone secondary (+ ≤1 guest on a different lane). See
    `profiles/kaue/ROUTING.md`.
-3. **Exemplars**: load ~4 from `exemplars/kaue/`: **always the `seam`**, plus `opener` + `close` + 1 body
-   slot by job; plus the routed secondary's move-demos.
+4. **Exemplars**: load ~4 from `exemplars/kaue/`: **always the `seam`**, plus `opener` + `close` + 1 body
+   slot by job; plus the routed secondary's move-demos. Exemplars are **rhythm donors, never content
+   donors** — their examples/analogies don't transfer to new topics; substance comes from the bank.
+5. **Substance bank**: scan `profiles/kaue/themes.md` for items whose tags match the brief; shortlist ≤3
+   into the fact-sheet (verify their numbers like any fact). Prefer a fitting bank item over exemplar
+   content; never force one; respect `burn: high`.
 
 Then **restyle the frozen fact-sheet into the voice.** The instruction to hold in mind:
 
@@ -70,6 +77,36 @@ scenario, even cadence, the same seam every section, no loose run-on or hedge, e
 it reads that way, regenerate toward a pain-first felt opener, uneven rhythm, a rotating seam per passage, a
 loose body, and at most one civilizational analogy. Match the exemplars' *texture*, not their topic.
 
+## Long-form mode (≥1,200 words)
+
+Repetition compounds with length — a cap that "feels fine" per section stamps the piece by section six.
+Two mechanics keep a long piece honest:
+
+**1. Per-piece caps do NOT scale with length.** A 3,000-word piece still gets ONE identity beat (stakes or
+close, gate permitting), ONE civilizational analogy (on the hardest concept), ONE anaphora burst, ONE
+sign-off. Only per-word budgets (`per_words:` markers like triads or false-antithesis) scale. This is the
+anti-compounding rule: if caps scaled, long-form would be maximally idiosyncratic exactly where restraint
+matters most.
+
+**2. The marker ledger.** Draft section-by-section; after each section, update the ledger and re-read the
+previous section's final paragraph before starting the next (the mechanical defense against seam/opener
+repeats that one-shot generation can't give). The ledger ships with the deliverable:
+
+```
+Ledger — 2,400w, 6 sections. Gates: identity=PASS (brief is adoption economics)
+S1 open:   opener=pain-felt-number · seam=confession   · markers: —
+S2:        shape=flat-mechanics    · seam=real-number  · markers: —            [plain]
+S3:        shape=warm-reasoning    · seam=tool-credit  · markers: coined-handle 1/1
+S4:        shape=flat              · seam=real-number  · markers: —            [plain]
+S5 stakes: shape=zoom-out          · seam=named-credit · markers: identity 1/1, analogy 1/1
+S6 close:  vision→encouragement→door · sign-off 1/1    · markers: —
+```
+
+Distribution rules across the piece: no marker lexeme twice within any ~800-word window; no seam type
+twice within 3 consecutive sections; each section's opener type differs from the previous two; the
+plainness quota (≥1 in 3 sections marker-free) and the enthusiasm topology (edges hot, middle ~60% ≤1
+spike) from `rules/naturalness.md`.
+
 ## Pass C — Lint (catch styling damage)
 
 Run the checks (`tools/validate_voice.py`, or the **voice-validator** agent):
@@ -78,8 +115,12 @@ Run the checks (`tools/validate_voice.py`, or the **voice-validator** agent):
   rewrite that sentence.
 - **`tells`**: AI-tell lint: banned words, "not X, it's Y" overuse, em-dash overuse, **uniform cadence**
   (sentence-length stdev below the floor, the top human-vs-AI signal).
-- **`audit`**: for a multi-lesson batch: opener-type diversity, duplicate openings, cross-lesson n-gram
-  overlap (catches "every lesson sounds the same").
+- **`density`** (with `--facts <fact-sheet>`): marker budgets + context gates. An identity marker firing
+  with no gate keyword in the fact-sheet = **hard fail** (the forced-insertion case); a doubled sign-off =
+  **hard fail**; over-budget tics, clustering, and section spread are advisories the human gate weighs.
+- **`audit`**: `--file <doc>` for one long piece (section-to-section opener variety, intra-doc n-gram
+  overlap, duplicate paragraph openers); `--lessons <dir>` for a multi-lesson batch (catches "every lesson
+  sounds the same").
 
 Then a **human read** for voice fidelity, the one thing no metric judges honestly (style-distance scorers
 manufacture false confidence; we don't ship one).

@@ -22,9 +22,13 @@ education) as the default.
 ## Workflow — facts first, voice last (non-negotiable for technical content)
 1. **Pass A** — facts/outline/code in neutral prose, grounded against `solana-dev` / `context7` / Helius MCPs.
 2. **Gate** — verify + freeze the facts.
-3. **Pass B** — load primary + routed secondary + ~4 exemplars; **restyle the frozen facts** (never re-derive);
-   apply the naturalness floor.
-4. **Pass C** — `validate_voice.py diff` (facts preserved) + `tells` (no AI tells, varied cadence) + `audit`.
+3. **Pass B** — load primary + routed secondary + ~4 exemplars + `themes.md` (substance bank); **check the
+   card's `markers:` gates** (identity beats need gate keywords in the fact-sheet — marker budget ledger
+   first); **restyle the frozen facts** (never re-derive); apply the naturalness floor (plainness quota:
+   ≥1 in 3 sections marker-free). Long-form ≥1,200w: section-by-section with the ledger.
+4. **Pass C** — `validate_voice.py diff` (facts preserved) + `tells` (no AI tells, varied cadence) +
+   `density --facts` (marker budgets + context gates — gate-missed identity beat / doubled sign-off =
+   hard fail) + `audit` (`--file` for long docs).
 
 ## Routing (by dominant JOB, not topic)
 
@@ -58,7 +62,8 @@ Each voice is a full backbone in its lane; lanes self-differentiate (no author-v
 | [/write-in-voice](commands/write-in-voice.md) | Draft/restyle in a pack's voice |
 | [/new-persona](commands/new-persona.md) | Build a new voice |
 | [/profile-corpus](commands/profile-corpus.md) | Regenerate builder-internal evidence + dials |
-| [/validate-voice](commands/validate-voice.md) | Run audit / tells / diff |
+| [/validate-voice](commands/validate-voice.md) | Run audit / tells / density / diff |
+| [/calibrate-voice](commands/calibrate-voice.md) | Empirical calibration round: regenerate the 8-brief matrix → owner rates → codify changes |
 
 ## Honest scope
 Output is **in the author's register, with AI tells engineered out and facts verified first** — not an
@@ -73,11 +78,13 @@ floor; don't over-promise "it's exactly him."
 ├── .claude-plugin/   plugin.json + marketplace.json (Claude Code plugin manifests)
 ├── package.json · bin/install.js   npm distribution (vendors into a project's .claude/) · .npmignore
 ├── skills/writer-style/        the self-contained skill — everything it reads lives in here
-│   ├── SKILL.md (entry) · two-layer-model · writing-workflow · style-card-schema · authoring-personas
+│   ├── SKILL.md (entry) · two-layer-model · writing-workflow (+long-form mode) · style-card-schema (+markers) · authoring-personas
 │   ├── method/       build refs: process-playbook · agent-prompts · craft-profile · primary-profile · quality-bar · routing-design
-│   ├── profiles/kaue/  PACK.md · kaue.md(+card) · ROUTING.md · secondary/* · exemplars/* (14 primary) · evidence/* (builder-internal)
-│   ├── rules/        facts-first · naturalness · deslop · original-not-impersonation
-│   └── tools/        profile_corpus.py · style_lexicons.py · validate_voice.py · test_tools.py (pure-Python, no deps)
+│   ├── profiles/kaue/  PACK.md · kaue.md(+card w/ markers) · themes.md (substance bank) · ROUTING.md · secondary/*
+│   │                   · exemplars/* (16 primary) · evidence/* (builder-internal) · calibration/ (rounds + owner feedback, npm-excluded)
+│   ├── rules/        facts-first · naturalness (seams≠markers, plainness quota) · deslop · original-not-impersonation
+│   ├── testbed/      8-brief eval matrix + check_round.py (empirical calibration harness, npm-excluded)
+│   └── tools/        profile_corpus.py · style_lexicons.py · validate_voice.py (tells/density/audit/diff) · test_tools.py (pure-Python, no deps)
 ├── agents/           voice-writer · persona-builder · voice-validator
 └── commands/         write-in-voice · new-persona · profile-corpus · validate-voice
 ```

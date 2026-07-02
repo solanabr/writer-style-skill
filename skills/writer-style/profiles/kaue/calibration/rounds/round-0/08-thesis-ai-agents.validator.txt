@@ -1,0 +1,28 @@
+===== tells =====
+AI-tell lint (voice=kaue 2043 words; burstiness_min=9): stdev=11.7 emdash/1k=1.0 false-antithesis=0
+   - ok: no AI tells detected
+Deslop scan (gated tiers + structural; only machine-paste fingerprints are hard):
+   - ok: no deslop flags
+GATE: PASS
+
+===== density =====
+Marker density (voice=kaue, 2043 prose words, 8 sections):
+  id                      class     count budget  windows>cap  sections    gate
+  latam-framing           identity      2      1            0  6           pass
+  game-changer            tic           1      1            0  5           -
+  shipping-refrain        tic           0      1            0  -           -
+  civilizational-analogy  analogy       0      1            0  -           -
+  sign-off                signoff       1      1            0  8           -
+   - [advisory] identity 'latam-framing' 2x vs budget 1/piece — gate passes (topic-legit); confirm it's substance, not saturation
+GATE: PASS — 1 advisory
+
+===== intra-doc audit =====
+Intra-doc repetition audit over 8 sections:
+  opener types : 1  {'claim': 8}
+  4-gram overlap: mean 0.0003  adjacent-max 0.0
+   - LOW section-opener variety (1 types over 8 sections) — every section starts the same way
+
+===== fact diff =====
+Fact-preservation diff: 8 facts in sheet, 10 in styled output
+   - advisory: 2 sheet fact(s) absent from the output — confirm a deliberate omission/paraphrase, not a silent drop: ['2026', '7']
+   - advisory: 4 number/identifier in the output but not the fact-sheet — confirm each is grounded, not invented: ['1', '3', '4', '5']
