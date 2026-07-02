@@ -82,6 +82,7 @@ def check_piece(brief: dict, piece_path: Path, markers: list[dict], card: dict) 
                      if not f.startswith("ok:") and "[HARD]" not in f and "HARD" not in f)
     return {"fails": fails, "notes": notes, "hard": hard, "advisories": advisories,
             "marker_counts": {m["id"]: m["count"] for m in dens["markers"]},
+            "marker_lexemes": {m["id"]: m["pattern_hits"] for m in dens["markers"] if m["pattern_hits"]},
             "words": dens["words"]}
 
 
@@ -114,7 +115,11 @@ def main(argv=None) -> int:
         n_pieces += 1
         for mid, c in r["marker_counts"].items():
             if c > 0:
-                portfolio[mid] = portfolio.get(mid, 0) + 1
+                portfolio.setdefault(mid, {"pieces": 0, "lexemes": {}})
+                portfolio[mid]["pieces"] += 1
+                for lex in r["marker_lexemes"].get(mid, {}):
+                    lx = portfolio[mid]["lexemes"]
+                    lx[lex] = lx.get(lex, 0) + 1   # pieces containing this lexeme
         status = "FAIL" if r["fails"] else "PASS"
         any_fail = any_fail or bool(r["fails"])
         detail = r["fails"] + r["notes"] + [f"{r['words']}w, {r['advisories']} advisory"]
@@ -125,10 +130,16 @@ def main(argv=None) -> int:
         for d in det:
             print(f"        - {d}")
     if portfolio and n_pieces:
-        print("  cross-piece marker coverage (pieces containing each marker):")
-        for mid, c in sorted(portfolio.items(), key=lambda kv: -kv[1]):
-            stamp = "   <- STAMP: rotate this across pieces" if c >= max(3, round(0.6 * n_pieces)) else ""
-            print(f"        {mid}: {c}/{n_pieces}{stamp}")
+        print("  cross-piece marker coverage (pieces containing each marker; the STAMP is a single")
+        print("  lexeme dominating, not the marker family being present):")
+        for mid, d in sorted(portfolio.items(), key=lambda kv: -kv[1]["pieces"]):
+            c = d["pieces"]
+            lex = sorted(d["lexemes"].items(), key=lambda kv: -kv[1])
+            top = lex[0] if lex else ("", 0)
+            stamp = f"   <- STAMP: '{top[0]}' in {top[1]}/{n_pieces} pieces — rotate it" \
+                if top[1] >= max(3, round(0.5 * n_pieces)) else ""
+            breakdown = ", ".join(f"{l} {n}" for l, n in lex[:4])
+            print(f"        {mid}: {c}/{n_pieces} ({breakdown}){stamp}")
     print("RESULT: " + ("FAIL" if any_fail else "PASS"))
     return 1 if any_fail else 0
 

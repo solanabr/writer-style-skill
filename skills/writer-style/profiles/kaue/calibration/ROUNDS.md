@@ -43,8 +43,63 @@ validator (tells/diff) passed everything — the measurement gap is confirmed.
 
 ### Owner rubric
 
-_(pending — owner rates each piece per RUBRIC.md)_
+_(pending — owner rates each piece per RUBRIC.md; can be rated together with Round 1 via the blind A/B)_
 
 ### Changes
 
 _(mapped from owner feedback after rating)_
+
+---
+
+## Round 1 — first post-redesign round
+
+- date: 2026-07-02
+- pack state: commit c20ba99 (markers gates + §5b + themes.md + expanded pools) + in-round fixes below
+- generator: claude-fable-5, one writer subagent per brief, same neutral prompt as Round 0 (only the pack changed)
+- outputs: `rounds/round-1/<brief-id>.md` + `<brief-id>.validator.txt`
+
+### Mechanical summary — Round 0 → Round 1
+
+| metric | Round 0 | Round 1 |
+|---|---|---|
+| hard fails | 0 | 0 |
+| within-piece `expect:` | 8/8 PASS | 8/8 PASS |
+| **sign-off stamp** | **"Happy building" 7/8** | rotated: cya 4 · what-a-time 2 · lfb 1 · **none 1** — residual: 'cya' 4/8 (see below) |
+| **game-changer/godsend** | **5/8 pieces** | **0/8** — full pendulum swing (watch item: is a whole batch with zero too sterile? ~1/2500w is authentically him) |
+| **latam-framing** | 2/8 — incl. **unearned** Superteam/Brazil in 08 (not in facts) | 2/8 — **both earned**: 02 (topic IS the region, substance) + 08 (exactly 1 beat, 1 section, "I live on one end of those corridors", gate keyword in facts) |
+| identity gates decided | n/a (no gates existed) | 6× FAIL→0 markers (01/03/04/05/06/07) · 2× PASS→budgeted (02/08) — all 8 correct |
+| themes.md substance used | n/a | 03: Arduino origin (A23) + theory-vs-practice + abandonment stances · 05: Goerli confession (A18) · no forced items reported |
+| plainness quota | not tracked | ledgers report 3/8 plain sections (05), 2/8 (08); serious-register 04 ran marker-free end to end |
+
+### Findings
+
+1. **The gate architecture works.** All six pure-tech briefs got the fallback (reader's-own-numbers
+   stakes) instead of a geography beat; 08's single beat is subtle and opportunity-framed. The failure
+   mode Round 0 demonstrated (profile-sourced Superteam/Brazil with no basis in facts) did not recur.
+2. **Residual stamp: 'cya' 4/8.** Parallel writers can't see each other's closer picks; each rotated off
+   the burned "Happy building" and several landed on the same alternative. Proposed change (pending owner
+   confirmation): seed the sign-off/verdict rotation by piece (e.g. rotate by brief position, or batch
+   mode passes the previous piece's closer into the next writer's context).
+3. **game-changer 0/8 is a possible over-correction** — the card's Round-0 stamp note may now read as a
+   ban. Owner judgment wanted: if 0 feels sterile, soften the fallback note ("rotate", not "avoid").
+4. Tool fixes shipped mid-round (all selftested): opener-classifier heading-glue artifact (agents found
+   it — headings glued to section bodies capped detectable opener variety at 2 types); per-lexeme stamp
+   metric (marker-family coverage could not distinguish "same token 7×" from "rotated"); hyphenated
+   "emerging-market" added to latam patterns/gate (08's beat was invisible to density).
+
+### Changes (codified this round — mechanical; owner-feedback changes pending rating)
+
+- [R1][tooling] opener-variety advisory was structural noise on headed markdown → tool-fix: strip the glued heading before opener classification — `tools/validate_voice.py`
+- [R1][tooling] stamp metric blind to per-lexeme domination → tool-fix: `pattern_hits` in density + per-lexeme coverage/stamp in `check_round.py`
+- [R1][08-thesis] "emerging-market" (hyphenated) invisible to the identity marker → marker-cap/gate: pattern + gate keyword added — `kaue.card.yaml`
+- [R1][cross-piece] 'cya' 4/8 residual stamp → **proposed** (unmapped until owner confirms): piece-seeded closer rotation for batch generation
+
+### Owner rubric
+
+_(pending — rate per RUBRIC.md)_
+
+### Blind A/B (pick before opening the mapping)
+
+`rounds/ab-r1/`: 03-course-opener-{A,B}.md · 05-deepdive-svm-lifecycle-{A,B}.md ·
+08-thesis-ai-agents-{A,B}.md. Mapping sealed in `ab-r1/SEALED-MAPPING.md` — pick first, then open;
+picks + unblinded mapping get recorded here.

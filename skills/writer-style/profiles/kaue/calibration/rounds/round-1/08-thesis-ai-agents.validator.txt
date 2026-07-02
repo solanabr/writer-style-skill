@@ -1,0 +1,28 @@
+===== tells =====
+AI-tell lint (voice=kaue 1871 words; burstiness_min=9): stdev=11.7 emdash/1k=1.6 false-antithesis=1
+   - ok: no AI tells detected
+Deslop scan (gated tiers + structural; only machine-paste fingerprints are hard):
+   - ok: no deslop flags
+GATE: PASS
+
+===== density =====
+Marker density (voice=kaue, 1871 prose words, 8 sections):
+  id                      class     count budget  windows>cap  sections    gate
+  latam-framing           identity      1      1            0  6           pass
+  game-changer            verdict-token    0      1            0  -           -
+  silver-bullet           refrain       0      1            0  -           -
+  shipping-refrain        refrain       0      1            0  -           -
+  civilizational-analogy  analogy       0      1            0  -           -
+  sign-off                signoff       1      1            0  8           -
+   - ok: all markers within budget
+GATE: PASS
+
+===== intra-doc audit =====
+Intra-doc repetition audit over 8 sections:
+  opener types : 3  {'claim': 6, 'question': 1, 'story': 1}
+  4-gram overlap: mean 0.0005  adjacent-max 0.0
+   - ok: no intra-doc repetition red flags
+
+===== fact diff =====
+Fact-preservation diff: 8 facts in sheet, 5 in styled output
+   - advisory: 3 sheet fact(s) absent from the output — confirm a deliberate omission/paraphrase, not a silent drop: ['2', '2026', '7']

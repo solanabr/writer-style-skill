@@ -106,8 +106,12 @@ def intra_doc_audit(text: str) -> dict:
     if len(bodies) < 2:
         return {"sections": len(bodies),
                 "flags": ["ok: too few sections for an intra-doc audit (needs 2+ of 50w+)"]}
-    base = repetition_audit(bodies)
-    grams = [ngrams(b, 4) for b in bodies]
+    # split_sections glues the heading line into the body (density wants markers-in-headings counted),
+    # but the opener classifier must see the PROSE's first sentence, not "## Title" — strip it here,
+    # or every headed section classifies as "claim" and the variety check caps at 2 types structurally.
+    prose = [re.sub(r"\A#{1,6}\s+[^\n]*\n+", "", b) for b in bodies]
+    base = repetition_audit(prose)
+    grams = [ngrams(p, 4) for p in prose]
     adj = [round(jaccard(grams[i], grams[i + 1]), 4) for i in range(len(grams) - 1)]
     adj_max = max(adj) if adj else 0.0
     heads = [" ".join(WORD_RE.findall(p.lower())[:6]) for p in _paragraphs(text)
@@ -297,10 +301,14 @@ def marker_density(text: str, markers: list[dict], gate_text: str | None = None)
     glow = gate_text.lower() if gate_text is not None else None
     results, flags, hard = [], [], False
     for mk in markers:
-        pats = [_compile_marker(p) for p in mk.get("patterns", [])]
+        raw = mk.get("patterns", [])
+        pats = [_compile_marker(p) for p in raw]
         pos = sorted(max(0, bisect.bisect_right(starts, m.start()) - 1)
                      for rx in pats for m in rx.finditer(text))
         count = len(pos)
+        # per-lexeme hits — the STAMP signal needs to distinguish "same token every piece"
+        # from "rotated tokens" (marker-level coverage alone can't)
+        pattern_hits = {p: n for p, n in ((p, len(rx.findall(text))) for p, rx in zip(raw, pats)) if n}
         cap, per = mk.get("cap", 1), mk.get("per_words", 0)
         allowed = cap if per == 0 else max(cap, cap * round(nw / per))
         hit_secs = [i for i, (_, body) in enumerate(secs, 1) if any(rx.search(body) for rx in pats)]
@@ -348,7 +356,8 @@ def marker_density(text: str, markers: list[dict], gate_text: str | None = None)
         flags.extend(mflags)
         results.append({"id": mid, "class": mcls, "count": count, "allowed": allowed,
                         "windows_over_cap": win_over, "sections_hit": hit_secs,
-                        "gate_status": gate_status, "hard": mhard, "flags": mflags})
+                        "gate_status": gate_status, "hard": mhard, "flags": mflags,
+                        "pattern_hits": pattern_hits})
     return {"words": nw, "sections": len(secs), "markers": results, "hard": hard,
             "flags": flags or ["ok: all markers within budget"]}
 
@@ -928,6 +937,14 @@ def selftest() -> int:
           "varied sections -> no intra-doc flags")
     check(intra_doc_audit("one short paragraph only")["flags"][0].startswith("ok:"),
           "short single-section doc is exempt from the intra-doc audit")
+    # heading-glue must not mask real opener variety (agents found this: '## Title' glued to the body
+    # made every headed section classify as 'claim', capping detectable variety at 2 types)
+    headed = ("## A\nWhy do fees exist at all? " + " ".join(f"a{i} b{i}" for i in range(30)) +
+              "\n## B\nImagine a queue forming fast. " + " ".join(f"c{i} d{i}" for i in range(30)) +
+              "\n## C\n40% of it burns away. " + " ".join(f"e{i} f{i}" for i in range(30)) +
+              "\n## D\nI once watched a leader stall. " + " ".join(f"g{i} h{i}" for i in range(30)))
+    hv = intra_doc_audit(headed)
+    check(hv["distinct_opener_types"] >= 3, "headed sections: opener classifier sees the PROSE opener, not '## Title'")
 
     print("\n" + ("VALIDATOR SELFTESTS PASSED" if ok else "FAILURES ABOVE"))
     return 0 if ok else 1
