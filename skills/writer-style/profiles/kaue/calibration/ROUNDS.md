@@ -98,8 +98,34 @@ _(mapped from owner feedback after rating)_
 
 _(pending — rate per RUBRIC.md)_
 
-### Blind A/B (pick before opening the mapping)
+### Blind A/B — RESULTS (owner picked 2026-07-03, before unsealing)
 
-`rounds/ab-r1/`: 03-course-opener-{A,B}.md · 05-deepdive-svm-lifecycle-{A,B}.md ·
-08-thesis-ai-agents-{A,B}.md. Mapping sealed in `ab-r1/SEALED-MAPPING.md` — pick first, then open;
-picks + unblinded mapping get recorded here.
+Owner picked **B on all three**. Unblinded:
+
+| brief | owner's pick | winner |
+|---|---|---|
+| 03-course-opener | B | **round-0 (OLD pack)** — new pack LOSS |
+| 05-deepdive-svm-lifecycle | B | **round-1 (new pack)** — win |
+| 08-thesis-ai-agents | B | **round-0 (OLD pack)** — new pack LOSS |
+
+**Reading:** the new pack won the long-form compounder (where the redesign aimed) and lost the
+course-opener + thesis cells. 2 losses = regression per protocol. n=1 rater, one critique given —
+diagnosis delegated to the adversarial analysis session (2026-07-03) before any change is applied.
+
+### Owner feedback (Round 1)
+
+- **Critique:** the follow-up endings — "want me to do X up next?" — are wrong for course generation:
+  the curriculum already exists, so a piece must not tease/ask about a next part that is already
+  scheduled. (The sequel-teaser/comments-invite closers entered the rotation pool from the corpus
+  mining — real Kaue moves from STANDALONE posts, misapplied to course context. Same error class as
+  LATAM-in-tech: right move, wrong context.)
+
+### Changes — PROPOSED, not applied (held for the joint analysis session)
+
+- [R1][owner][closers] sequel-teaser / "part 2?" / comments-invite closers forced into course context →
+  PROPOSED rule-edit + marker-gate: context-gate the closer family on "does a known curriculum/next
+  lesson exist?" — course mode points to the actual next lesson or just closes; standalone posts keep
+  the teaser family.
+- [R1][owner][A/B] new pack lost 03 + 08 to the old pack → PROPOSED: hold all further restraint-side
+  changes until the loss is diagnosed (hypotheses: over-sterilization — game-changer 0/8, energy delta,
+  closer family — under adversarial analysis).
