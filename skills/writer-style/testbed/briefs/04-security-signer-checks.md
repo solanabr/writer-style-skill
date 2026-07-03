@@ -5,6 +5,7 @@ words_target: 1200
 audience: Solana program developers
 dominant_job: security
 route_expected: helius-or-vitalik
+context: standalone
 expect:
   latam-framing: 0
   game-changer: 0

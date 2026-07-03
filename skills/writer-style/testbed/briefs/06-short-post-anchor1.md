@@ -5,6 +5,7 @@ words_target: 400
 audience: Anchor developers deciding whether to migrate
 dominant_job: announcement
 route_expected: any
+context: standalone
 expect:
   latam-framing: 0
   game-changer_max: 1

@@ -80,9 +80,17 @@ def check_piece(brief: dict, piece_path: Path, markers: list[dict], card: dict) 
                 fails.append(f"{k}: count {got} != {v}")
     advisories = sum(1 for f in dens["flags"] + tl["flags"] + ds["flags"]
                      if not f.startswith("ok:") and "[HARD]" not in f and "HARD" not in f)
+    # warmth telemetry (the R1 gap: restraint was measured, temperature wasn't)
+    excl_per_1k = round(1000 * text.count("!") / max(1, dens["words"]), 1)
+    tail = text[-300:].lower()
+    warm = any(t in tail for t in ("happy ", "you've got this", "you got this", "keep build",
+                                   "keep shipping", "🚀", "not that hard"))
+    cool = any(t in tail for t in ("cya", "lfb", "see you on the next one", "what a time to be alive"))
+    closer_family = "warm" if warm else ("cool" if cool else "plain")
     return {"fails": fails, "notes": notes, "hard": hard, "advisories": advisories,
             "marker_counts": {m["id"]: m["count"] for m in dens["markers"]},
             "marker_lexemes": {m["id"]: m["pattern_hits"] for m in dens["markers"] if m["pattern_hits"]},
+            "excl_per_1k": excl_per_1k, "closer_family": closer_family,
             "words": dens["words"]}
 
 
@@ -122,7 +130,8 @@ def main(argv=None) -> int:
                     lx[lex] = lx.get(lex, 0) + 1   # pieces containing this lexeme
         status = "FAIL" if r["fails"] else "PASS"
         any_fail = any_fail or bool(r["fails"])
-        detail = r["fails"] + r["notes"] + [f"{r['words']}w, {r['advisories']} advisory"]
+        detail = r["fails"] + r["notes"] + [
+            f"{r['words']}w, {r['advisories']} advisory · warmth: {r['excl_per_1k']} excl/1k, closer={r['closer_family']}"]
         rows.append((b.get("id", bp.stem), status, detail))
     print(f"check_round: {a.round}  ({len(rows)} briefs)")
     for bid, st, det in rows:
@@ -140,6 +149,9 @@ def main(argv=None) -> int:
                 if top[1] >= max(3, round(0.5 * n_pieces)) else ""
             breakdown = ", ".join(f"{l} {n}" for l, n in lex[:4])
             print(f"        {mid}: {c}/{n_pieces} ({breakdown}){stamp}")
+    if n_pieces and "game-changer" not in portfolio:
+        print("  [advisory] verdict-token budget UNSPENT across the whole batch — a cap is not a ban "
+              "(~1/2500w is the voice); zero everywhere reads sterile (R1 finding)")
     print("RESULT: " + ("FAIL" if any_fail else "PASS"))
     return 1 if any_fail else 0
 

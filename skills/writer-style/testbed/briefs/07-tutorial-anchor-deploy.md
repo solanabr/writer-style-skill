@@ -5,6 +5,7 @@ words_target: 1800
 audience: developer new to Anchor, comfortable with a terminal
 dominant_job: how-to
 route_expected: helius
+context: course-mid (series "Solana Development Fundamentals", lesson 3 of 6; previous lesson: "Rust for Solana" — assume it's done, a continuation open is available; next lesson: "Client development (TypeScript + wallet adapter)"; closer contract: point to the actual next lesson or plain-close — NO teasers/comments-invites)
 expect:
   latam-framing: 0
   civilizational-analogy_max: 1

@@ -5,6 +5,7 @@ words_target: 800
 audience: global developers enrolling in a free online course, any background
 dominant_job: motivation
 route_expected: primary-only
+context: course-first (series "Solana Development Fundamentals", lesson 0 of 6; full curriculum is in the fact-sheet; closer contract: point to module 1 or plain-close — NO teasers/comments-invites, the schedule exists; warm register — beginners)
 expect:
   latam-framing: 0
   game-changer_max: 1

@@ -65,6 +65,28 @@ seam in every passage, the body calm and a little loose. This is where the voice
 "write it all in one pass" would let persona drift corrupt the numbers. It can't here, because the numbers are
 already fixed.
 
+## Course mode (when a curriculum exists)
+
+A course lesson is not a standalone post. The brief carries a `context:` block — series, position N of M,
+previous/next lesson titles, what's already covered. It changes three things: **closers** (point to the
+actual next lesson or plain-close; sequel-teasers and "want me to cover X next?" are FORBIDDEN — the
+next part is already scheduled), **openers** (continuation opens — "last lesson we X" — are available
+mid-course; credential-disclaimer opens stop making sense once the teacher's authority is established),
+and **substance** (a bank anecdote burned by lesson 2 is unavailable to lesson 7 — the batch ledger
+tracks spends). For a batch/course, a **coordinator pass** deals each piece its mood, opener family,
+closer family (or none), and marker spends BEFORE writers start — parallel writers can't see each other,
+and uncoordinated rotation reproduces the stamp one token over (measured: 'cya' 4/8 in Round 1).
+
+## Pass B.75 — Fresh-eyes revision (a different reader, bounded edits)
+
+The writer re-reading its own minutes-old draft fills gaps from memory and feels every ending as earned —
+self-review is anchored. A **separate reviser** with a deliberately clean context (the draft + the loaded
+exemplars + LESSONS.md only — no brief, no fact-sheet, no ledger) reads as the blind reader and makes
+**≤5 bounded edits**: cut stacked closing gestures to one, fix the stiffest sentence, merge bullet-rhythm
+paragraphs, kill a compliance-tell. Never touch numbers, commands, code, or claims. Re-run `diff` after —
+the fact gate still stands. Editing beats regenerating: keep 90%, fix 10%; a re-roll re-runs the whole
+fact-risk surface and may lose what worked.
+
 ## Pass B.5 — Blind-compare (the anti-impostor check)
 
 The most likely failure isn't wrong facts (Pass C catches those) or AI tells — it's prose that's competent,

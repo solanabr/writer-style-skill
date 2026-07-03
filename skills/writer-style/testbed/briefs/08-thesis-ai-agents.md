@@ -5,6 +5,7 @@ words_target: 2000
 audience: technical readers thinking about where AI x crypto is actually real
 dominant_job: thesis
 route_expected: balaji
+context: standalone
 expect:
   latam-framing_sections_max: 2
   civilizational-analogy_max: 1

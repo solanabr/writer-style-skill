@@ -48,20 +48,33 @@ rotation:                     # vary these across a multi-section piece so nothi
                "retroactive confession ('Well, I lied a little earlier…')", "ps: carrying a workaround or bonus receipt",
                "candid downside caveat about the thing you're recommending", "joke at your own expense",
                "reader-endurance checkpoint ('glad you made it this far')"]
-  sign_offs:  ["Happy [verb matched to the topic]! 🚀", "lfb", "cya 👋", "what a time to be alive!",
-               "DMs are always open 🤝", "see you on the next one", "keep [X-ing] send-off",
-               "sequel-teaser conditioned on reader interest", "a question to the reader + comments invite",
-               "no sign-off token at all — also him"]
+  # CONTEXT AXIS (owner rule): closers/openers are gated by publication context, not just rotated.
+  #   teaching/course registers -> the WARM family only ("Happy [verb]! 🚀", "You've got this", keep-[X-ing]);
+  #   cool family ("cya 👋", lfb, "see you on the next one") -> standalone dev-logs/threads only;
+  #   sequel-teaser / "want X next?" / comments-invite -> STANDALONE ONLY — when a curriculum exists,
+  #   point to the actual next lesson or plain-close. "what a time to be alive!" -> attributed-only.
+  sign_offs:  ["Happy [verb matched to the topic]! 🚀  (context: any; the teaching default)",
+               "keep [X-ing] send-off  (context: any-warm)",
+               "lfb  (context: standalone)", "cya 👋  (context: standalone)",
+               "see you on the next one  (context: standalone)",
+               "DMs are always open 🤝  (context: standalone)",
+               "sequel-teaser conditioned on reader interest  (context: STANDALONE ONLY)",
+               "a question to the reader + comments invite  (context: STANDALONE ONLY)",
+               "point to the actual next lesson  (context: course-first/mid)",
+               "no sign-off token at all — also him  (context: any)"]
   verdict_forms: ["This isn't X, it's Y (≤1/800w)", "that's the message, he ships.", "an order-of-magnitude fewer",
                   "a godsend (shared 1/2500w budget with game-changer)",
                   "colon-gated lead-in ('harsh reality is:' / 'the catch here is:' / 'tl;dr is:')",
                   "see X for what it is: [deflating noun]", "doesn't just X — it [bigger Y]",
                   "bare arithmetic contrast, no adjectives", "coin your own compact aphorism"]
-  opener_moves: ["felt-pain scenario", "Be it X, Y or Z (cause-agnostic triple) → the claim",
+  opener_moves: ["felt-pain scenario  (context: any — but not 8/8: rotate the whole batch off it)",
+                 "administrative/meta open ('this covers a lot, I'll keep it tight') — his REAL doc-open",
+                 "Be it X, Y or Z (cause-agnostic triple) → the claim",
                  "People love/like X (the crowd's misconception) → contradict it",
-                 "credential disclaimer ('I'm no X, but') → receipts anyway",
+                 "credential disclaimer ('I'm no X, but') → receipts anyway  (context: standalone/course-first — authority is established by mid-course)",
                  "I've always been a fan of X", "trivia-question hook", "staccato question triplet → pivot",
-                 "self-aware scope", "Imagine… scenario"]
+                 "self-aware scope", "Imagine… scenario",
+                 "continuation open: 'last lesson we X — now Y' / pick up the running example  (context: course-mid/last ONLY)"]
   # ROTATE ACROSS PIECES TOO, not just within one: Round-0 calibration measured "Happy building" closing
   # 7/8 consecutive pieces and godsend/game-changer in 5/8 — the portfolio-level STAMP. Before picking a
   # sign-off or verdict token, assume the reader has read your last piece; pick a different member (or

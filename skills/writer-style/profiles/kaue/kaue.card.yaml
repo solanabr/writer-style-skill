@@ -75,7 +75,7 @@ markers:
     patterns: ["game-changer", "game changer", "game-changers", godsend, godsends]
     cap: 1
     per_words: 2500
-    fallback: "a naked-fact verdict or 'too X to argue otherwise' — rotate the verdict family"
+    fallback: "rotate the verdict family (naked-fact, colon-gated, deflating re-label) — but SPEND the budget somewhere: ~1 per 2,500w IS him, and zero across a whole batch reads sterile (R1 measured the over-correction). A cap is a ceiling, not a ban."
   - id: silver-bullet
     class: refrain
     patterns: ["silver bullet"]
@@ -96,11 +96,11 @@ markers:
     fallback: "a mechanism-level comparison with numbers instead of history"
   - id: sign-off
     class: signoff
-    patterns: ["happy building", "happy hacking", "happy coding", lfb, cya, "what a time to be alive", "dms are always open"]
+    patterns: ["happy building", "happy hacking", "happy coding", lfb, cya, "what a time to be alive", "dms are always open", "dms are open", "see you on the next one"]
     cap: 1
     per_words: 0
     enforce: hard
-    fallback: "one sign-off max, rotated ACROSS pieces (Round-0: 'Happy building' closed 7/8 — the stamp)"
+    fallback: "one sign-off max — MATCH the register first (teaching→warm family, never a shrug at beginners; 'what a time to be alive' is attributed-only in his writing), then vary or omit across a batch. No token at all is also him."
 
 notes:
   corpus: >

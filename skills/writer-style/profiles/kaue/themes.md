@@ -1,16 +1,11 @@
 # Kaue — the substance bank (themes.md)
 
-> **⚠ REVIEW STATUS (2026-07-03):** adversarially re-verified against all 16 corpus files — **48/50
-> entries VERIFIED with receipts located (most verbatim), 0 misquotes**; 2 STRETCH items corrected in
-> place (A19 venue, A21 proposed-vs-managed). Remaining **owner judgment calls** before full clearance:
-> (1) named-party jabs — stance 15 (Arbitrum "rugging" jab) and A18 (Logan Paul/CryptoZoo saga): principle
-> safe, the names are the risk in earnest course content; (2) A16 names a real minor (@vcnzo_ct),
-> positively — confirm comfort; (3) A25's "two million views" number lives only in _inbox/hultessay.md
-> and the Bazingames↔views link is a one-channel inference — accept or drop; (4) promote stance 12
-> (Solana-vs-Ethereum, experience-scoped — recommended yes) and stance 18 (bear-market shipping,
-> rephrased to "potential", literal slogan banned — recommended yes)? (5) A14: the source tweet labels
-> ~$275/mo "GDP/capita" but its own aside ("~30% of the population lives on it") describes the minimum
-> wage — decide the corrected framing before reuse. Medium-confidence stances stay unusable until ruled.
+> **✓ REVIEW COMPLETE (owner-ruled 2026-07-03):** adversarially re-verified against all 16 corpus files —
+> 0 misquotes; STRETCH items corrected (A19, A21). **Owner ruling: hyperspecific third-party references
+> are OUT OF SCOPE for this skill** — long-form content with hardcoded names/references goes repetitive.
+> Applied: named-party jabs stripped (stance 15 principle-only, A18 de-named), the minor de-named (A16),
+> A25 dropped (weak receipt + hyperspecific), A14 reframed off the mislabel. Stances 12 & 18 promoted
+> (scoped/rephrased per verification). See usage rule 6 below — it now governs ALL bank usage.
 
 ## Usage contract (writer: read this first)
 
@@ -26,6 +21,12 @@
 5. **Register tags gate reuse.** `personal` items belong only in motivational/course-opener pieces;
    `governance` items fit accountability/treasury topics; `thread` items carry thread energy — tone
    them to the guide register before use.
+6. **No hyperspecific third-party references (owner rule, 2026-07-03).** Never jab a named party.
+   Individuals appear as ROLES, not names ("a 16-year-old solo builder", "a judge I stayed in touch
+   with"). Famous public figures: sparingly, neutral/positive, ≤1 name-drop per piece. Kaue's OWN
+   org/role (Superteam Brazil) is identity, not a reference — allowed when the §5b gate passes, and
+   when it passes, the receipt should be named and specific (the A/B proved anonymized beats lose).
+   Any single named anecdote appears at most once per batch/course.
 
 ## Stance map (what he actually argues)
 
@@ -42,13 +43,13 @@
 | 9 | Don't reinvent the wheel — fork, remix, credit; ecosystems are people copying with flavor | "Github as modern day Firenze" (hackathon guide) | open-source, shipping | high | **high** |
 | 10 | Abandoning a project after its first loss is the biggest builder mistake — losses are iteration fuel | "abandoning it first try" (hackathon guide) | hackathons, persistence | high | normal |
 | 11 | Disproportionate capital requirements are a wall, not regulation — they push talent elsewhere | "This isn't regulation, it's a wall." (tweets) | regulation, policy, brazil | high | normal |
-| 12 | Solana's ecosystem is tighter/more aligned than Ethereum's noisy one | "Solana Eco is definitely more tight" (tweets) | solana, ethereum | med | normal |
+| 12 | His BD experience: the Solana ecosystem felt tighter/more aligned; Ethereum's noisier, harder to break into (express as HIS experience, never tribal trash-talk) | "Solana Eco is definitely more tight" (tweets) | solana, ethereum | high (scoped) | normal |
 | 13 | Brazil/LatAm is an underrated builder powerhouse | "Don't sleep on Brazil and LatAm" (tweets) | brazil, latam, talent | high | **high** |
 | 14 | Governance funding without oversight produces incomplete projects and unaccountable budgets | "significant lack of oversight in governance funding" (Syscoin proposal) | governance, accountability | high | normal |
-| 15 | Teams that neutralize token-holder votes are rugging their own governance | "Congrats @arbitrum for rugging the community" (tweets) | governance | high | normal |
+| 15 | Teams that neutralize token-holder votes are rugging their own governance (principle ONLY — never reproduce the named jab in the receipt) | sarcastic tweet at a named project (provenance only) | governance | high | normal |
 | 16 | Protocol design should choose safety over liveness — halt when security isn't optimal | "BitVMY explicitly chooses safety" (bitvmy) | security, bridges | high | normal |
 | 17 | Crypto's purpose is changing humanity's course, not lambos — the industry keeps drifting | "it's not supposed to get folks a lambo" (tweets) | crypto, values | high | normal |
-| 18 | Bear markets are when builders ship the highest-impact work | "when price is down is when the potential to ship… is topping" (tweets) | shipping, markets | med | normal |
+| 18 | Builders ignore price action; down markets are when the POTENTIAL to ship high-impact work peaks (never the literal "bear market is for builders" slogan — he mocks it) | "when price is down is when the potential to ship… is topping" (tweets) | shipping, markets | high (rephrased) | normal |
 | 19 | Open-source public goods deserve funding against paywalled monopolies | "etherscan charges 1M/year" (tweets) | public-goods, funding | high | normal |
 | 20 | Solana needs OpenZeppelin-style audited forkable standards | "similar to how evm devs rely on @OpenZeppelin" (tweets) | solana, security, tooling | high | normal |
 | 21 | The real barrier to crypto adoption in Brazil is reliable education in Portuguese, not interest | "incredibly hard to find in Brazilian Portuguese" (introduceyourself) | education, brazil | high | normal |
@@ -72,20 +73,20 @@
 | A9 | Built a production-ready crypto Telegram bot in ONE day with Claude + MCP | tweets | ai, agents, shipping | thread | normal |
 | A10 | The MCP debugging war story: failures on messy Node envs; the fix was NVM-isolated Node + hardcoded paths, found by grinding Discord + GitHub issues | tweets + mcp guide | ai, debugging | guide | normal |
 | A11 | Superteam Academy open bounty: 153 submissions — 80 AI agents, 73 humans; 16 production-ready; 3 winners | tweets | ai, agents, community | thread | normal |
-| A12 | solana-vault v2 shipped via a 4000 $USDG bounty with named BR contributors per feature (streaming yield, native SOL, multi-asset basket, vault-of-vaults, ERC-7540) | tweets | defi, community, shipping | thread | normal |
+| A12 | An open vault standard shipped via a 4000 $USDG community bounty, with contributors credited per feature (streaming yield, native SOL, multi-asset basket, vault-of-vaults, ERC-7540) — credit as roles, not handles | tweets | defi, community, shipping | thread | normal |
 | A13 | Ran 10 rounds of agentic security audits on a release → 150+ pertinent findings in one weekend instead of weeks | tweets | security, ai, testing | thread | normal |
 | A14 | BCB set crypto-provider minimum capital at $2M while "GDP/capita ~$275/mo" (⚠ his tweet's own aside says ~30% live on it — likely the minimum wage mislabeled; owner to rule before reuse); countries 5-8× richer ask 10-40× less | tweets | regulation, brazil | thread | normal — **gate: identity** · DATED (policy-moment) |
 | A15 | Bright Brazilian friends denied US visas 3+ times in a year at $180/application | tweets | community, events | thread | normal — **gate: identity** |
-| A16 | The 16yo solo builder: Vicenzo built Seedling (allowance DeFi for parents/kids) with Blueshift's Quasar, among the first shipped to mainnet; won the first Emerging Talents Award | thread-2 | community, education, shipping | thread | normal — **gate: identity** |
+| A16 | A 16-year-old solo builder from the community shipped an allowance-DeFi protocol (parents/kids) to mainnet — among the first with that framework — and won the community's first Emerging Talents Award (role only, never the name) | thread-2 | community, education, shipping | thread | normal — **gate: identity** |
 | A17 | Gitcoin, two generations deep: where he first delivered work for Syscoin/Polygon/Solana/ENS — and where his little brother delivered his first bounty and started programming at 10 | tweets | community, open-source | thread | normal |
-| A18 | Degen Zoo: rebuilt Logan Paul's CryptoZoo "but way better" in 30 days; also spent 2h debugging a deploy before realizing they'd actually broken Goerli testnet | tweets | shipping, testing | thread | normal |
+| A18 | His team rebuilt a celebrity's abandoned crypto game "but way better" in 30 days (no names — that saga was adversarial); separately: spent 2h debugging a deploy before realizing they'd actually broken the testnet itself (tongue-in-cheek, keep it light) | tweets | shipping, testing | thread | normal |
 | A19 | Reviewing hackathon submissions until 2am (Solana House); separately, two 9-hour coding sessions in one weekend during the Cypherpunk-hackathon sprint — two events, don't merge venues | tweets | community, hackathons | thread | normal — **gate: identity (Superteam)** |
 | A20 | BitVMY's core insight: a successful challenge permanently cancels the withdrawal — a 51% attacker can only win bonds, never the vault; fork detection via the AuxPOW tag 10 blocks back; chainlocks need 66% of Sentry nodes | bitvmy | security, bridges | guide | normal |
 | A21 | Proposed and committed to managing ~87,000 SYS/month (~$11k) over six months for grants/hackathons/events, with monthly public spending reports (corpus proves the proposal + commitment; execution unconfirmed — owner may upgrade) | Syscoin proposal | governance, budgets | governance | normal |
 | A22 | Started UFSCoin (Brazil's first university crypto study group) because googling "bitcoin brasil" surfaced Ponzi schemes on page one; no mentor, no room, no funding | introduceyourself | education, community | personal | normal |
 | A23 | The Arduino origin: 10th grade, set on becoming a musician, until his programming teacher handed him an Arduino kit — "little pieces of silica, copper and plastic fused with some programming spells" | essays | education, motivation | personal | normal |
 | A24 | Spent a year structuring robotics teaching across the Objetivo network — 100+ schools nationwide | essays | education | personal | normal |
-| A25 | Bazingames: his YouTube channel that passed two million views — and his early lesson in laughing off trolls at scale | essays | content, motivation | personal | normal |
+| A25 | _(dropped 2026-07-03 — owner rule: hyperspecific + the views figure rested on a single-inference receipt outside the canonical corpus)_ | — | — | — | — |
 
 ## Analogy inventory (beyond Firenze — his real analogy instincts)
 

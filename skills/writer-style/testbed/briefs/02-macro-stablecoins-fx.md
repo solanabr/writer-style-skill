@@ -5,6 +5,7 @@ words_target: 1500
 audience: crypto-curious reader who follows markets
 dominant_job: macro
 route_expected: hayes
+context: standalone
 expect:
   latam-framing: allow
   game-changer_max: 1

@@ -5,6 +5,7 @@ words_target: 2800
 audience: developers who use Solana daily but have never traced a tx below the RPC
 dominant_job: derivation
 route_expected: vitalik
+context: standalone
 expect:
   latam-framing: 0
   game-changer_max: 1

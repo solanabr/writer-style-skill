@@ -5,6 +5,7 @@ words_target: 1200
 audience: intermediate Solana developer shipping a dApp
 dominant_job: how-to
 route_expected: helius
+context: standalone
 expect:
   latam-framing: 0
   game-changer_max: 1

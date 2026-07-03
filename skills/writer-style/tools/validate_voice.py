@@ -52,6 +52,7 @@ TRANSITION_TICS = ["in today's", "in this lesson", "let's dive", "let's explore"
                    "now that we", "in the world of", "when it comes to"]
 
 # universal defaults — used only when no <voice>.card.yaml is supplied
+_QA_PUNCH_RE = re.compile(r"\?\s+([A-Z][^.!?\n]{0,30}[.!])")
 DEFAULT_EMDASH_MAX_PER_1K = 4
 DEFAULT_BURSTINESS_MIN_STDEV = 9
 DEFAULT_FALSE_ANTITHESIS_PER_800W = 1
@@ -146,6 +147,7 @@ def read_card_targets(path: str | None) -> dict:
     t = {"burstiness_min": DEFAULT_BURSTINESS_MIN_STDEV,
          "emdash_max": DEFAULT_EMDASH_MAX_PER_1K,
          "false_antithesis_cap": DEFAULT_FALSE_ANTITHESIS_PER_800W,
+         "sentence_median": None,
          "avoid_words": [], "avoid_connectives": [], "voice": None}
     if not path or not Path(path).is_file():   # a dir or missing path -> universal defaults, not a crash
         return t
@@ -160,6 +162,7 @@ def read_card_targets(path: str | None) -> dict:
     if mv:
         t["voice"] = mv.group(1)
     num(r"\bburstiness_min:\s*(\d+)", "burstiness_min")          # \b avoids meta_burstiness_min hijack
+    num(r"sentence_length:[^\n]*\bmedian:\s*(\d+)", "sentence_median")
     num(r"\bem-?dash-overuse[^}\n]*max:\s*(\d+)", "emdash_max")
     num(r"\bfalse-antithesis[^}\n]*cap_per_800w:\s*(\d+)", "false_antithesis_cap")
 
@@ -398,6 +401,23 @@ def ai_tell_lint(text: str, card: dict | None = None) -> dict:
     # em-dash: rate-AND-count so a single dash in a short passage doesn't trip the /1k metric
     if emdash_count >= 3 and emdash_per_1k > emdash_max:
         flags.append(f"em-dash overuse ({emdash_count}×, {emdash_per_1k}/1k > {emdash_max})")
+    # the "Question? Punch-answer." rhetorical machine — a real human move at ~1/piece; calibration
+    # measured it industrialized 9x/batch. Count Q followed by a ≤4-word answer sentence.
+    qa_hits = sum(1 for m in _QA_PUNCH_RE.finditer(text) if len(WORD_RE.findall(m.group(1))) <= 4)
+    if qa_hits > 1:
+        flags.append(f"self-answered-question machine used {qa_hits}× (human rate ~1/piece) — vary the pivot")
+    # clipped-sentence drift: this voice runs LONG (card median); a piece averaging well under it is
+    # machine-clipped even when burstiness passes (R1 measured means 13.6-17.1 vs corpus 20.5-40.3)
+    mean_len = round(sum(slens) / max(1, len(slens)), 1)
+    smed = c.get("sentence_median")
+    if smed and nw >= 250 and mean_len < smed - 3:
+        flags.append(f"sentences run short for this voice (mean {mean_len}w < card median {smed}-3) — let clauses breathe")
+    # verdict-fragment headers: crafted antithesis headlines ("X is a default, not a plan") stamped
+    # across a piece read as machine section-titling; humans title plainly
+    vheads = [h for h in re.findall(r"(?m)^#{1,6}\s+(.+)$", text)
+              if ", not " in h.lower() or "isn't" in h.lower() or "aren't" in h.lower()]
+    if len(vheads) >= 2:
+        flags.append(f"verdict-fragment headers ×{len(vheads)} ({vheads[:2]}…) — title sections plainly")
     # burstiness: judge cadence once there are enough sentences (≥8) in a real passage (≥150w) — short
     # snippets/exemplars stay exempt. Below the ROBOTIC floor it's a HARD tell (machine-even at any voice);
     # below the voice's own target but above robotic is ADVISORY (terse authors live there — don't clip them).
@@ -937,6 +957,24 @@ def selftest() -> int:
           "varied sections -> no intra-doc flags")
     check(intra_doc_audit("one short paragraph only")["flags"][0].startswith("ok:"),
           "short single-section doc is exempt from the intra-doc audit")
+    # warmth-side + machine checks added after R1 (temperature-unmeasured gap)
+    qa_text = ("Does it cost you? Nope. Is it fast? Rent. Why bother at all? Half. "
+               + "Calm filler sentence goes here to pad the passage nicely. " * 40)
+    check(any("self-answered-question" in f for f in ai_tell_lint(qa_text)["flags"]),
+          "Q?-punch-answer machine >1 is flagged")
+    check(not any("self-answered-question" in f for f in ai_tell_lint(
+        "Why bother? Rent. " + "Calm filler sentence goes here to pad things. " * 40)["flags"]),
+          "a single Q?-punch-answer is fine (human rate)")
+    clipped = {"burstiness_min": 9, "emdash_max": 4, "false_antithesis_cap": 2,
+               "sentence_median": 18, "avoid_words": [], "avoid_connectives": [], "voice": "t"}
+    short_doc = ("Fees rise fast. You pay more. It hurts a lot. Nobody enjoys that at all. "
+                 "Set a limit now. Simulate the transaction first, then send it, then confirm it. ") * 12
+    check(any("run short" in f for f in ai_tell_lint(short_doc, clipped)["flags"]),
+          "clipped-sentence drift vs card median is flagged")
+    vh = "## 200,000 is a default, not a plan\ntext here\n## It isn't the signer\nmore text\n"
+    check(any("verdict-fragment headers" in f for f in ai_tell_lint(vh + ("calm words " * 60))["flags"]),
+          "2+ antithesis headers flagged")
+
     # heading-glue must not mask real opener variety (agents found this: '## Title' glued to the body
     # made every headed section classify as 'claim', capping detectable variety at 2 types)
     headed = ("## A\nWhy do fees exist at all? " + " ".join(f"a{i} b{i}" for i in range(30)) +
