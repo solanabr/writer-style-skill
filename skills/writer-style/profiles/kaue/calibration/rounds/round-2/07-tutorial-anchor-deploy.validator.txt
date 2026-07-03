@@ -1,0 +1,29 @@
+===== tells =====
+AI-tell lint (voice=kaue 1633 words; burstiness_min=9): stdev=12.5 emdash/1k=3.7 false-antithesis=0
+   - ok: no AI tells detected
+Deslop scan (gated tiers + structural; only machine-paste fingerprints are hard):
+   - ok: no deslop flags
+GATE: PASS
+
+===== density =====
+Marker density (voice=kaue, 1633 prose words, 8 sections):
+  id                      class     count budget  windows>cap  sections    gate
+  latam-framing           identity      0      1            0  -           MISS
+  game-changer            verdict-token    0      1            0  -           -
+  silver-bullet           refrain       1      1            0  6           -
+  shipping-refrain        refrain       0      1            0  -           -
+  civilizational-analogy  analogy       0      1            0  -           -
+  sign-off                signoff       0      1            0  -           -
+   - ok: all markers within budget
+GATE: PASS
+
+===== intra-doc audit =====
+Intra-doc repetition audit over 8 sections:
+  opener types : 3  {'story': 1, 'claim': 6, 'question': 1}
+  4-gram overlap: mean 0.0007  adjacent-max 0.0022
+   - transition tics: {'in this lesson': 1}
+
+===== fact diff (post-reviser) =====
+Fact-preservation diff: 25 facts in sheet, 28 in styled output
+   - advisory: 6 sheet fact(s) absent from the output — confirm a deliberate omission/paraphrase, not a silent drop: ['2026', '7', '[provider] cluster = "devnet"', 'anchor deploy --provider.cluster devnet', 'solana airdrop 2', 'solana program show <program_id> --url devnet']
+   - advisory: 9 number/identifier in the output but not the fact-sheet — confirm each is grounded, not invented: ['2 sol', '[provider]', 'anchor init', 'lib.rs', 'my_program', 'my_program-keypair.json', 'program_id', 'target/', 'typescript']

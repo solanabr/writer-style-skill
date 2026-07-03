@@ -1,0 +1,28 @@
+===== tells =====
+AI-tell lint (voice=kaue 742 words; burstiness_min=9): stdev=15.1 emdash/1k=5.4 false-antithesis=1
+   - [advisory] em-dash overuse (4×, 5.4/1k > 4)
+Deslop scan (gated tiers + structural; only machine-paste fingerprints are hard):
+   - ok: no deslop flags
+GATE: PASS — 1 advisory
+
+===== density =====
+Marker density (voice=kaue, 742 prose words, 5 sections):
+  id                      class     count budget  windows>cap  sections    gate
+  latam-framing           identity      0      1            0  -           MISS
+  game-changer            verdict-token    1      1            0  3           -
+  silver-bullet           refrain       0      1            0  -           -
+  shipping-refrain        refrain       0      1            0  -           -
+  civilizational-analogy  analogy       0      1            0  -           -
+  sign-off                signoff       1      1            0  5           -
+   - ok: all markers within budget
+GATE: PASS
+
+===== intra-doc audit =====
+Intra-doc repetition audit over 5 sections:
+  opener types : 2  {'claim': 4, 'data': 1}
+  4-gram overlap: mean 0.001  adjacent-max 0.0
+   - LOW section-opener variety (2 types over 5 sections) — every section starts the same way
+
+===== fact diff (post-reviser) =====
+Fact-preservation diff: 7 facts in sheet, 10 in styled output
+   - advisory: 3 number/identifier in the output but not the fact-sheet — confirm each is grounded, not invented: ['0', '1', 'javascript']
