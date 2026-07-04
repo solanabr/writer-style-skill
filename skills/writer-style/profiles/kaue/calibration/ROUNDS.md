@@ -167,3 +167,34 @@ worse: cross-piece phrase stamping 2→5+ ("The silver bullet?" ×2 — coordina
 - [R2][forensics] phrase stamping → coordinator deals EXCLUSIVE distinctive constructions + specific tokens (godsend ≤2/batch, silver-bullet 1 owner) — LESSONS 3/6
 - [R2][forensics] domestic-aside template → aside license: never labeled, ≤2/batch, coordinator-dealt, flavors must differ — naturalness rule 3 + LESSONS 10
 - [R2][forensics] confession 8/8 → confession-flavored seams ≤5/batch, dealt
+
+---
+
+## Round 3 — auto-mode round 2 (receipts mandatory, anti-epigram, exclusive constructions)
+
+- date: 2026-07-03 · pack state: 6507238 + f8209cd · 33 blind judges + forensics, mapping sealed until scoring
+
+### Panel results (majority of 3)
+
+**vs Round 2: 8-0 SWEEP** — d01 3-0 · d02 3-0 · d03 3-0 · d04 3-0 · d05 2-1 · d06 3-0 · d07 3-0 · d08 3-0.
+**vs Round 1 on R2's lost cells: all three FLIPPED** — 02: 2-1 · 03: 3-0 (all-high) · 04: 3-0.
+Judges' recurring reason for R3: lived receipts with real numbers ("118k simulated vs 600k billed",
+"ten days, a few hundred dollars", Arduino/guitar, "153/80/73 bounty queue") + loose comma-chained runs;
+recurring reason against R2: "epigram-per-paragraph… designer-tidy… performed cheerleading".
+
+### Forensics (R2 → R3)
+improved: sentence means 16.3-24.5 → **20.6-34.9 (fully inside corpus band)** · punch metronome 28/47 →
+~10/47 · labeled asides 4/8 → 0 · old phrase-twins purged (silver-bullet/price-of-admission/I'd-rather = 0) ·
+exclamations 8→6 · godsend/game-changer 4/0 → 2/1.
+flat: choreography 3/8 · QA-fragments 6→7 · confession 7/8.
+worse: "Here's" 2→4 · **NEW: within-batch phrase twinning** — ≥8 fresh collocations minted twice in one
+batch ("honestly a godsend" 07+08, "earns its keep" 02+07, "sit with it for a second" 02+05, the verbatim
+base-fee sentence frame ×3…). Writers dedupe against history, not against sibling pieces.
+**Dominant remaining tell: paragraph-final epigram closers ~4.9/piece (39 total)** — reduced in judged
+salience (R3 won anyway) but structurally unchanged; prompts+reviser dented, didn't break.
+
+### Decision
+Improvement decisive (11/11 cells) → not stagnant. **Round 4 = surgical de-tell EDIT pass on the R3
+pieces** (no regeneration — protect the sweep): epigram budget ≤2/piece, de-twin with explicit keep/lose
+assignments, "Here's" ≤1/piece, QA-fragments ≤1/piece; facts untouchable; then a confirmation panel
+R4-vs-R3. R4 wins/ties → final; loses → revert to R3 (stagnation reached at a winning state).
