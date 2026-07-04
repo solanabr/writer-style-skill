@@ -36,7 +36,7 @@ facts first — that's your fact-sheet.)
    course lesson N/M): course mode changes the closer contract (point to the actual next lesson or plain-
    close — NEVER tease a part that's already scheduled) and openers (continuation opens allowed mid-course).
 1. Load the **primary**: `skills/writer-style/profiles/kaue/kaue.md` + `kaue.card.yaml` + the pack's
-   calibration lessons at `profiles/kaue/calibration/LESSONS.md` (≤10 owner-backed lines — what past
+   calibration lessons at `profiles/kaue/LESSONS.md` (≤10 owner-backed lines — what past
    rounds proved wins and loses; treat as binding guidance).
 2. **Marker gate check.** Read the card's `markers:` block and decide, per marker, whether THIS brief earns
    it (an identity/community marker needs its `gate` keywords genuinely present in the fact-sheet — not "I

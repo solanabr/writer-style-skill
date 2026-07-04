@@ -3,8 +3,8 @@ description: "Run an empirical calibration round: regenerate the 8-brief matrix,
 ---
 
 Run one calibration round of the writer-style pack against the fixed test matrix. The loop: **measure →
-owner rates → codify → apply → re-measure.** Protocol details: `$SKILL/profiles/kaue/calibration/RUBRIC.md`;
-matrix + briefs: `$SKILL/testbed/MATRIX.md`; ledger: `$SKILL/profiles/kaue/calibration/ROUNDS.md`.
+owner rates → codify → apply → re-measure.** Protocol details: `the calibration protocol (local, gitignored: profiles/kaue/calibration/)`;
+matrix + briefs: `$SKILL/testbed/MATRIX.md`; ledger: `profiles/kaue/calibration/ROUNDS.md (local, gitignored)`.
 
 ```bash
 SKILL="${CLAUDE_PLUGIN_ROOT:+$CLAUDE_PLUGIN_ROOT/skills/writer-style}"
@@ -36,7 +36,7 @@ SKILL="${CLAUDE_PLUGIN_ROOT:+$CLAUDE_PLUGIN_ROOT/skills/writer-style}"
 6. **Converged?** Check the RUBRIC.md criteria (voice_fit/naturalness ≥4 everywhere, zero forced
    insertions, publish ≥7/8, validator green, A/B new-or-tie — for 2 consecutive rounds). When met:
    promote owner-confirmed tic caps to `enforce: hard` in the card, freeze the accepted round as
-   `calibration/rounds/accepted/`, and the matrix becomes the permanent regression gate (re-run
+   `testbed/accepted/ (in-repo golden outputs)`, and the matrix becomes the permanent regression gate (re-run
    check_round on any pack/tool change).
 
 Round 0 (the pre-redesign baseline) is frozen forever — it is the A/B "old pack" arm and the proof line.

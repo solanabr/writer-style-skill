@@ -55,7 +55,7 @@ the last transform over verified facts, never the medium facts are discovered in
 | **A: Facts** | Outline + every claim, number, code line, version-sensitive API, in plain neutral prose. Ground against the Solana doc MCPs (`solana-dev`, `context7`, Helius), **not** model memory. Output: a fact-sheet. | **OFF** |
 | **Gate: Verify** | Fact-check the terse fact-sheet before any styling. (Cheap: facts aren't buried in warm prose.) Nothing proceeds until facts are frozen. | — |
 | **B: Voice** | Load `kaue.md` + `kaue.card.yaml` + ~4 exemplars + the routed secondary. **Check the card's `markers:` gates** (identity beats need their gate keywords in the fact-sheet — write the marker budget ledger first) and scan `themes.md` for fitting substance. **Restyle the frozen facts**: "every number, code line, and named API is frozen; rephrase around them, never change them." Apply the naturalness floor (incl. the plainness quota). Long-form (≥1,200w): section-by-section with the ledger. | **ON** |
-| **B.5: Blind-compare** | Re-read the draft against the **loaded exemplars** (seam + opener) — *"him, or a rule-follower?"* If it's even/polished/definition-led, regenerate toward a felt-pain opener + uneven rhythm + rotating seams. Run the removal test on every marker: *would the piece survive its removal unchanged? then remove it.* **Loaded exemplars only, never the corpus** (at write-time the corpus is token-waste). | **ON** |
+| **B.5: Blind-compare** | Re-read the draft against the **loaded exemplars** (seam + opener) — *"him, or a rule-follower?"* If it's even/polished/definition-led, regenerate toward a felt-pain opener + uneven rhythm + rotating seams. Run the FIT test on every marker: *does it land on a genuine payoff, in this piece's mood, within budget?* Keep what fits; never necessity-test personality. **Loaded exemplars only, never the corpus** (at write-time the corpus is token-waste). | **ON** |
 | **C: Lint** | AI-tell scan + **fact-preservation diff** (no number/identifier mutated A→C) + **marker density/gates** (an identity beat with no gate keyword in the fact-sheet or a doubled sign-off is a **hard fail**) + repetition audit (intra-doc for long pieces). A changed `0.002 SOL` or renamed instruction is a **hard fail**. | — |
 
 `tools/validate_voice.py` runs the Pass-C checks (`tells`, `density`, `diff`, `audit`); the **voice-validator**
@@ -136,7 +136,7 @@ by job; exemplars are rhythm donors, never content donors) · the **one** routed
 | The substance bank (stances/anecdotes/analogies with receipts) | [profiles/kaue/themes.md](profiles/kaue/themes.md) |
 | A secondary voice's craft | `profiles/kaue/secondary/<voice>.md` |
 | **Building/refreshing a voice** (the adversarial method) | [authoring-personas.md](authoring-personas.md) → `method/` |
-| **Empirical calibration** (the 8-brief testbed + owner-feedback rounds) | [testbed/MATRIX.md](testbed/MATRIX.md) + `profiles/kaue/calibration/` |
+| **Empirical calibration** (the 8-brief testbed + owner-feedback rounds) | [testbed/MATRIX.md](testbed/MATRIX.md) + `profiles/kaue/LESSONS.md` (calibration working data is local-only) |
 
 ## Agents & commands
 

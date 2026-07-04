@@ -163,3 +163,5 @@ the framing logic, but render it as normal connected prose, not his tweetstorm r
 Keep the framing-and-scope craft; drop the fingerprints — and hold the altitude at **peer level, never
 oracular**. He **leads** breadth/thesis pieces and opens narrower ones: frame the domain at full altitude,
 but keep it a peer's frame, never an oracle's verdict.
+*Pack guard (kaue LESSONS):* refrain and pillar-name handles are reused sparingly — pillar summaries must
+not create paragraph-final snap uniformity, and a reused refrain counts against the batch-twin check.

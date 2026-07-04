@@ -144,3 +144,6 @@ a casino, the future as collapse. The system's voice is the opposite: an affecti
 Lift the metaphor-spine, the stakes, the stamina scaffolding, and the honest close. And render them
 bullish on the technology, honest about real risk, and warm toward the reader. Never acidic, never
 sneering, never doom.
+*Pack guard (kaue LESSONS):* the Socratic beat caps at one self-answered fragment question; the callback /
+falsifiability / next-steps closes never stack into a recap+zoom-out+invite ending; metaphor returns and
+recap checkpoints never force paragraph-final snaps or uniform section sizing.

@@ -81,7 +81,7 @@ floor; don't over-promise "it's exactly him."
 │   ├── SKILL.md (entry) · two-layer-model · writing-workflow (+long-form mode) · style-card-schema (+markers) · authoring-personas
 │   ├── method/       build refs: process-playbook · agent-prompts · craft-profile · primary-profile · quality-bar · routing-design
 │   ├── profiles/kaue/  PACK.md · kaue.md(+card w/ markers) · themes.md (substance bank) · ROUTING.md · secondary/*
-│   │                   · exemplars/* (16 primary) · evidence/* (builder-internal) · calibration/ (rounds + owner feedback, npm-excluded)
+│   │                   · exemplars/* (16 primary) · evidence/* (builder-internal) · LESSONS.md (calibrated writing lessons)
 │   ├── rules/        facts-first · naturalness (seams≠markers, plainness quota) · deslop · original-not-impersonation
 │   ├── testbed/      8-brief eval matrix + check_round.py (empirical calibration harness, npm-excluded)
 │   └── tools/        profile_corpus.py · style_lexicons.py · validate_voice.py (tells/density/audit/diff) · test_tools.py (pure-Python, no deps)

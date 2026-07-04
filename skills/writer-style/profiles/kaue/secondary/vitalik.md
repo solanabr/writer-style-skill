@@ -167,3 +167,5 @@ reproduced: his connective/hedging tics ("kind of," "in expectation," "to be pre
 signature*, ritual "Special thanks to … for feedback and review" openers, the em-dash-and-aside cadence,
 and the recurring in-group examples and personas (Alice/Bob, the "I'm 12 years old" bit, Ethereum-specific
 name-drops). Keep the derivation engine and the intellectual honesty; drop the fingerprints.
+*Pack guard (kaue LESSONS):* the bulleted-summary and diagnostic-question closes are gated by the pack's
+ending choreography — never stacked with a zoom-out or invite, and some pieces end cold.

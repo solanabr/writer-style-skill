@@ -3,7 +3,7 @@
 Fixed 8-brief eval set covering the failure surface of the kaue pack. Regenerated in full each
 calibration round; never edited after Round 0 (the fact-sheets are FROZEN so round-over-round diffs
 isolate pack changes from research variance). Owner ratings live in
-`../profiles/kaue/calibration/ROUNDS.md`.
+the local calibration ledger (gitignored).
 
 ## The matrix
 
@@ -57,4 +57,4 @@ Until the `markers:` block lands in `kaue.card.yaml`, pass `--markers $SKILL/tes
 to `density` and `check_round.py` (Round 0 runs against the draft markers).
 
 Round protocol, rubric, codification rule, A/B, and convergence criteria:
-`../profiles/kaue/calibration/RUBRIC.md` and `ROUNDS.md`.
+the local calibration dir (gitignored); golden outputs: `accepted/`.
