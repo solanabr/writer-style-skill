@@ -21,7 +21,30 @@ sys.path.insert(0, str(SKILL / "tools"))
 
 from validate_voice import (read_card_markers, read_card_targets, marker_density,   # noqa: E402
                             ai_tell_lint, deslop_flags, fact_diff, intra_doc_audit,
-                            read_one, _strip_meta)
+                            read_one, _strip_meta, WORD_RE)
+
+
+def batch_twin_scan(texts: dict) -> list:
+    """Within-batch phrase twinning: distinctive word 4-grams shared by >=2 pieces of ONE batch.
+    R3 forensics found writers dedupe coinages against history but not against sibling pieces —
+    >=8 fresh collocations minted twice in a single batch. Filter: no digits, >=2 words of >=5
+    chars (drops function-word scaffolding); shared by 2-3 pieces (4+ = domain vocabulary)."""
+    grams = {}
+    for pid, text in texts.items():
+        words = [w for w in WORD_RE.findall(text.lower())]
+        seen = set()
+        for i in range(len(words) - 3):
+            g = tuple(words[i:i + 4])
+            if any(any(ch.isdigit() for ch in w) for w in g):
+                continue
+            if sum(1 for w in g if len(w) >= 5) < 2:
+                continue
+            seen.add(g)
+        for g in seen:
+            grams.setdefault(g, []).append(pid)
+    twins = [(g, pids) for g, pids in grams.items() if 2 <= len(pids) <= 3]
+    twins.sort(key=lambda t: (-len(t[1]), t[0]))
+    return twins[:12]
 
 
 def load_brief(path: Path) -> dict:
@@ -112,9 +135,12 @@ def main(argv=None) -> int:
         return 2
     rdir = Path(a.round)
     rows, any_fail, portfolio, n_pieces = [], False, {}, 0
+    piece_texts = {}
     for bp in briefs:
         b = load_brief(bp)
         piece = rdir / f"{b.get('id', bp.stem)}.md"
+        if piece.is_file():
+            piece_texts[b.get("id", bp.stem)] = read_one(str(piece))
         if not piece.is_file():
             rows.append((b.get("id", bp.stem), "MISSING", ["piece file not found"]))
             any_fail = True
@@ -149,6 +175,12 @@ def main(argv=None) -> int:
                 if top[1] >= max(3, round(0.5 * n_pieces)) else ""
             breakdown = ", ".join(f"{l} {n}" for l, n in lex[:4])
             print(f"        {mid}: {c}/{n_pieces} ({breakdown}){stamp}")
+    if len(piece_texts) >= 2:
+        twins = batch_twin_scan(piece_texts)
+        if twins:
+            print("  within-batch phrase twins (distinctive 4-grams shared by sibling pieces — de-twin these):")
+            for g, pids in twins:
+                print(f"        \"{' '.join(g)}\" — {','.join(pids)}")
     if n_pieces and "game-changer" not in portfolio:
         print("  [advisory] verdict-token budget UNSPENT across the whole batch — a cap is not a ban "
               "(~1/2500w is the voice); zero everywhere reads sterile (R1 finding)")
