@@ -198,3 +198,34 @@ Improvement decisive (11/11 cells) → not stagnant. **Round 4 = surgical de-tel
 pieces** (no regeneration — protect the sweep): epigram budget ≤2/piece, de-twin with explicit keep/lose
 assignments, "Here's" ≤1/piece, QA-fragments ≤1/piece; facts untouchable; then a confirmation panel
 R4-vs-R3. R4 wins/ties → final; loses → revert to R3 (stagnation reached at a winning state).
+
+---
+
+## Round 4 — surgical de-tell polish + confirmation panel → STAGNATION REACHED (program concluded)
+
+- date: 2026-07-04 · R4 = bounded edits on R3 pieces (epigram ≤2/piece, de-twin, trims); facts verified intact post-edit
+- panel: 9/21 judges completed (monthly spend limit killed 12 + forensics mid-panel, second occurrence)
+
+### What the 9 verdicts showed — the Pareto frontier
+
+- e03: **R4 wins 3-0** (the single unsnap — "click on and poke at" vs an appended didactic epigram — improved ALL lenses) → cherry-picked into accepted/.
+- e01: R3 2-0 — but caused by an **editor overreach bug**: the editor cut "game-changer" as "slop" when it was the piece's DEALT token; owner+fidelity judges correctly called it "the author's genuine tic… sterile restraint."
+- e02: R3 2-1, e04: 1-1 — **split along lens lines**: owner/fidelity defend the warm quotable lines; detector wants them flattened. Line-level edits now trade one lens's approval for another's 1:1.
+
+**Stagnation call (per the owner's stopping rule):** R3→R4 editing has hit the trade-off zone — further
+"de-telling" costs warmth at parity. The epigram lesson refined: the tell is UNIFORMITY (every paragraph
+snapping shut), not existence — R3's level (a few warm, load-bearing snaps; never two consecutive; most
+paragraphs ending plain) is the measured optimum.
+
+### FINAL STATE
+
+- **`rounds/accepted/` = the golden outputs**: Round-3 pieces + Round-4's 03 (the 3-0 cell). The permanent
+  Tier-1 regression arm (`check_round.py --round rounds/accepted`).
+- **The deliverable is the pack + pipeline as of commit b351f2b**: markers gates + §5b (identity: 8/8 correct
+  decisions since R1), themes.md substance bank (receipts = the #1 measured win driver), LESSONS.md feedback
+  channel, coordinator palettes + fresh-eyes reviser + de-twin scan, warmth telemetry.
+- **Program trajectory**: R0 baseline (validator green, owner unhappy) → R1 (gates work, temperature lost;
+  owner A/B: lost 2/3 to R0) → R2 (recovered both owner cells vs R0; 4/8 vs R1) → **R3 (8-0 sweep vs R2, all
+  R1 losses flipped, sentence rhythm inside corpus band)** → R4 (Pareto frontier found; stagnation declared).
+- Open for the owner: read `accepted/`; future rounds are one `/calibrate-voice` away when the spend limit
+  resets; his ratings remain the ultimate arbiter above all judge panels.

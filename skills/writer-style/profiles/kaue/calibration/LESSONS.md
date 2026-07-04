@@ -6,10 +6,12 @@
    without a receipt ("You've got this!", forced exclamations) reads PERFORMED and loses (R2-03).
 2. [R1-A/B] **Named beats anonymized**: when the identity gate passes, "payout runs at Superteam
    Brazil" beat "one end of those corridors" — be specific about your own life; it swept 3-0 (R2-08).
-3. [R2/R3-forensics] **The epigram is the enemy — hard budget ≤2 per PIECE.** R3 still measured ~4.9
-   snapped-shut paragraph closers per piece after a soft rule; most paragraphs must end on plain
-   information or a loose trailing clause, not a quotable snap. The snap is beautiful once; at five
-   it's a signature. Stripped markers get replaced by essayist polish — fill with run-ons and receipts.
+3. [R2-R4, calibrated] **The epigram tell is UNIFORMITY, not existence.** Never two consecutive
+   paragraphs snapping shut; most paragraphs end on plain information or a loose trailing clause; keep
+   the handful of snaps that are warm and load-bearing. R4 measured the floor: cutting below that level
+   traded owner-lens warmth for detector-lens cleanliness 1:1 (judge splits) — don't over-flatten. And
+   NEVER cut a dealt token as "slop": an R4 editor removed a dealt "game-changer" and lost the cell —
+   the token families are his verified tics, not slop.
 4. [R1-owner] **Never tease a scheduled next part** — courses point to the actual next lesson or just
    close. Teasers/comments-invites are standalone-post moves.
 5. [R2-panel] **Endings: six distinct choreographies per batch won.** Match register (teaching→warm,
