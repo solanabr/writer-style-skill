@@ -30,7 +30,7 @@ raises quality, (c) evidence quote(s)/count, (d) a 'how to apply generically' ru
 5. **Genre / document architecture**: how structure varies by content type; opening/closing logic;
    navigation; how a long piece is held together.
 
-## B. SPINE miners (run all 4 in parallel) — note: we WANT the idiolect here
+## B. SPINE miners (run all 5 in parallel) — note: we WANT the idiolect here
 1. **Idiolect / stylometric**: surface fingerprints TO REPRODUCE: sentence rhythm, punctuation habits
    (count them, per-1k), signature words/phrases/openers/closers, formatting, emoji/slang tokens,
    capitalization, paragraph shape. Separate cross-register (core) from register-specific features.
@@ -40,6 +40,11 @@ raises quality, (c) evidence quote(s)/count, (d) a 'how to apply generically' ru
    through-line constant across ALL of them; recommend the target register + how to dial between them.
 4. **Personality, affect & values**: enthusiasm, humor, warmth-behaviors, worldview/values that color
    the writing, relationship with the reader, cultural markers; and what would feel OFF-brand.
+5. **Substance (what they SAY, not how)**: recurring stances/arguments WITH receipts (quote + source +
+   confidence), concrete anecdotes + real numbers, analogies — each tagged with the topics it fits, its
+   register, and a `burn:` rate for anything the pack already overuses. Off-register sources (personal
+   essays, proposals) are valid substance sources even when excluded as style sources — tag the register.
+   Feeds `themes.md`; the owner reviews the stance map before it ships (misattribution > blandness).
 > Each spine miner adds: *"This is the user's own voice. Capture quirks; we WANT idiolect. Weight recent,
 > on-target-register material; treat off-register/old material as range. Flag where their voice OVERLAPS
 > any craft author (congruence we can lean on)."*
@@ -68,7 +73,10 @@ raises quality, (c) evidence quote(s)/count, (d) a 'how to apply generically' ru
 > authentic features (quote the corpus); (B) GENERIC/not-them lines to sharpen or cut; (C) OVER-FIT/
 > caricature risks if rules are followed literally (recommend dosages/guards — watch for tics inflated by
 > one corpus era/genre); (D) NATURALNESS: would a model following this read as a real person or
-> assembled-from-rules?; (E) the single most important change. Be hard-nosed and evidence-bound.
+> assembled-from-rules?; (E) FORCED-INSERTION stress test: would any rule here, followed literally, make
+> a model insert an identity/community marker (geography, org names) or a pet refrain into an OFF-TOPIC
+> piece? Every such marker needs a context gate + cap in the card's `markers:` block — flag any that
+> lack one; (F) the single most important change. Be hard-nosed and evidence-bound.
 
 **D2 — Generate-and-blind-compare (the decisive test):**
 > STEP 1: Read ONLY {{DRAFT_PATH}} (not the corpus yet). Write a ~250–300 word sample on {{a topic NOT

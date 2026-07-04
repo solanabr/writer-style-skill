@@ -9,16 +9,20 @@ sources:                      # diversity across registers — do NOT overfit to
   written-longform: "his Medium technical guides — the target written register for lessons"
 
 always_load: [seam]           # non-negotiable per piece; ROTATE type: 04 confession · 10 tool-credit · 11 honest-caveat
-default_load: [opener, seam, close]   # per piece: ONE opener (01/09 pain · 07 scope · 14 scenario) + ONE seam + ONE close (06/13)
+default_load: [opener, seam, close]   # per piece: ONE opener (09 pain · 07 scope · 14 scenario) + ONE seam + ONE close (06/13).
+                              # 01 (pain→LATAM) is GATED: load it ONLY when the piece passes the kaue.md §5b
+                              # identity gate — its move sequence is topic-conditional, not a template.
 body_by_job:                  # add ONE body slot, matched to the routed job
-  derivation:  [derivation, verdict]   # a why-this-decision / mechanism lesson
+  derivation:  [derivation, verdict]   # a why-this-decision / mechanism lesson (15 = the voice at rest / serious register)
   analogy:     [analogy]               # a hard concept that needs one civilizational analogy
   transition:  [transition]            # a long piece needing zoom-out-to-stakes seams
+  longform:    [transition]            # ≥1,200w: prefer 16 (the section-boundary pacing exemplar)
+  security:    [derivation]            # serious register: prefer 15 (zero markers, mechanism carries it)
   default:     [verdict]
 
 slots:                          # multiple files per slot = a POOL; pick ONE by register + hook, ROTATE across sections
   # opener — pick by register (thread vs longform) and hook (pain vs scope vs scenario); never open on a definition
-  - { slot: opener,     file: 01-opener-pain-latam.md,          register: thread/humane,    move: felt-pain number → order-of-magnitude → verdict → LATAM }
+  - { slot: opener,     file: 01-opener-pain-latam.md,          register: thread/humane,    move: felt-pain number → order-of-magnitude → verdict → LATAM, gate: identity (§5b only) }
   - { slot: opener,     file: 09-opener-pain-written.md,        register: written-longform, move: felt-pain number in essay prose ($4 to send, $5 in fees) — written twin of 01 }
   - { slot: opener,     file: 07-opener-scope.md,               register: written-longform, move: self-aware scope + self-deprecating qualifier }
   - { slot: opener,     file: 14-opener-imagine-scenario.md,    register: written-longform, move: invitation/scenario ("Imagine…") → "this isn't science fiction" }
@@ -33,16 +37,57 @@ slots:                          # multiple files per slot = a POOL; pick ONE by 
   - { slot: verdict,    file: 12-verdict-orders-of-magnitude.md, register: written-longform, move: I-ran-the-test → verdict on a real number ("6 orders of magnitude") }
   - { slot: close,      file: 06-close-happy-hacking.md,        register: written-longform, move: ran-long → personal dedication → "Happy hacking!" }
   - { slot: close,      file: 13-close-happy-coding.md,         register: written-longform, move: "it just works" payoff → sign-off → dare the reader further }
+  # restraint + pacing — the voice at REST and the long-form boundary signal
+  - { slot: derivation, file: 15-derivation-plain-serious.md,   register: written-longform, move: RESTRAINT — serious topic, mechanism carries it, ZERO markers (the plainness-quota register) }
+  - { slot: transition, file: 16-longform-section-boundary.md,  register: written-longform, move: section BOUNDARY — stakes ends hot, mechanics opens cold; shape change across sections }
 
-rotation:                     # vary these across a multi-section piece so nothing loops
-  seam_types: [confession, "real number from your own use", "collaborator credited by first name", tool-credit, "this ran long"]
-  sign_offs:  ["Happy building! 🚀", "lfb", "cya 👋", "what a time to be alive!", "DMs are always open 🤝"]
-  verdict_forms: ["This isn't X, it's Y (≤1/800w)", "that's the message, he ships.", "an order-of-magnitude fewer", "a godsend"]
+rotation:                     # vary these across a multi-section piece so nothing loops (deepened from the
+                              # full corpus, 2026-07-02 mining — every member is a REAL recurring Kaue move)
+  seam_types: [confession, "real number from your own use", "collaborator credited by first name", tool-credit,
+               "this ran long", "parenthetical mid-sentence self-correction/escalation ('(or curse, depends who you ask)')",
+               "retroactive confession ('Well, I lied a little earlier…')", "ps: carrying a workaround or bonus receipt",
+               "candid downside caveat about the thing you're recommending", "joke at your own expense",
+               "reader-endurance checkpoint ('glad you made it this far')"]
+  # CONTEXT AXIS (owner rule): closers/openers are gated by publication context, not just rotated.
+  #   teaching/course registers -> the WARM family only ("Happy [verb]! 🚀", "You've got this", keep-[X-ing]);
+  #   cool family ("cya 👋", lfb, "see you on the next one") -> standalone dev-logs/threads only;
+  #   sequel-teaser / "want X next?" / comments-invite -> STANDALONE ONLY — when a curriculum exists,
+  #   point to the actual next lesson or plain-close. "what a time to be alive!" -> attributed-only.
+  sign_offs:  ["Happy [verb matched to the topic]! 🚀  (context: any; the teaching default)",
+               "keep [X-ing] send-off  (context: any-warm)",
+               "lfb  (context: standalone)", "cya 👋  (context: standalone)",
+               "see you on the next one  (context: standalone)",
+               "DMs are always open 🤝  (context: standalone)",
+               "sequel-teaser conditioned on reader interest  (context: STANDALONE ONLY)",
+               "a question to the reader + comments invite  (context: STANDALONE ONLY)",
+               "point to the actual next lesson  (context: course-first/mid)",
+               "no sign-off token at all — also him  (context: any)"]
+  verdict_forms: ["This isn't X, it's Y (≤1/800w)", "that's the message, he ships.", "an order-of-magnitude fewer",
+                  "a godsend (shared 1/2500w budget with game-changer)",
+                  "colon-gated lead-in ('harsh reality is:' / 'the catch here is:' / 'tl;dr is:')",
+                  "see X for what it is: [deflating noun]", "doesn't just X — it [bigger Y]",
+                  "bare arithmetic contrast, no adjectives", "coin your own compact aphorism"]
+  opener_moves: ["felt-pain scenario  (context: any — but not 8/8: rotate the whole batch off it)",
+                 "administrative/meta open ('this covers a lot, I'll keep it tight') — his REAL doc-open",
+                 "Be it X, Y or Z (cause-agnostic triple) → the claim",
+                 "People love/like X (the crowd's misconception) → contradict it",
+                 "credential disclaimer ('I'm no X, but') → receipts anyway  (context: standalone/course-first — authority is established by mid-course)",
+                 "I've always been a fan of X", "trivia-question hook", "staccato question triplet → pivot",
+                 "self-aware scope", "Imagine… scenario",
+                 "continuation open: 'last lesson we X — now Y' / pick up the running example  (context: course-mid/last ONLY)"]
+  # ROTATE ACROSS PIECES TOO, not just within one: Round-0 calibration measured "Happy building" closing
+  # 7/8 consecutive pieces and godsend/game-changer in 5/8 — the portfolio-level STAMP. Before picking a
+  # sign-off or verdict token, assume the reader has read your last piece; pick a different member (or
+  # none — a close with no sign-off token is also him). check_round.py reports cross-piece coverage.
 
 note: >
-  14 exemplars across 7 slots, sourced from Kaue's X threads (humane) + four Medium technical guides
-  (written): self-host, hackathon, defis-core, mcp-services. Most slots are now a POOL — pick by register and
-  hook, and rotate so a multi-section piece never repeats an opener or a seam type. Read them for RHYTHM and
-  SEAMS, not topic. Fidelity is corpus-bounded, but the humane tweets show what "him, not a rule-follower"
-  actually reads like. To deepen further, add more REAL passages (breadth); never stretch one with synthetic
-  text — a fabricated "Kaue" line is worth less than a short real one.
+  16 exemplars across 7 slots, sourced from Kaue's X threads (humane) + Medium technical guides + the
+  BitVMY bridge explainer: self-host, hackathon, defis-core, mcp-services, bitvmy. Most slots are a POOL —
+  pick by register and hook, and rotate so a multi-section piece never repeats an opener or a seam type.
+  Read them for RHYTHM and SEAMS, not topic — exemplars are rhythm donors, NEVER content donors: if an
+  exemplar's example ($4/$5 fees, Firenze, the BCB wall) shows up in your draft on a different topic,
+  that's the exemplar trap; pull substance from themes.md instead. 15 shows the voice at rest (what the
+  plainness quota looks like); 16 shows a real section boundary (long-form pacing). Fidelity is
+  corpus-bounded, but the humane tweets show what "him, not a rule-follower" actually reads like. To
+  deepen further, add more REAL passages (breadth); never stretch one with synthetic text — a fabricated
+  "Kaue" line is worth less than a short real one.

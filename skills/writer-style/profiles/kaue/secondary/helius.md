@@ -171,3 +171,5 @@ Insights" as a literal label, "Further Resources"); the congratulatory "if you'v
 closers and "many thanks to … for reviewing" acknowledgments; the dramatized cold-open vignette as a ritual
 device; the "(i.e., …)" parenthetical as a verbatim tic; and recurring connectives/sign-offs. Keep the
 structure-and-evidence craft and the *practice* of glossing terms; drop the fingerprints and the labels.
+*Pack guard (kaue LESSONS):* the uniform catalog template governs entry fields, not prose rhythm — never
+uniform section sizing; primary-source evidence supplements, never replaces, the first-person receipt.

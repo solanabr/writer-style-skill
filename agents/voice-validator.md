@@ -14,7 +14,7 @@ Tooling: `validate_voice.py` (pure-Python, no deps), inside the skill's own dire
 = `$CLAUDE_PLUGIN_ROOT/skills/writer-style` (plugin), `.claude/skills/writer-style` (project install), or
 `skills/writer-style` (clone), and call it with absolute paths.
 
-## The three checks
+## The four checks
 
 1. **Fact preservation (the hard gate)** — `python3 "$SKILL/tools/validate_voice.py" diff --facts <fact-sheet> --styled <draft>`.
    A **mutation** — a verified value actually changed (`0.002 SOL`→`0.005`, `1232 bytes`→`1232 KB`,
@@ -35,9 +35,24 @@ Tooling: `validate_voice.py` (pure-Python, no deps), inside the skill's own dire
    them for the writer to weigh against naturalness, never as an automatic regenerate. Sanding every flagged
    word out (e.g. forcing `leverage`→`use` when the author wrote `leverage`) is itself what makes text read as AI.
 
-3. **Repetition audit (batches)** — `python3 "$SKILL/tools/validate_voice.py" audit --lessons <dir>`. Opener-type diversity,
-   duplicate opening phrases, transition tics, cross-lesson 4-gram overlap. Catches "every lesson sounds the
-   same" across a course.
+3. **Marker density + context gates** — `python3 "$SKILL/tools/validate_voice.py" density --file <draft> --card "$SKILL/profiles/kaue/kaue.card.yaml" --facts <fact-sheet>`.
+   Counts every `markers:` entry against its budget and checks identity/community gates against the
+   **fact-sheet** (never the draft — self-checking would self-license). **HARD**: an identity marker firing
+   with no gate keyword in the sheet (the forced-insertion case), or a doubled sign-off. **Advisory**:
+   over-budget tics/analogies, windowed clustering, "themed through the piece" spread, and identity
+   saturation when the gate legitimately passes (topic-legit lexemes may be substance). The gate check is a
+   lexical **heuristic** — on a gate MISS, quote the offending sentence back to the owner/writer with the
+   missing keywords; never auto-regenerate on it. Always pass `--facts`; without it gates report UNCHECKED.
+
+4. **Repetition audit** — `python3 "$SKILL/tools/validate_voice.py" audit --file <draft>` for one long
+   document (section-opener variety, intra-doc 4-gram overlap, adjacent-section duplication, duplicate
+   paragraph openers — the long-form compounder); `audit --lessons <dir>` for a batch (opener-type
+   diversity, duplicate opening phrases, transition tics, cross-lesson 4-gram overlap — "every lesson
+   sounds the same").
+
+For a calibration round, `"$SKILL/testbed/check_round.py" --round <dir> --card <card>` runs all of the
+above against every brief's `expect:` block and prints the cross-piece marker coverage — the **stamp
+metric** (a marker in ≥60% of pieces = portfolio-level repetition per-piece caps can't see).
 
 ## What you do NOT do
 - **No style-distance score.** Cosine similarity to the corpus manufactures false confidence (it scores
@@ -46,6 +61,7 @@ Tooling: `validate_voice.py` (pure-Python, no deps), inside the skill's own dire
 
 ## Output
 A short verdict per check (pass / fail + the offending tokens/metrics), and a single bottom line: **ship** or
-**back to voice-writer** with the specific sentences to fix. Two things are automatic blocks: a failed fact
-diff, and a `GATE: FAIL` hard tell (fingerprint or uniform cadence). Advisories are reported for the writer to
-weigh — a piece can ship with advisories when a human blind read says it sounds right.
+**back to voice-writer** with the specific sentences to fix. Three things are automatic blocks: a failed fact
+diff, a `GATE: FAIL` hard tell (fingerprint or uniform cadence), and a `density` hard fail (gate-missed
+identity marker or doubled sign-off). Advisories are reported for the writer to weigh — a piece can ship with
+advisories when a human blind read says it sounds right.

@@ -1,12 +1,23 @@
 # The data layer — style-cards, exemplars, and the builder/writer/validator boundary
 
-Each voice ships **three artifacts**, each owning one job, no duplication:
+Each voice ships **three artifacts** (a primary may add a fourth), each owning one job, no duplication:
 
 | Artifact | Owns | Never contains |
 |---|---|---|
 | `<voice>.md` | register-grounded **craft prose**, for the primary, reproduced idiolect; for a secondary, transferable craft + EXCLUDES | numbers, stat dumps, banned-word lists-as-data |
-| `<voice>.card.yaml` | the **actionable dials** (ranges/enums) + favor/avoid lists + AI-tell caps, the writer/validator membrane | prose explanation of *why* a move works (that's the persona); example passages (that's the bank) |
+| `<voice>.card.yaml` | the **actionable dials** (ranges/enums) + favor/avoid lists + AI-tell caps + **marker budgets/gates**, the writer/validator membrane | prose explanation of *why* a move works (that's the persona); example passages (that's the bank) |
 | `exemplars/<voice>/` | the actual **annotated passages**, one per rhetorical slot, with move-traces, the few-shot | abstract rules; dials |
+| `themes.md` (primary only) | the **substance bank** — the author's real stances, anecdotes, numbers, and analogies with receipts + topic tags, so the writer pulls FITTING material instead of recycling exemplar content | style rules; anything without a receipt |
+
+## Seams vs markers (the load-bearing distinction)
+
+**Seams** are structural humanity — a real number from your own use, a named credit, a confession,
+uneven rhythm, a loose body. Required in every passage; this is how "human" is defined, procedurally.
+**Markers** are surface idiolect — catchphrases, refrains, identity beats (geography/community),
+signature verdict tokens. Dosed, context-gated, and allowed to REST. A plain section still has a
+seam; it has zero markers. When the two are conflated, the writer saturates markers to sound human —
+that's the "forced insertion" failure mode. Seams live in the persona + naturalness floor; markers
+live in the card's `markers:` block where the validator can count them.
 
 The raw stylometry (`evidence/<voice>.profile.json`) is **builder-internal and validator-internal only**.
 The writer never reads it. The card is the membrane: only the subset of numbers a writer can *act on* crosses
@@ -24,6 +35,7 @@ role: primary                 # primary = reproduce idiolect | secondary = trans
 register: medium-technical-guide
 persona_ref: kaue.md
 exemplars_ref: exemplars/kaue/
+themes_ref: themes.md         # primary only — the substance bank (stances/anecdotes/analogies with receipts)
 dials:
   sentence_length: {median, short_punch_floor, long_reach, burstiness_min}
     # WRITER: aim typical sentence at median; force ≥1 short punch & ≥1 long reach per section.
@@ -49,7 +61,37 @@ ai_tells:              # structural tells; the validator enforces these (default
   - {id: uniform-cadence, min: <burstiness_min>}  # even prose IS the tell.
   - {id: delve-class, cap: 0}                 # delve/intricate/realm/tapestry/multifaceted/underscores.
   - {id: even-enthusiasm, rule: spike-then-cool}  # hype at edges; ~100-200 flat words between spikes.
+markers:               # signature-marker dosage + context gates — the voice-positive twin of ai_tells.
+  # EVERY named marker gets an entry: budgets are machine-checkable (validate_voice.py density);
+  # the judgment (why the move earns its place) stays in the persona prose. Line-oriented block
+  # style with single-line bracket lists — the same no-YAML-dep parser conventions as the rest.
+  - id: <marker-name>
+    class: identity | refrain | verdict-token | tic | analogy | structural | signoff
+    patterns: [<lexemes>]     # counted in the draft; single words boundary-guarded, phrases substring
+    cap: 1
+    per_words: 0              # 0 = PER PIECE (does NOT scale with length — the anti-compounding rule);
+                              # N = budget scales cap*round(words/N) (floor cap)
+    gate: [<keywords>]        # OPTIONAL: must appear in the FACT-SHEET for the marker to be earned.
+                              # Identity/community markers (geography, org names) are ALWAYS gated:
+                              # default-off, opt-in only when the brief genuinely involves them.
+    fallback: "<what to do instead when the gate fails>"   # writer-facing prose, one line
+    enforce: hard | advisory  # OPTIONAL; defaults: identity/signoff = hard, everything else advisory
 ```
+
+**The markers hard/advisory policy** (enforced by `validate_voice.py density`, calibrated per pack
+in calibration rounds):
+
+| Case | Verdict |
+|---|---|
+| identity marker fires + NO gate keyword in the fact-sheet | **HARD** — the forced-insertion case |
+| identity marker over budget + gate passes | advisory (topic-legit lexemes may be substance, not beats) |
+| identity marker, gate unchecked (no `--facts`) | advisory + "pass --facts" nudge |
+| signoff over budget | **HARD** (two sign-offs is objectively wrong) |
+| tic/analogy/refrain over budget | advisory until the pack promotes it (`enforce: hard`) after calibration |
+| windowed clustering / section spread ("themed through the piece") | always advisory (heuristics) |
+
+Gates are checked against the **fact-sheet, never the draft** — a forced insertion contains its own
+lexemes, so self-checking would self-license.
 
 Forensic fields (function-word rates, n-gram frequencies, type-token ratio, full punctuation table) are
 **absent by construction**. They live only in `evidence/`.
@@ -62,7 +104,9 @@ trait; only `uniform-cadence`/`burstiness_min` is a real, enforced per-voice tar
 
 The validator (`validate_voice.py tells --card <voice>.card.yaml`) enforces the per-voice `burstiness_min`,
 `em-dash-overuse.max`, `false-antithesis.cap_per_800w`, and the `avoid` word/connective lists; without a card
-it falls back to universal defaults.
+it falls back to universal defaults. `validate_voice.py density --card <voice>.card.yaml --facts <sheet>`
+enforces the `markers:` budgets and gates; `audit --file <doc>` runs the section-to-section repetition audit
+on one long document.
 
 **Tiered deslop baseline.** On top of each voice's `avoid` list, the validator applies a shared, *gated*
 AI-cliché baseline (in `tools/style_lexicons.py`) so it catches machine slop without over-suppressing

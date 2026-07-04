@@ -1,0 +1,41 @@
+# TEMPORARY standalone markers definition for Round-0 baseline measurement.
+# Superseded when the markers: block lands in profiles/kaue/kaue.card.yaml (same schema, same parser);
+# kept only so the density check can measure the CURRENT pack before the redesign. Delete after merge.
+#
+# Schema (line-oriented, parsed by validate_voice.py read_card_markers — no YAML dep):
+#   id        marker name
+#   class     identity | tic | signoff | analogy   (identity+signoff default enforce: hard; tic/analogy advisory)
+#   patterns  lexemes counted in the draft; single words are \b-wrapped, phrases match as substrings
+#   cap       allowed count (per piece when per_words: 0, else per per_words-word budget window)
+#   per_words 0 = per piece; N = budget scales with length (cap * round(words/N), min 1)
+#   gate      OPTIONAL — keywords that must appear in the FACT-SHEET for the marker to be earned;
+#             marker fires with no gate keyword in facts = likely forced insertion
+#   enforce   OPTIONAL override: hard | advisory
+
+markers:
+  - id: latam-framing
+    class: identity
+    patterns: [latam, brazil, brasil, brazilian, brazilians, superteam, "emerging market", "global south", gringo, argentina, "developing countr"]
+    cap: 1
+    per_words: 0
+    gate: [latam, brazil, brasil, "emerging market", "global south", remittance, argentina, superteam, "developing countr", "developing world"]
+  - id: game-changer
+    class: tic
+    patterns: ["game-changer", "game changer", godsend]
+    cap: 1
+    per_words: 2500
+  - id: shipping-refrain
+    class: tic
+    patterns: ["keep shipping", "keep building", "just ship", "no-bullshit shipper"]
+    cap: 1
+    per_words: 0
+  - id: civilizational-analogy
+    class: analogy
+    patterns: [firenze, florence, renaissance, gutenberg, "printing press", "industrial revolution", medieval, "ancient rome", "library of alexandria", "roman empire"]
+    cap: 1
+    per_words: 0
+  - id: sign-off
+    class: signoff
+    patterns: ["happy building", "happy hacking", "happy coding", lfb, cya, "what a time to be alive", "dms are always open"]
+    cap: 1
+    per_words: 0

@@ -143,3 +143,5 @@ the all-caps/ellipsis punctuation tics. Keep the compression and the reframe; dr
 *inviting*, confident because it's letting the reader in on a simple truth, never dismissive. And never let the
 urge to collapse override honesty: a reductive "X is just Y" that quietly drops an edge case is confidently
 wrong, which is worse than a careful answer.
+*Pack guard (kaue LESSONS):* the portable-line close is budgeted by epigram-uniformity — never two
+consecutive paragraph-final snaps, most paragraphs still end plain, and some pieces end cold without it.

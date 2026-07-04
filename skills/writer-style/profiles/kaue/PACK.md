@@ -10,7 +10,13 @@
 
 ## Primary voice (always on, free)
 - **kaue.md:** Kaue, Superteam Brazil. The tone, rhythm, brain-patterns, and the uneven-human seam. Owns the
-  naturalness floor; protected above all secondary craft. Register: Medium technical-guide.
+  naturalness floor; protected above all secondary craft. Register: Medium technical-guide. Identity beats
+  (LATAM/Brazil/Superteam) are **context-gated** (§5b) — a value, not a quota.
+- **kaue.card.yaml `markers:`:** every countable signature marker with a budget + gate, enforced by
+  `validate_voice.py density`. Caps calibrated empirically (see `calibration/ROUNDS.md`).
+- **themes.md:** the substance bank — his real stances, anecdotes, numbers, and analogies with receipts +
+  topic tags + burn rates, mined from the full corpus (~36.5k words; off-register files are substance-only
+  sources). The writer pulls FITTING material from here instead of recycling the exemplars' examples.
 
 ## Secondary voices (selected by the piece's dominant job; cap = backbone 1 + guest ≤1)
 
@@ -33,6 +39,11 @@ there are **no author-vs-author special-case rules**. Full triggers/anti-trigger
 5. **Helius is the universal guest;** security routes to helius/vitalik, **never hotz**.
 6. **Facts first, voice last:** verify technical content before styling; voice never alters a number/code.
 7. **Protect the uneven human seam above all craft** — dosage, not saturation.
+8. **Seams ≠ markers:** a seam (structural humanity) is required everywhere; a marker (catchphrase,
+   refrain, identity beat) is budgeted in the card's `markers:` and gated by context. Humanity is the
+   seam, never the catchphrase; ≥1 in 3 sections carries zero markers.
+9. **Pack changes go through calibration:** marker caps/gates change only via a logged round in
+   `calibration/ROUNDS.md` (owner-rated 8-brief matrix, blind A/B vs the frozen Round-0 baseline).
 
 ## Corpus provenance (per voice; raw stylometry in `evidence/`, builder-internal)
 | voice | source | corpus (after cleaning) |

@@ -31,8 +31,11 @@ Getting the inversion wrong is the #1 failure. Decide the type first.
    **drop guest reposts by other authors**, separate registers). Run `skills/writer-style/tools/profile_corpus.py` → it cleans,
    emits builder-internal `evidence/<voice>.profile.json`, and derives `card_suggestions`.
 2. **Mine — parallel lenses.** Spawn several miner sub-agents, each a different lens (secondary: pedagogy /
-   rhetoric / prose / technical-comms / genre; primary: idiolect / cognition / register / personality). Each
-   reads the *real* corpus and returns **evidence-bound** findings (quotes + counts), never adjectives.
+   rhetoric / prose / technical-comms / genre; primary: idiolect / cognition / register / personality /
+   **substance**). Each reads the *real* corpus and returns **evidence-bound** findings (quotes + counts),
+   never adjectives. The substance miner extracts what the author SAYS, not how: recurring stances/arguments
+   with receipts, concrete anecdotes + numbers, analogies — each tagged with the topics it fits and a
+   register tag (off-register sources are valid *substance* sources even when excluded as style sources).
    → `skills/writer-style/method/agent-prompts.md`
 3. **Synthesize** a draft against the right schema (above).
 4. **Adversarial judging — never ship a first draft.**
@@ -42,8 +45,14 @@ Getting the inversion wrong is the #1 failure. Decide the type first.
      corpus — catches what critique misses, especially uneven texture).
 5. **Refine to final**; enforce `skills/writer-style/method/quality-bar.md`.
 6. **Derive the data layer:** the `<voice>.card.yaml` dials from `card_suggestions` + judgment (only
-   writer-actionable fields — never paste raw stylometry into the card); curate the **exemplar bank** (primary:
-   7 rhetorical slots from real on-register passages; secondary: ~3 neutral-voice move-demos).
+   writer-actionable fields — never paste raw stylometry into the card); **classify every signature marker
+   into the card's `markers:` block** (identity/community → gated opt-in; loopers → capped; sign-offs →
+   hard cap 1) — an uncapped, ungated marker is how forced insertions happen; curate the **exemplar bank**
+   (primary: 7 rhetorical slots from real on-register passages, including at least one **restraint**
+   exemplar showing the voice at rest; secondary: ~3 neutral-voice move-demos); for a primary, curate
+   **`themes.md`** from the substance-miner output (stances/anecdotes/analogies with receipts + topic tags +
+   `burn:` rates) — **the owner reviews the stance map before it ships**; misattributing an opinion is worse
+   than blandness, so low-confidence stances ship flagged or not at all.
 7. **(Re)design & validate the router** if the roster changed — route real topics, patch breakages.
    → `skills/writer-style/method/routing-design.md`
 

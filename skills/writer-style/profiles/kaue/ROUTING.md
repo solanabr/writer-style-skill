@@ -88,6 +88,13 @@ why security never leads here.** The eject is built into hotz's own scope header
   usually a signal to **split the piece.** Past two layers the primary voice's human seam and uneven texture
   get crowded out — and that's what makes it Kaue.
 
+### The pack's lessons bind ALL routed craft (calibrated on blends)
+The naturalness floor and `calibration/LESSONS.md` bind every routed voice — backbone or guest craft **never
+overrides them**. Epigram-uniformity limits, the first-person receipt mandate, closer context gates (ending
+choreography; no stacked recap+zoom-out+invite), and marker budgets apply to blended output identically:
+the calibration rounds that produced them were themselves mostly blends (helius/vitalik/hayes/balaji
+backbones). Where a secondary's literal instruction collides with a lesson, the lesson wins.
+
 ## 4. Failure modes (ranked by damage)
 1. **Hotz on an irreducible topic → confidently WRONG.** Detonates "don't trust, verify." Route hotz only
    when an honest one-liner exists; needs an asterisk → vitalik. **On security this ships an exploit — default

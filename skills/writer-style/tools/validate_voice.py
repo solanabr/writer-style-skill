@@ -2,24 +2,34 @@
 """
 validate_voice.py — the writer-style validator (post-generation checks).
 
-Three checks, all pure-Python and deterministic:
+Four checks, all pure-Python and deterministic:
 
-  audit  — REPETITION audit across a batch of lessons: opener-type diversity,
-           repeated opening phrases, transition tics, cross-lesson 4-gram overlap.
-  tells  — AI-TELL lint on generated prose: banned words, false-antithesis
-           ("not X, it's Y"), em-dash overuse, and the burstiness floor. Pass
-           --card <voice>.card.yaml to enforce THAT voice's per-voice targets
-           (burstiness_min, em-dash max, false-antithesis cap, avoid lists);
-           without a card it uses universal defaults.
-  diff   — FACT-PRESERVATION diff between the Pass-A fact-sheet and the Pass-C
-           styled output: every number / code identifier in A must survive into C.
+  audit   — REPETITION audit. Batch mode (--lessons <dir>): opener-type diversity,
+            repeated opening phrases, transition tics, cross-lesson 4-gram overlap.
+            Single-doc mode (--file <doc>): the same checks BETWEEN THE SECTIONS of
+            one long document (the long-form repetition compounder).
+  tells   — AI-TELL lint on generated prose: banned words, false-antithesis
+            ("not X, it's Y"), em-dash overuse, and the burstiness floor. Pass
+            --card <voice>.card.yaml to enforce THAT voice's per-voice targets
+            (burstiness_min, em-dash max, false-antithesis cap, avoid lists);
+            without a card it uses universal defaults.
+  density — SIGNATURE-MARKER dosage vs the card's `markers:` block: per-marker
+            counts vs caps (per piece or per-words budget), windowed clustering,
+            section spread, and the context GATE (an identity marker firing with
+            no gate keyword in the fact-sheet = likely forced insertion). Pass
+            --facts <fact-sheet> so gates can be checked; --markers <yaml> overrides
+            the card's block (used while a card pre-dates the markers schema).
+  diff    — FACT-PRESERVATION diff between the Pass-A fact-sheet and the Pass-C
+            styled output: every number / code identifier in A must survive into C.
 
 No cosine `match`/`ab` style-distance — that manufactured false confidence. Voice
 fidelity is judged by a human blind read.
 
-    python validate_voice.py audit --lessons out_lessons/
-    python validate_voice.py tells --file lesson.md --card ../profiles/kaue/kaue.card.yaml
-    python validate_voice.py diff  --facts factsheet.md --styled lesson.md
+    python validate_voice.py audit   --lessons out_lessons/
+    python validate_voice.py audit   --file long-piece.md
+    python validate_voice.py tells   --file lesson.md --card ../profiles/kaue/kaue.card.yaml
+    python validate_voice.py density --file lesson.md --card ../profiles/kaue/kaue.card.yaml --facts factsheet.md
+    python validate_voice.py diff    --facts factsheet.md --styled lesson.md
     python validate_voice.py --selftest
 """
 from __future__ import annotations
@@ -42,6 +52,7 @@ TRANSITION_TICS = ["in today's", "in this lesson", "let's dive", "let's explore"
                    "now that we", "in the world of", "when it comes to"]
 
 # universal defaults — used only when no <voice>.card.yaml is supplied
+_QA_PUNCH_RE = re.compile(r"\?\s+([A-Z][^.!?\n]{0,30}[.!])")
 DEFAULT_EMDASH_MAX_PER_1K = 4
 DEFAULT_BURSTINESS_MIN_STDEV = 9
 DEFAULT_FALSE_ANTITHESIS_PER_800W = 1
@@ -85,6 +96,50 @@ def repetition_audit(lessons: list[str]) -> dict:
             "flags": flags or ["ok: no repetition red flags"]}
 
 
+def intra_doc_audit(text: str) -> dict:
+    """The repetition audit BETWEEN THE SECTIONS of one long document — the long-form
+    compounder the batch audit can't see. Reuses repetition_audit's metrics with
+    intra-doc thresholds (adjacent sections legitimately share terms of art, so the
+    mean-overlap bar is 0.22 vs the 0.18 cross-lesson bar), plus two intra-doc-only
+    checks: adjacent-pair overlap (copy-paste-restyled sections) and duplicate
+    paragraph openers across the whole doc."""
+    bodies = [b for _, b in split_sections(text) if len(WORD_RE.findall(b)) >= 50]
+    if len(bodies) < 2:
+        return {"sections": len(bodies),
+                "flags": ["ok: too few sections for an intra-doc audit (needs 2+ of 50w+)"]}
+    # split_sections glues the heading line into the body (density wants markers-in-headings counted),
+    # but the opener classifier must see the PROSE's first sentence, not "## Title" — strip it here,
+    # or every headed section classifies as "claim" and the variety check caps at 2 types structurally.
+    prose = [re.sub(r"\A#{1,6}\s+[^\n]*\n+", "", b) for b in bodies]
+    base = repetition_audit(prose)
+    grams = [ngrams(p, 4) for p in prose]
+    adj = [round(jaccard(grams[i], grams[i + 1]), 4) for i in range(len(grams) - 1)]
+    adj_max = max(adj) if adj else 0.0
+    heads = [" ".join(WORD_RE.findall(p.lower())[:6]) for p in _paragraphs(text)
+             if len(WORD_RE.findall(p)) >= 6]
+    dup_heads = {h: c for h, c in Counter(heads).items() if c > 1}
+    flags = []
+    if len(bodies) >= 4 and base["distinct_opener_types"] < 3:
+        flags.append(f"LOW section-opener variety ({base['distinct_opener_types']} types over "
+                     f"{len(bodies)} sections) — every section starts the same way")
+    if base["duplicate_opening_phrases"] > 0:
+        flags.append(f"{base['duplicate_opening_phrases']} sections share a near-identical opening phrase")
+    if base["mean_pairwise_4gram_overlap"] > 0.22:
+        flags.append(f"HIGH intra-doc 4-gram overlap ({base['mean_pairwise_4gram_overlap']}) — "
+                     f"sections repeat themselves")
+    if adj_max > 0.30:
+        flags.append(f"adjacent sections nearly duplicated (max pair overlap {adj_max})")
+    if dup_heads:
+        flags.append(f"duplicate paragraph openers (first 6 words): {dup_heads}")
+    if base["transition_tics"]:
+        flags.append(f"transition tics: {base['transition_tics']}")
+    return {"sections": len(bodies), "distinct_opener_types": base["distinct_opener_types"],
+            "opener_histogram": base["opener_histogram"],
+            "mean_4gram_overlap": base["mean_pairwise_4gram_overlap"],
+            "adjacent_max_overlap": adj_max,
+            "flags": flags or ["ok: no intra-doc repetition red flags"]}
+
+
 # ── card reader (dependency-free: pulls only the validator targets) ────────────
 def read_card_targets(path: str | None) -> dict:
     """Extract per-voice validator targets from a <voice>.card.yaml with a small
@@ -92,6 +147,7 @@ def read_card_targets(path: str | None) -> dict:
     t = {"burstiness_min": DEFAULT_BURSTINESS_MIN_STDEV,
          "emdash_max": DEFAULT_EMDASH_MAX_PER_1K,
          "false_antithesis_cap": DEFAULT_FALSE_ANTITHESIS_PER_800W,
+         "sentence_median": None,
          "avoid_words": [], "avoid_connectives": [], "voice": None}
     if not path or not Path(path).is_file():   # a dir or missing path -> universal defaults, not a crash
         return t
@@ -106,6 +162,7 @@ def read_card_targets(path: str | None) -> dict:
     if mv:
         t["voice"] = mv.group(1)
     num(r"\bburstiness_min:\s*(\d+)", "burstiness_min")          # \b avoids meta_burstiness_min hijack
+    num(r"sentence_length:[^\n]*\bmedian:\s*(\d+)", "sentence_median")
     num(r"\bem-?dash-overuse[^}\n]*max:\s*(\d+)", "emdash_max")
     num(r"\bfalse-antithesis[^}\n]*cap_per_800w:\s*(\d+)", "false_antithesis_cap")
 
@@ -128,6 +185,184 @@ def read_card_targets(path: str | None) -> dict:
     t["avoid_words"] = items("words")
     t["avoid_connectives"] = items("connectives")
     return t
+
+
+# ── markers: dosage + context-gate engine ──────────────────────────────────────
+# Card contract (line-oriented block style; single-line bracket lists — the same
+# no-YAML-dep parser conventions as read_card_targets):
+#
+#   markers:
+#     - id: latam-framing
+#       class: identity          # identity | refrain | verdict-token | tic | analogy | structural | signoff
+#       patterns: [latam, brazil, "emerging market"]
+#       cap: 1
+#       per_words: 0             # 0 = per piece; N = budget scales cap*round(words/N), floor cap
+#       gate: [latam, brazil]    # OPTIONAL: keywords that must appear in the FACT-SHEET to earn the marker
+#       enforce: hard            # OPTIONAL override; default hard for identity/signoff, advisory otherwise
+#
+# Hard/advisory policy (the calibration contract):
+#   identity + gate MISS + any hit      -> HARD  (the "forced insertion" case — the reported bug)
+#   identity + gate PASS + over budget  -> advisory (topic-legit lexemes may be substance, not beats)
+#   identity + gate UNCHECKED           -> advisory (can't tell substance from beat without --facts)
+#   signoff over budget                 -> HARD  (two sign-offs is objectively wrong)
+#   tic/analogy/etc over budget         -> advisory until the card promotes them (enforce: hard)
+#   clustering / section-spread         -> always advisory (heuristics)
+
+_MARKER_TOKEN_RE = re.compile(r'"([^"]*)"|\'([^\']*)\'|([^,\[\]"\'\n]+)')
+
+
+def _parse_bracket_list(s: str) -> list[str]:
+    out = []
+    for a, b, c in _MARKER_TOKEN_RE.findall(s):
+        tok = (a or b or c).strip()
+        if tok:
+            out.append(tok.lower())
+    return out
+
+
+def read_card_markers(path: str | None) -> list[dict]:
+    """Parse the `markers:` block from a card (or a standalone markers yaml).
+    Missing file or missing block -> [] (density then has nothing to check —
+    tolerant of cards that pre-date the markers schema)."""
+    if not path or not Path(path).is_file():
+        return []
+    text = Path(path).read_text("utf-8", "replace")
+    m = re.search(r"^markers:\s*\n(.*?)(?=^\S|\Z)", text, re.M | re.S)
+    if not m:
+        return []
+    out = []
+    for entry in re.split(r"^\s*-\s+(?=id:)", m.group(1), flags=re.M):
+        if "id:" not in entry:
+            continue
+        mk: dict = {}
+        for key in ("id", "class", "enforce"):
+            km = re.search(rf"^\s*{key}:\s*([^\n#]+)", entry, re.M)
+            if km:
+                mk[key] = km.group(1).strip().strip("\"'").lower()
+        for key in ("cap", "per_words"):
+            km = re.search(rf"^\s*{key}:\s*(\d+)", entry, re.M)
+            if km:
+                mk[key] = int(km.group(1))
+        for key in ("patterns", "gate"):
+            km = re.search(rf"^\s*{key}:\s*\[((?:[^\[\]]|\[[^\]]*\])*)\]", entry, re.M)
+            if km:
+                mk[key] = _parse_bracket_list(km.group(1))
+        if mk.get("id") and mk.get("patterns"):
+            mk.setdefault("class", "tic")
+            mk.setdefault("cap", 1)
+            mk.setdefault("per_words", 0)
+            out.append(mk)
+    return out
+
+
+def _compile_marker(p: str) -> re.Pattern:
+    """Single tokens are boundary-guarded ('lfb' must not match inside a word);
+    multiword/punctuated phrases match as substrings ('emerging market' catches
+    'emerging markets')."""
+    if re.fullmatch(r"[\w-]+", p):
+        return re.compile(r"(?<!\w)" + re.escape(p) + r"(?!\w)", re.I)
+    return re.compile(re.escape(p), re.I)
+
+
+def split_sections(text: str) -> list[tuple[str, str]]:
+    """Split on markdown headings; text before the first heading is '(intro)'.
+    Sections under 50 words merge into the previous one (stub headings aren't
+    sections). Heading text is kept inside the section body — a marker in a
+    heading is still a marker."""
+    parts = re.split(r"(?m)^(#{1,6}\s+.*)$", text)
+    sections: list[tuple[str, str]] = []
+    if parts[0].strip():
+        sections.append(("(intro)", parts[0].strip()))
+    for i in range(1, len(parts) - 1, 2):
+        head = parts[i].lstrip("#").strip()
+        sections.append((head, (parts[i] + "\n" + parts[i + 1]).strip()))
+    merged: list[tuple[str, str]] = []
+    for name, body in sections:
+        if merged and len(WORD_RE.findall(body)) < 50:
+            pn, pb = merged[-1]
+            merged[-1] = (pn, pb + "\n\n" + body)
+        else:
+            merged.append((name, body))
+    return merged or [("(all)", text)]
+
+
+def _marker_enforce(mk: dict) -> str:
+    e = mk.get("enforce")
+    if e in ("hard", "advisory"):
+        return e
+    return "hard" if mk.get("class") in ("identity", "signoff") else "advisory"
+
+
+def marker_density(text: str, markers: list[dict], gate_text: str | None = None) -> dict:
+    """Count each marker's lexeme hits against its budget; check windows, section
+    spread, and the context gate. gate_text is the FACT-SHEET, never the draft —
+    a forced insertion contains its own lexemes, so self-checking would self-license."""
+    import bisect
+    nw = max(1, len(WORD_RE.findall(text.lower())))
+    secs = split_sections(text)
+    starts = [m.start() for m in WORD_RE.finditer(text)]
+    glow = gate_text.lower() if gate_text is not None else None
+    results, flags, hard = [], [], False
+    for mk in markers:
+        raw = mk.get("patterns", [])
+        pats = [_compile_marker(p) for p in raw]
+        pos = sorted(max(0, bisect.bisect_right(starts, m.start()) - 1)
+                     for rx in pats for m in rx.finditer(text))
+        count = len(pos)
+        # per-lexeme hits — the STAMP signal needs to distinguish "same token every piece"
+        # from "rotated tokens" (marker-level coverage alone can't)
+        pattern_hits = {p: n for p, n in ((p, len(rx.findall(text))) for p, rx in zip(raw, pats)) if n}
+        cap, per = mk.get("cap", 1), mk.get("per_words", 0)
+        allowed = cap if per == 0 else max(cap, cap * round(nw / per))
+        hit_secs = [i for i, (_, body) in enumerate(secs, 1) if any(rx.search(body) for rx in pats)]
+        win_over = 0
+        if per > 0 and count > cap:
+            w = 0
+            while w < nw:
+                if sum(1 for p in pos if w <= p < w + per) > cap:
+                    win_over += 1
+                w += 250
+        gate = mk.get("gate")
+        if not gate:
+            gate_status = "-"
+        elif glow is None:
+            gate_status = "UNCHECKED"
+        else:
+            gate_status = "pass" if any(kw in glow for kw in gate) else "MISS"
+        enforce = _marker_enforce(mk)
+        mid, mcls = mk["id"], mk.get("class", "tic")
+        mflags, mhard = [], False
+        if mcls == "identity" and gate_status == "MISS" and count > 0:
+            mhard = enforce == "hard"
+            tag = "[HARD]" if mhard else "[advisory]"
+            mflags.append(f"{tag}[gate] identity '{mid}' fires {count}x but NO gate keyword in the "
+                          f"fact-sheet — likely forced insertion; human gate must confirm")
+        elif count > allowed:
+            budget = f"{allowed}/piece" if per == 0 else f"{allowed} per {per}w"
+            if mcls == "identity" and gate_status == "pass":
+                mflags.append(f"[advisory] identity '{mid}' {count}x vs budget {budget} — gate passes "
+                              f"(topic-legit); confirm it's substance, not saturation")
+            elif mcls == "identity" and gate_status == "UNCHECKED":
+                mflags.append(f"[advisory] identity '{mid}' {count}x over budget {budget} "
+                              f"(gate UNCHECKED — pass --facts to check it)")
+            elif enforce == "hard":
+                mhard = True
+                mflags.append(f"[HARD] {mcls} '{mid}' {count}x over budget {budget}")
+            else:
+                mflags.append(f"[advisory] {mcls} '{mid}' {count}x over budget {budget}")
+        if win_over:
+            mflags.append(f"[advisory] '{mid}' bunched — {win_over} window(s) of {per}w exceed cap {cap}; spread or cut")
+        if len(secs) >= 3 and count >= 2 and len(hit_secs) > len(secs) / 2:
+            mflags.append(f"[advisory] '{mid}' appears in {len(hit_secs)}/{len(secs)} sections — "
+                          f"themed through the piece; thin it out")
+        hard = hard or mhard
+        flags.extend(mflags)
+        results.append({"id": mid, "class": mcls, "count": count, "allowed": allowed,
+                        "windows_over_cap": win_over, "sections_hit": hit_secs,
+                        "gate_status": gate_status, "hard": mhard, "flags": mflags,
+                        "pattern_hits": pattern_hits})
+    return {"words": nw, "sections": len(secs), "markers": results, "hard": hard,
+            "flags": flags or ["ok: all markers within budget"]}
 
 
 # ── tells ─────────────────────────────────────────────────────────────────────
@@ -166,6 +401,23 @@ def ai_tell_lint(text: str, card: dict | None = None) -> dict:
     # em-dash: rate-AND-count so a single dash in a short passage doesn't trip the /1k metric
     if emdash_count >= 3 and emdash_per_1k > emdash_max:
         flags.append(f"em-dash overuse ({emdash_count}×, {emdash_per_1k}/1k > {emdash_max})")
+    # the "Question? Punch-answer." rhetorical machine — a real human move at ~1/piece; calibration
+    # measured it industrialized 9x/batch. Count Q followed by a ≤4-word answer sentence.
+    qa_hits = sum(1 for m in _QA_PUNCH_RE.finditer(text) if len(WORD_RE.findall(m.group(1))) <= 4)
+    if qa_hits > 1:
+        flags.append(f"self-answered-question machine used {qa_hits}× (human rate ~1/piece) — vary the pivot")
+    # clipped-sentence drift: this voice runs LONG (card median); a piece averaging well under it is
+    # machine-clipped even when burstiness passes (R1 measured means 13.6-17.1 vs corpus 20.5-40.3)
+    mean_len = round(sum(slens) / max(1, len(slens)), 1)
+    smed = c.get("sentence_median")
+    if smed and nw >= 250 and mean_len < smed - 3:
+        flags.append(f"sentences run short for this voice (mean {mean_len}w < card median {smed}-3) — let clauses breathe")
+    # verdict-fragment headers: crafted antithesis headlines ("X is a default, not a plan") stamped
+    # across a piece read as machine section-titling; humans title plainly
+    vheads = [h for h in re.findall(r"(?m)^#{1,6}\s+(.+)$", text)
+              if ", not " in h.lower() or "isn't" in h.lower() or "aren't" in h.lower()]
+    if len(vheads) >= 2:
+        flags.append(f"verdict-fragment headers ×{len(vheads)} ({vheads[:2]}…) — title sections plainly")
     # burstiness: judge cadence once there are enough sentences (≥8) in a real passage (≥150w) — short
     # snippets/exemplars stay exempt. Below the ROBOTIC floor it's a HARD tell (machine-even at any voice);
     # below the voice's own target but above robotic is ADVISORY (terse authors live there — don't clip them).
@@ -396,6 +648,17 @@ def read_one(path: str) -> str:
 
 
 def cmd_audit(a):
+    if bool(a.lessons) == bool(getattr(a, "file", None)):
+        LOG("audit: pass exactly one of --lessons <dir> (batch) or --file <doc> (intra-doc)"); return 2
+    if getattr(a, "file", None):
+        r = intra_doc_audit(read_one(a.file))
+        print(f"Intra-doc repetition audit over {r['sections']} sections:")
+        if "opener_histogram" in r:
+            print(f"  opener types : {r['distinct_opener_types']}  {r['opener_histogram']}")
+            print(f"  4-gram overlap: mean {r['mean_4gram_overlap']}  adjacent-max {r['adjacent_max_overlap']}")
+        for f in r["flags"]:
+            print("   - " + f)
+        return 0
     lessons = read_dir(a.lessons)
     if not lessons:
         LOG(f"no lessons in {a.lessons}"); return 2
@@ -409,6 +672,32 @@ def cmd_audit(a):
     for f in r["flags"]:
         print("   - " + f)
     return 0
+
+
+def cmd_density(a):
+    text = read_one(a.file)
+    markers = read_card_markers(a.markers) if a.markers else read_card_markers(a.card)
+    if not markers:
+        print("Marker density: no markers: block found (card pre-dates the markers schema; "
+              "pass --markers <yaml>) — nothing to check")
+        return 0
+    gate_text = read_one(a.facts) if a.facts else None
+    card = read_card_targets(a.card)
+    r = marker_density(text, markers, gate_text)
+    voice = f"voice={card['voice']}, " if card.get("voice") else ""
+    print(f"Marker density ({voice}{r['words']} prose words, {r['sections']} sections):")
+    print(f"  {'id':<24}{'class':<10}{'count':>5}{'budget':>7}  {'windows>cap':>11}  {'sections':<12}gate")
+    for m in r["markers"]:
+        secs = ",".join(map(str, m["sections_hit"])) or "-"
+        print(f"  {m['id']:<24}{m['class']:<10}{m['count']:>5}{m['allowed']:>7}  "
+              f"{m['windows_over_cap']:>11}  {secs:<12}{m['gate_status']}")
+    n_adv = sum(1 for f in r["flags"] if "[advisory]" in f)
+    for f in r["flags"]:
+        print("   - " + f)
+    if gate_text is None and any(m["gate_status"] == "UNCHECKED" for m in r["markers"]):
+        print("   - note: gates UNCHECKED — pass --facts <fact-sheet> so gated markers can be checked")
+    print(f"GATE: {'FAIL (hard)' if r['hard'] else 'PASS'}" + (f" — {n_adv} advisory" if n_adv else ""))
+    return 1 if r["hard"] else 0
 
 
 def _is_hard(flag: str) -> bool:
@@ -611,6 +900,90 @@ def selftest() -> int:
     sel = fact_diff(bigsheet, "A token account locks ~0.002 SOL of rent; close it to reclaim the lamports.")
     check(not sel["hard"] and sel["omitted"], "a faithful SELECTIVE lesson is advisory (omissions), never a hard fail")
 
+    # markers: parsing + the density/gate policy (the calibration contract)
+    mtxt = ('markers:\n'
+            '  - id: latam-framing\n    class: identity\n'
+            '    patterns: [latam, brazil, "emerging market"]\n'
+            '    cap: 1\n    per_words: 0\n'
+            '    gate: [latam, brazil, "emerging market"]\n'
+            '  - id: game-changer\n    class: tic\n'
+            '    patterns: ["game-changer", godsend]\n    cap: 1\n    per_words: 2500\n'
+            '  - id: sign-off\n    class: signoff\n'
+            '    patterns: ["happy building", lfb]\n    cap: 1\n    per_words: 0\n')
+    mf = os.path.join(tempfile.gettempdir(), "wsx_markers_test.yaml"); open(mf, "w").write(mtxt)
+    mks = read_card_markers(mf); os.remove(mf)
+    check(len(mks) == 3 and mks[0]["id"] == "latam-framing" and mks[0]["gate"],
+          "read_card_markers parses ids + bracket lists + gate")
+    check(mks[1]["per_words"] == 2500 and mks[1]["cap"] == 1, "read_card_markers reads per_words budgets")
+    check(read_card_markers(None) == [], "missing markers file -> [] (tolerant)")
+
+    filler = "Plain sentence about fees goes here with several words. "
+    tech = ("## Setup\n" + filler * 12 +
+            "\n## Deep part\n" + filler * 12 + " This tool is such a godsend for brazil builders in LatAm.\n"
+            "## Close\n" + filler * 12 + " Happy building! lfb")
+    dm = marker_density(tech, mks, gate_text="How to set priority fees. Compute units. Simulation workflow.")
+    lat = next(m for m in dm["markers"] if m["id"] == "latam-framing")
+    sig = next(m for m in dm["markers"] if m["id"] == "sign-off")
+    check(lat["count"] == 2 and lat["gate_status"] == "MISS" and lat["hard"],
+          "identity marker + gate MISS -> HARD forced-insertion flag")
+    check(sig["count"] == 2 and sig["hard"], "double sign-off over cap -> HARD")
+    check(dm["hard"], "density result carries the hard fail")
+    dm2 = marker_density(tech, mks, gate_text="stablecoin adoption across brazil and latam economies")
+    lat2 = next(m for m in dm2["markers"] if m["id"] == "latam-framing")
+    check(lat2["gate_status"] == "pass" and not lat2["hard"],
+          "same text, gate keywords in facts -> identity over-budget is advisory, not hard")
+    dm3 = marker_density(tech, mks)
+    lat3 = next(m for m in dm3["markers"] if m["id"] == "latam-framing")
+    check(lat3["gate_status"] == "UNCHECKED" and not lat3["hard"],
+          "no --facts -> gate UNCHECKED, identity downgrades to advisory")
+    clean = "## Setup\n" + filler * 12 + "\n## Close\n" + filler * 12 + " Happy building!"
+    check(not marker_density(clean, mks, gate_text="fees only")["hard"],
+          "one sign-off, zero identity hits -> density passes")
+
+    # split_sections: intro naming + sub-50w merge
+    ss = split_sections("intro words here " * 20 + "\n## A\n" + "aaa bbb ccc " * 20 +
+                        "\n## Tiny\nfew words only\n## B\n" + "ddd eee fff " * 20)
+    check(ss[0][0] == "(intro)" and len(ss) == 3, "split_sections: intro kept, <50w section merged into previous")
+
+    # intra-doc audit: identical sections flagged, varied sections pass
+    same_sec = "So here's the thing. " + "fee market detail words flow onward " * 12
+    ia = intra_doc_audit("## S1\n" + same_sec + "\n## S2\n" + same_sec + "\n## S3\n" + same_sec)
+    check(any("opening phrase" in f or "overlap" in f or "duplicate paragraph" in f for f in ia["flags"]),
+          "identical sections -> intra-doc repetition flags fire")
+    varied_doc = ("## S1\nWhy do fees exist? " + " ".join(f"alpha{i} beta{i}" for i in range(30)) +
+                  "\n## S2\nImagine a queue forming. " + " ".join(f"gamma{i} delta{i}" for i in range(30)) +
+                  "\n## S3\n40% of it burns. " + " ".join(f"eps{i} zeta{i}" for i in range(30)))
+    check(intra_doc_audit(varied_doc)["flags"][0].startswith("ok:"),
+          "varied sections -> no intra-doc flags")
+    check(intra_doc_audit("one short paragraph only")["flags"][0].startswith("ok:"),
+          "short single-section doc is exempt from the intra-doc audit")
+    # warmth-side + machine checks added after R1 (temperature-unmeasured gap)
+    qa_text = ("Does it cost you? Nope. Is it fast? Rent. Why bother at all? Half. "
+               + "Calm filler sentence goes here to pad the passage nicely. " * 40)
+    check(any("self-answered-question" in f for f in ai_tell_lint(qa_text)["flags"]),
+          "Q?-punch-answer machine >1 is flagged")
+    check(not any("self-answered-question" in f for f in ai_tell_lint(
+        "Why bother? Rent. " + "Calm filler sentence goes here to pad things. " * 40)["flags"]),
+          "a single Q?-punch-answer is fine (human rate)")
+    clipped = {"burstiness_min": 9, "emdash_max": 4, "false_antithesis_cap": 2,
+               "sentence_median": 18, "avoid_words": [], "avoid_connectives": [], "voice": "t"}
+    short_doc = ("Fees rise fast. You pay more. It hurts a lot. Nobody enjoys that at all. "
+                 "Set a limit now. Simulate the transaction first, then send it, then confirm it. ") * 12
+    check(any("run short" in f for f in ai_tell_lint(short_doc, clipped)["flags"]),
+          "clipped-sentence drift vs card median is flagged")
+    vh = "## 200,000 is a default, not a plan\ntext here\n## It isn't the signer\nmore text\n"
+    check(any("verdict-fragment headers" in f for f in ai_tell_lint(vh + ("calm words " * 60))["flags"]),
+          "2+ antithesis headers flagged")
+
+    # heading-glue must not mask real opener variety (agents found this: '## Title' glued to the body
+    # made every headed section classify as 'claim', capping detectable variety at 2 types)
+    headed = ("## A\nWhy do fees exist at all? " + " ".join(f"a{i} b{i}" for i in range(30)) +
+              "\n## B\nImagine a queue forming fast. " + " ".join(f"c{i} d{i}" for i in range(30)) +
+              "\n## C\n40% of it burns away. " + " ".join(f"e{i} f{i}" for i in range(30)) +
+              "\n## D\nI once watched a leader stall. " + " ".join(f"g{i} h{i}" for i in range(30)))
+    hv = intra_doc_audit(headed)
+    check(hv["distinct_opener_types"] >= 3, "headed sections: opener classifier sees the PROSE opener, not '## Title'")
+
     print("\n" + ("VALIDATOR SELFTESTS PASSED" if ok else "FAILURES ABOVE"))
     return 0 if ok else 1
 
@@ -618,9 +991,15 @@ def selftest() -> int:
 def main(argv=None):
     ap = argparse.ArgumentParser(description="writer-style validator")
     sub = ap.add_subparsers(dest="cmd")
-    pa = sub.add_parser("audit"); pa.add_argument("--lessons", required=True)
+    pa = sub.add_parser("audit")
+    pa.add_argument("--lessons", default=None, help="batch mode: a dir of lessons")
+    pa.add_argument("--file", default=None, help="intra-doc mode: one long document")
     pt = sub.add_parser("tells"); pt.add_argument("--file", required=True)
     pt.add_argument("--card", default=None, help="<voice>.card.yaml — enforce per-voice targets")
+    pn = sub.add_parser("density"); pn.add_argument("--file", required=True)
+    pn.add_argument("--card", default=None, help="<voice>.card.yaml with a markers: block")
+    pn.add_argument("--markers", default=None, help="standalone markers yaml (overrides the card's block)")
+    pn.add_argument("--facts", default=None, help="the Pass-A fact-sheet — enables the context-gate check")
     pd = sub.add_parser("diff"); pd.add_argument("--facts", required=True); pd.add_argument("--styled", required=True)
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args(argv)
@@ -630,6 +1009,8 @@ def main(argv=None):
         return cmd_audit(a)
     if a.cmd == "tells":
         return cmd_tells(a)
+    if a.cmd == "density":
+        return cmd_density(a)
     if a.cmd == "diff":
         return cmd_diff(a)
     ap.print_help(); return 1
