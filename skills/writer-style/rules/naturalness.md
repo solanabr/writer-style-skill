@@ -37,7 +37,10 @@ never the catchphrase.
    **not** smooth these out. Over-tidy prose is a bigger tell than over-enthusiasm. In a long piece, real
    damage is allowed: ~one unfixed agreement slip or one list that derails mid-flight per ~1k body words —
    never in code, commands, numbers, or claims. And license **one genuinely off-argument aside per long
-   piece** (a personal intrusion that serves nothing) — instrumental-only asides are a tell.
+   piece** (a personal intrusion that serves nothing) — instrumental-only asides are a tell. But the
+   license is not a template: never LABEL the aside ("Complete aside:", "Completely unrelated:"), never
+   reuse a flavor across a batch (calibration measured a "domestic quirk" aside cloned into 4/8 pieces),
+   and in batch mode only the pieces dealt one get one.
 4. **Seams are real, not rationed.** A human seam = a confession, a real number from your own use, a named
    credit, a tool-credit, a "this is running long." Long pieces carry several, SHORT pieces may carry one.
    Don't fill a seam slot per section on schedule — calibration measured a confession in 8/8 pieces, 5/8

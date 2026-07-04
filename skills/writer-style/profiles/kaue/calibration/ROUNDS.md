@@ -129,3 +129,41 @@ diagnosis delegated to the adversarial analysis session (2026-07-03) before any 
 - [R1][owner][A/B] new pack lost 03 + 08 to the old pack → PROPOSED: hold all further restraint-side
   changes until the loss is diagnosed (hypotheses: over-sterilization — game-changer 0/8, energy delta,
   closer family — under adversarial analysis).
+
+---
+
+## Round 2 — auto-mode round 1 (coordinator palettes + fresh-eyes revisers)
+
+- date: 2026-07-03 · pack state: b29eec6 + 10d9bc5 · generator: claude-fable-5 via workflow
+- judging: 30 blind pairwise judges (3 lenses × 10 cells; 1 failed on 529) + batch forensics; mapping was sealed until scoring
+
+### Panel results (majority of 3)
+
+| cell | vs | winner | votes |
+|---|---|---|---|
+| 01 how-to | R1 | **R2** | 2-1 |
+| 02 macro | R1 | R1 | 2-1 |
+| 03 course-opener | R1 | R1 | 3-0 |
+| 04 security | R1 | R1 | 3-0 |
+| 05 deep-dive | R1 | tie | 1-1 (1 judge 529'd) |
+| 06 short | R1 | **R2** | 2-1 |
+| 07 tutorial (course-mid) | R1 | **R2** | 3-0 |
+| 08 thesis | R1 | **R2** | 3-0 |
+| **03 vs ROUND-0 (owner's pick)** | R0 | **R2** | 2-1 |
+| **08 vs ROUND-0 (owner's pick)** | R0 | **R2** | 3-0 |
+
+**The regression the owner flagged is recovered**: R2 beats both old-pack pieces he preferred. vs R1: 4/8 (mixed → one targeted round per decision rules).
+
+### Loss diagnosis (unanimous across losing cells' judges)
+Every R1-win cited the same thing about R2: "epigram-per-paragraph cadence… designer-tidy… ornamental aphorism" + missing lived receipts. R2-03 mandated warmth ("You've got this\!", ≥2 exclamations) WITHOUT a lived receipt → judges called it performed; R1-03's Arduino/borrow-checker receipts won. **Mandated warmth reads performed; receipts generate real warmth. Stripped markers get replaced by essayist polish — the model's default filler.**
+
+### Forensics (R1 → R2)
+improved: closing choreography 8/8→~3/8 (6 distinct endings) · 'Here's' 22→2 · QA-machine 9→6 · punch metronome 43/45→28/47 sections (clumped) · sentence means 13.6-17.1→16.3-24.5 · sign-off tokens 7/8→2/8.
+worse: cross-piece phrase stamping 2→5+ ("The silver bullet?" ×2 — coordinator palette error; "I'll admit my bias" ×2; "I'd rather hand you" ×2; godsend 4/8 single-lexeme). NEW tell: labeled domestic aside ("Complete aside: …chipped mug") 4/8 — the aside license became a template. Confession beat still 8/8.
+
+### Changes (applied for R3)
+- [R2][all-losses] epigram density → rule: paragraph-final snapped-shut lines ≤1/500w; two consecutive = unsnap one — LESSONS 7 + reviser mandate
+- [R2][c03] mandated warmth without receipt → EVERY piece carries ≥1 concrete first-person lived receipt; warmth mandates removed — LESSONS 2
+- [R2][forensics] phrase stamping → coordinator deals EXCLUSIVE distinctive constructions + specific tokens (godsend ≤2/batch, silver-bullet 1 owner) — LESSONS 3/6
+- [R2][forensics] domestic-aside template → aside license: never labeled, ≤2/batch, coordinator-dealt, flavors must differ — naturalness rule 3 + LESSONS 10
+- [R2][forensics] confession 8/8 → confession-flavored seams ≤5/batch, dealt

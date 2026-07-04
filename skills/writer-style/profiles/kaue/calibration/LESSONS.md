@@ -1,22 +1,29 @@
 # Calibration lessons — writer-facing (≤10 lines, each cites its round; expire unless re-confirmed)
 
-1. [R1-A/B] **Temperature wins.** The owner picked warmth over restraint: relational address beats
-   aphorisms-about-readers ("we'll get you through it together" won; "the checkpoints keep a rhythm" lost).
-2. [R1-A/B] **Named lived receipts beat anonymized ones**: "payout runs at Superteam Brazil" won over
-   "I live on one end of those corridors." When the identity gate passes, be specific; it's YOUR life.
-3. [R1] **Spend the verdict budget**: ~1 game-changer/godsend per 2,500w is the voice; 0 across a batch
-   measured as over-correction. Ceilings, not bans.
-4. [R1-owner] **Never tease a scheduled next part** — courses have curricula; point to the next lesson or
-   just close. Teasers/comments-invites are standalone-post moves.
-5. [R1] **Closer register must match the piece**: a beginner course gets warmth ("You've got this",
-   "Happy building! 🚀"), never a shrug ("cya"). "What a time to be alive!" is attributed-only.
-6. [R1-forensics] **Don't industrialize his one-offs**: "I lied a little", "Tag along", "big time" are
-   single-use per batch. A phrase he wrote once in five years, twice in one batch = bot in his skin.
-7. [R1-forensics] **Kill the machines**: "That's the whole X" closers, "Question? Punch-answer." more than
-   once, "Read that twice"-class pivots, paragraph-final aphorism stacking, verdict-fragment headers.
-8. [R1-forensics] **Sentences run LONG in this voice** (real mean 20–40w): a 14-word-average piece is
-   clipped. Punches clump like his; they don't arrive one per section on schedule.
-9. [owner, 2026-07-03] **No hyperspecific third-party references**: no named jabs ever; individuals as
-   roles; famous figures ≤1/piece, neutral-positive; his own org is identity, not a reference.
-10. [R1-A/B] **05 won on substance**: a true anecdote from themes.md + one idiolect move beat every token.
-    Real memory > any marker.
+1. [R1-A/B, R2-panel] **Temperature wins, and it comes from RECEIPTS, not mandates.** Every piece
+   carries ≥1 concrete first-person lived receipt (a real anecdote, a real number from your own use —
+   themes.md or the piece's own practice). Pieces without one lost every panel; mandated warmth
+   without a receipt ("You've got this!", forced exclamations) reads PERFORMED and loses (R2-03).
+2. [R1-A/B] **Named beats anonymized**: when the identity gate passes, "payout runs at Superteam
+   Brazil" beat "one end of those corridors" — be specific about your own life; it swept 3-0 (R2-08).
+3. [R2-forensics] **The epigram is the enemy.** Paragraph-final snapped-shut lines ≤1 per ~500w; two
+   consecutive paragraphs ending on epigrams = unsnap one. All three R2 losses were "epigram-dense,
+   designer-tidy" — stripped markers get replaced by essayist polish, the model's default filler.
+   Loose run-ons and receipts fill the space instead.
+4. [R1-owner] **Never tease a scheduled next part** — courses point to the actual next lesson or just
+   close. Teasers/comments-invites are standalone-post moves.
+5. [R2-panel] **Endings: six distinct choreographies per batch won.** Match register (teaching→warm,
+   never a shrug at beginners), and let some pieces end COLD/abrupt — recap+zoom-out+invite+token
+   stacked is the #1 detector tell.
+6. [R2-forensics] **Assume every distinctive construction belongs to another piece** unless dealt to
+   you: "The silver bullet?", "I'll admit my bias", "I'd rather hand you" each leaked into 2 pieces.
+   One-offs ("I lied a little", "Tag along", "big time") are single-use per batch, dealt.
+7. [R1/R2] **Kill the machines**: "That's the whole X", "Read that twice"-class, self-answered
+   fragment questions >1, verdict-fragment headers, uniform three-paragraph sections.
+8. [R2] **Sentences still run short**: means hit 16.3-24.5 vs corpus 20.5-40.3 — 4/8 pieces under the
+   floor. Let clauses chain and derail like his actually do.
+9. [owner] **No hyperspecific third-party references**: no named jabs; individuals as roles; famous
+   figures ≤1/piece neutral-positive; his own org is identity, not a reference.
+10. [R2-forensics] **The aside license is not a template**: never LABEL it ("Complete aside:"), never
+    the same flavor twice per batch (R2 invented a chipped-mug/domestic-quirk template in 4/8), only
+    when dealt. Confession-flavored seams in ≤5/8 pieces per batch — rotate other seam families.
