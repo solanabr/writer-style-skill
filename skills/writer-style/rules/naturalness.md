@@ -81,6 +81,6 @@ Four checks, not vibes:
   specific detail, mixed feelings, and asides that read as human.
 - **The validator**: `validate_voice.py tells --card <voice>.card.yaml` fails any output whose
   sentence-length stdev is below the card's `burstiness_min` (the quantitative form of "write unevenly");
-  `density --card <voice>.card.yaml --facts <sheet>` enforces the marker budgets + context gates;
-  `audit --file <doc>` catches section-to-section repetition in one long piece. The em-dash cap is a
-  *guardrail*, not a voice signal — burstiness is the real target.
+  also fails over-cap em-dash use as a hard typography guardrail; `density --card <voice>.card.yaml --facts
+  <sheet>` enforces the marker budgets + context gates; `audit --file <doc>` catches section-to-section
+  repetition in one long piece. The em-dash cap is not a voice signal — burstiness is the real target.

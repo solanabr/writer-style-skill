@@ -195,8 +195,8 @@ posts); fidelity is corpus-bounded and improves as more of his on-register writi
 
 `skills/writer-style/tools/` is pure-Python (stdlib only, no network): `profile_corpus.py` (cleans + profiles a
 corpus → builder-internal evidence + card dials), `validate_voice.py` (the Pass-C gate: a fact-preservation diff
-that hard-fails a mutated value, an AI-tell + tiered-deslop lint, a sentence-cadence floor, and a cross-lesson
-repetition audit), `style_lexicons.py` (shared tokenizers + the gated cliché lexicons). Run `python3
+that hard-fails a mutated value, an AI-tell + tiered-deslop lint, hard cadence/em-dash guardrails, and a
+cross-lesson repetition audit), `style_lexicons.py` (shared tokenizers + the gated cliché lexicons). Run `python3
 skills/writer-style/tools/test_tools.py` to verify.
 
 ## License

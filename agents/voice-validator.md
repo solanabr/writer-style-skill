@@ -30,10 +30,11 @@ Tooling: `validate_voice.py` (pure-Python, no deps), inside the skill's own dire
    word/connective lists); without it, universal defaults. Flags: banned/idiolect words, "not X, it's Y"
    overuse, em-dash overuse, and **uniform cadence** (sentence-length stdev below the card's `burstiness_min`
    — the top human-vs-AI signal). Report the metrics and which fired. The tool tags each flag `[HARD]` or
-   `[advisory]` and prints a `GATE: PASS/FAIL` line: only a **machine-paste fingerprint** or **uniform cadence**
-   is HARD. Banned/idiolect words, em-dash, false-antithesis, and the gated tiers are **advisory** — surface
-   them for the writer to weigh against naturalness, never as an automatic regenerate. Sanding every flagged
-   word out (e.g. forcing `leverage`→`use` when the author wrote `leverage`) is itself what makes text read as AI.
+   `[advisory]` and prints a `GATE: PASS/FAIL` line: a **machine-paste fingerprint**, **uniform cadence**, or
+   **em-dash overuse** is HARD. Banned/idiolect words, false-antithesis, and the gated tiers are **advisory** —
+   surface them for the writer to weigh against naturalness, never as an automatic regenerate. Sanding every
+   flagged word out (e.g. forcing `leverage`→`use` when the author wrote `leverage`) is itself what makes text
+   read as AI.
 
 3. **Marker density + context gates** — `python3 "$SKILL/tools/validate_voice.py" density --file <draft> --card "$SKILL/profiles/kaue/kaue.card.yaml" --facts <fact-sheet>`.
    Counts every `markers:` entry against its budget and checks identity/community gates against the
@@ -62,6 +63,6 @@ metric** (a marker in ≥60% of pieces = portfolio-level repetition per-piece ca
 ## Output
 A short verdict per check (pass / fail + the offending tokens/metrics), and a single bottom line: **ship** or
 **back to voice-writer** with the specific sentences to fix. Three things are automatic blocks: a failed fact
-diff, a `GATE: FAIL` hard tell (fingerprint or uniform cadence), and a `density` hard fail (gate-missed
-identity marker or doubled sign-off). Advisories are reported for the writer to weigh — a piece can ship with
-advisories when a human blind read says it sounds right.
+diff, a `GATE: FAIL` hard tell (fingerprint, uniform cadence, or em-dash overuse), and a `density` hard fail
+(gate-missed identity marker or doubled sign-off). Advisories are reported for the writer to weigh — a piece
+can ship with advisories when a human blind read says it sounds right.

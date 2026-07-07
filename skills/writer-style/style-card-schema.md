@@ -98,9 +98,9 @@ Forensic fields (function-word rates, n-gram frequencies, type-token ratio, full
 
 **Two honesty conventions.** (1) A scalar dial is **measured** from the corpus; a dial written as a mapping
 with `source: persona_override` was set from the persona because the small sample under-measured it (it
-carries `measured:` + `why:` so the override is auditable, not hidden). (2) `em-dash-overuse` is a **safety
-guardrail**, not a voice signal. Every author measures <2.2/1k, so the cap never reproduces an authentic
-trait; only `uniform-cadence`/`burstiness_min` is a real, enforced per-voice target.
+carries `measured:` + `why:` so the override is auditable, not hidden). (2) `em-dash-overuse` is a **hard
+safety guardrail**, not a voice signal. Every author measures <2.2/1k, so the cap blocks slop rather than
+reproducing an authentic trait; `uniform-cadence`/`burstiness_min` remains the real per-voice rhythm target.
 
 The validator (`validate_voice.py tells --card <voice>.card.yaml`) enforces the per-voice `burstiness_min`,
 `em-dash-overuse.max`, `false-antithesis.cap_per_800w`, and the `avoid` word/connective lists; without a card

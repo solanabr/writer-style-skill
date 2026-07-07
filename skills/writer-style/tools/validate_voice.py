@@ -701,11 +701,17 @@ def cmd_density(a):
 
 
 def _is_hard(flag: str) -> bool:
-    """Only two things hard-fail the tells gate (see rules/deslop.md): a machine-paste fingerprint,
-    and true uniform cadence (the burstiness floor). Banned words, em-dash, false-antithesis, and the
-    gated deslop tiers are ADVISORY — surfaced for the writer to weigh, never an automatic regenerate.
-    Sanding every flagged word out is itself what makes text read like AI."""
-    return "uniform cadence" in flag or "machine-paste fingerprint" in flag
+    """Hard-fail only the high-confidence tells.
+
+    Em-dash overuse is hard because it is a voice-neutral typography cap with
+    rate-and-count guards; a single dash or honest technical punctuation does
+    not fire it. Banned words, false-antithesis, and the gated deslop tiers stay
+    advisory so the validator does not sand real voice out of the prose."""
+    return (
+        "uniform cadence" in flag
+        or "machine-paste fingerprint" in flag
+        or "em-dash overuse" in flag
+    )
 
 
 def cmd_tells(a):
@@ -731,7 +737,7 @@ def cmd_tells(a):
     print("Deslop scan (gated tiers + structural; only machine-paste fingerprints are hard):")
     for f in d["flags"]:
         show(f)
-    hard_fail = d["hard"] or any("uniform cadence" in f for f in r["flags"])
+    hard_fail = d["hard"] or any(_is_hard(f) for f in r["flags"])
     print(f"GATE: {'FAIL (hard tell)' if hard_fail else 'PASS'}" + (f" — {n_adv} advisory" if n_adv else ""))
     return 1 if hard_fail else 0
 
@@ -780,11 +786,11 @@ def selftest() -> int:
           "contracted 'isn't/aren't X, it's Y' is caught (was silently missed before)")
     check(not FALSE_ANTITHESIS_RE.search("I cannot, however, agree."), "'cannot' is not a false-match")
 
-    # advisory-vs-hard gate (rules/deslop.md contract): ONLY fingerprints + uniform cadence hard-fail
+    # advisory-vs-hard gate (rules/deslop.md contract): high-confidence tells hard-fail
     check(_is_hard("uniform cadence (sentence stdev 3.0 < card's 9) — reads even/AI"), "uniform cadence is HARD")
     check(_is_hard("machine-paste fingerprint: chatgpt-utm"), "machine-paste fingerprint is HARD")
+    check(_is_hard("em-dash overuse (5x, 12.0/1k > 4)"), "em-dash overuse is HARD")
     check(not _is_hard("banned AI-tell words (Tier-1, with swaps): {'leverage': \"use\"}"), "a banned word is advisory")
-    check(not _is_hard("em-dash overuse (5x, 12.0/1k > 4)"), "em-dash overuse is advisory")
     check(not _is_hard("false-antithesis 'not X, it's Y' overused (3 > cap 2/800w)"), "false-antithesis is advisory")
     good = ("You stake SOL and the network mints fresh tokens. Short punch. Then a much longer, "
             "winding clause that runs on for a while to vary the rhythm and keep it human. Done.")

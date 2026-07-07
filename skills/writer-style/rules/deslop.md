@@ -11,9 +11,9 @@ After the blind-compare (Pass B.5), do a quick deslop pass. The principle, above
 
 The lint does the mechanical half. `validate_voice.py tells --card <voice>.card.yaml` reports Tier-1 clichés
 (with plain-word swaps), gated Tier-2/Tier-3 buzzword clusters, crypto-boilerplate, copula clusters,
-symbolic-gloss, machine-paste fingerprints, and Markdown hygiene. **Most are advisory; only the fingerprints
-and the burstiness floor are hard fails.** Apply judgment: a flagged technical word in honest use (a `robust`
-retry loop, right next to code) is fine — that's why Tier-3 is density-gated, not banned.
+symbolic-gloss, machine-paste fingerprints, and Markdown hygiene. **Most are advisory; only fingerprints,
+uniform cadence, and em-dash overuse are hard fails.** Apply judgment: a flagged technical word in honest use
+(a `robust` retry loop, right next to code) is fine — that's why Tier-3 is density-gated, not banned.
 
 ## Three quick tests the lint can't run
 1. **Paragraph-reshuffle.** Could you swap two body paragraphs without breaking the piece? If yes, it's
