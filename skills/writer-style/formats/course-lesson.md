@@ -8,9 +8,15 @@ lesson, and will decide during THIS lesson whether to do the next one. The long-
 - **Honor the series position** (the brief's `context:`): a continuation open is available when
   the previous lesson is assumed done ("last time you deployed X — now…"); never re-teach the
   previous lesson; never assume material from a FUTURE lesson.
-- **The closer contract is absolute**: point to the actual next lesson by name, or close plain.
-  NO teasers of scheduled content, NO comments-invites — those are standalone-post moves (this is
-  a codified calibration lesson; violating it is a compliance failure, not a style choice).
+- **The closer is a bridge to the ACTUAL next lesson**: name it, or describe what the student does
+  there — phrased from the artifact they just built ("Next lesson `btc_rpc.py` grows eyes"). A
+  content-teaser must be verified against the next lesson's brief: mis-aiming at a lesson two rungs
+  away is a defect a named pointer can't have. Still banned: marketing energy ("You won't believe
+  what's next!"), teasing content beyond the literal next lesson, comments-invites (a
+  standalone-post move). The FINAL lesson inverts the pattern — say there is no next lesson and
+  point outward. (Redrawn in evolution R2 against the owner-accepted corpus: the earlier absolute
+  teaser ban over-generalized a standalone-post ruling; LESSONS #4's actual rule — point to the
+  real next lesson or close plain — stands.)
 - **One concept per lesson.** Adjacent concepts get named and deferred to their lesson, with the
   lesson named. Scope discipline is what makes a series feel designed.
 - **"You" is the student in the room**, mid-course, terminal open. Address their current state
@@ -33,8 +39,10 @@ lesson, and will decide during THIS lesson whether to do the next one. The long-
 
 ## Reads as AI here (instant fails)
 - "In this lesson, you will learn…" objective-list openers (curriculum-doc voice).
-- A recap section at the end of every lesson (uniform scaffolding across the series is the
-  series-level tell — vary lesson shapes).
+- A recap section at the end of any lesson — the recap function lives in the NEXT lesson's opener
+  and in checkpoints, never as a closing section. Series uniformity is measured at the SURFACE,
+  not the beat: a stable beat-set across lessons is course design; verbatim headers, unrotated
+  refrain wording, or a cloned seam skeleton across lessons is the series tell.
 - Encouragement quotas: "Great job!" after every step. Praise the milestone that cost something.
 - Teasing the next lesson with marketing energy ("You won't believe what's next!").
 

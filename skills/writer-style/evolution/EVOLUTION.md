@@ -96,7 +96,7 @@ times mid-round; all gaps were retried to completion (48/48 verdicts, 48/48 vote
 `args` did not deliver on this runtime — scripts now inline their data (research out_path defaulted
 to scratchpad and was copied into the repo by hand).
 
-**Human gate (2026-08-20, owner).** (1) Both empirical adoptions KEPT. (2) Receipt no-fit policy:
+**Human gate (2026-08-20, owner).** _(R1)_ (1) Both empirical adoptions KEPT. (2) Receipt no-fit policy:
 HYBRID — `[RECEIPT — confirm: …]` placeholder (publish-blocking) on teaching/motivation pieces
 where the receipt is load-bearing; silent degrade to practice/stance seams elsewhere; never
 fabricate → codified `rules/facts-first.md` §7. (3) Launch-post warmth: BATCH-DEALT ~1/3 — the
@@ -104,3 +104,66 @@ coordinator deals the warm edge; cold launches stay licensed → codified `writi
 course/batch mode. (4) Round committed to `feat/voice-evolution-engine-20-08-2026`. (LESSONS.md
 deliberately not extended — both rulings live in their binding homes; rule-bloat is the failure
 mode the minimalist stance exists to stop.)
+
+---
+
+## Round 2 — 2026-08-21 · absorption round (owner-accepted courses as inspiration) · model: claude-fable-5
+
+**Scope + owner steer.** Owner clarified the two shipped courses (btc-to-sol-evolution, 81k words;
+solana-speedrun, 1.7k PT-BR prose words) are ITERATED AND ACCEPTED output — feed them as
+inspiration, and explicitly: "avoid overfitting or giving them too much attention." Shape: 1
+reframed speedrun audit + 3 miners (craft / voice / reclassification) + chair over btc-to-sol +
+mechanical sweeps. No generation, no probes. ~1.5M tokens.
+
+**Key findings.**
+- *The frame is stable, the string is not*: the same tells re-emerge translated into PT
+  ("aren't magic"→"Não é mágica"; "is the whole point"→"É pra isso que") — lexicons cannot catch
+  this class; only positional/functional checks transfer. Markedness is language-relative (the PT
+  cleft is near-neutral where the EN epigram is marked).
+- *Acceptance has a visibility horizon*: per-lesson-visible patterns are licensed by review, but
+  cross-lesson clones (the confession skeleton ×5, a superlative-ladder contradiction) are exactly
+  what per-lesson review cannot see — so accepted-corpus guarding applies to HARD fails and
+  lexicon bans only; advisory detectors stay free to fire (governance note in hyperparams).
+- Two live tool bugs surfaced by the corpus: batch_twin_scan counted fenced-block boilerplate as
+  prose (12/12 raw "twin families" on the corpus were fence noise), and Tier-1 "underscore" fired
+  on literal Rust-identifier teaching.
+- Contrast-frame family survived contact with ground truth unchanged (2-7 content-bearing hits
+  per accepted lesson, all under the scaled cap).
+- Process correction (honesty note): the first "collision sweep clean" claim was VACUOUS — a cwd
+  drift made the tool path silently unresolvable; the real sweep ran 2026-08-21 post-fix.
+
+**Codified (focus-filtered — contradiction fixes + bugs + one mechanism, nothing corpus-shaped):**
+- [R2][14/14 accepted lessons violated the spec] closer contract redrawn: content-bridge to the
+  ACTUAL next lesson licensed (accuracy-verified against the next brief); marketing energy,
+  beyond-next teasing, comments-invites still banned; final lesson points outward → format-spec-edit
+  — `formats/course-lesson.md`
+- [R2][recap function lives in next-opener/checkpoints] no recap closers; series uniformity is
+  measured at the SURFACE, not the beat → format-spec-edit — `formats/course-lesson.md`
+- [R2][confession skeleton ×5, survives translation] seam shape-cloning line (type may ritualize,
+  skeleton may not; the tell lives in the frame) → rule-edit — `rules/naturalness.md`
+- [R2][12/12 fence-noise twins] `_prose_only()` fence/inline-code stripping in batch_twin_scan →
+  tool-fix — `testbed/check_round.py`
+- [R2][×2 FP on accepted Rust lesson] literal-identifier "underscore(s)" exemption (incl.
+  hyphenated "leading-underscore") → tool-fix — `tools/validate_voice.py`
+- [R2][R1 receipt starvation] durable owner-shipped substance into the bank: stances 26-27 +
+  anecdotes A26-A27 (Superteam community cases + own-org receipts, identity-gated, numbers
+  re-verify at use) → themes-bank-entry — `profiles/kaue/themes.md`
+- [R2][guard governance] lexicon_guard scoped (hard/Tier-1 only; advisories exempt; PT-BR
+  tokenizer caveat) → hyperparam-change — `hyperparams.yaml`
+
+**Parked (anti-overfit — n=1 corpus; revisit only with a second corroborating course or owner
+appetite):** machine-drafted exemplar adoption (5 candidates with payloads in rounds/r2/slate.json);
+confession-anecdote biography confirmation for themes.md; course-register card overlay (zero
+exclamation/emoji/verdict-tokens, aphorism-pair verdicts); kaue.md move-set + "Tuesday"/"wearing-X"
+marker minting; formats/course-series.md; the full course-lesson enrichment set (two-gate
+checkpoints, fading tiers, code-register block); all 16 detector-decision rescopes for unbuilt
+detectors (thresholds recorded in slate.json).
+
+**Cross-repo handoff** (course-creator-skill's bugs, not ours): rounds/r2/HANDOFF-course-creator.md
+— quiz-layer em-dash hole (97 shipped), dedash comma-splice mapping, cover template leakage,
+mandatory fact-check pass, fanout dialect normalization, incomplete-fix sweeps, audience-model
+contradiction.
+
+**PT-BR note.** The toolchain is English-calibrated (WORD_RE splits accented tokens; contrast
+regexes are EN-shaped). Multilingual support = separate project, not incremental tuning; logged,
+not attempted.

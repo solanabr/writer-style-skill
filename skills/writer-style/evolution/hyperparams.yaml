@@ -2,7 +2,7 @@
 # with a reason. The loop is only systematic if the knobs are versioned — tweak here, never inline.
 
 version: 1
-round_next: 2                 # next round number; bump when a round's EVOLUTION.md entry lands
+round_next: 3                 # next round number; bump when a round's EVOLUTION.md entry lands
 
 generation:
   briefs: all                 # or an explicit id list for a partial probe round (partial rounds
@@ -37,7 +37,18 @@ empirical:
   probes_per_candidate: 3     # briefs regenerated with the candidate injected, vs round baseline
   votes_per_probe: 3          # blind pairwise judges per probe (order alternates by index)
   adopt_threshold: 0.667      # two-thirds of non-tie votes reaches the human gate (exactly 2/3 passes)
-  lexicon_guard: [profiles/kaue/exemplars/kaue, testbed/accepted]   # zero false positives required
+  lexicon_guard:                # zero false positives required on ALL of these
+    - profiles/kaue/exemplars/kaue
+    - testbed/accepted
+    # Owner-reviewed shipped courses (absolute paths, sibling repo). SCOPE (R2 governance fix, per
+    # the speedrun audit's flag): these guard HARD fails and Tier-1/lexicon bans only — advisory
+    # detectors MAY fire on them, because acceptance has a visibility horizon (per-lesson review
+    # cannot see cross-lesson clones; freezing advisories to the corpus would freeze its unnoticed
+    # defects in). The PT-BR course is also outside the English tokenizers' reliability. Verified
+    # 2026-08-21: contrast-frame family passes every btc-to-sol lesson; the one Tier-1 hit
+    # (literal-identifier "underscore" ×2) was a real false positive, fixed in validate_voice.
+    - /Users/azrael/Developer/GigaClaude/course-creator-skill/content/courses/btc-to-sol-evolution/lessons/drafts
+    - /Users/azrael/Developer/GigaClaude/course-creator-skill/content/courses/solana-speedrun/lessons/drafts
 
 human_gate:
   ask: [adopt_candidates, taste_questions, commit]
@@ -55,3 +66,5 @@ history:
      reason: "intent was two-thirds; 4/6 (0.6667) must pass — R1's xpost-antithesis case exposed the rounding edge"}
   - {round: 1, date: 2026-08-20, change: "probes_per_candidate: 2 -> 3",
      reason: "R1 measured high inter-judge agreement WITHIN probes (14/16 unanimous) but high regen variance BETWEEN probes (5 candidates split 3-3 with opposite unanimous probes) — probe count, not vote count, is the binding sample size"}
+  - {round: 2, date: 2026-08-20, change: "lexicon_guard: += the two owner-reviewed shipped courses",
+     reason: "owner clarified the courses are iterated-and-accepted output — the standing definition of what a detector must never flag; R1 detectors verified clean against both before adding"}

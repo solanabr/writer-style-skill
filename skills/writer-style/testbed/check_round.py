@@ -27,6 +27,17 @@ _EMOJI_RE = re.compile("[\U0001F300-\U0001FAFF☀-➿\U0001F900-\U0001F9FF]")
 _PLACEHOLDER_LINK_RE = re.compile(r"\[[A-Z][A-Z0-9-]*\]|https?://\S+")
 
 
+_FENCED_RE = re.compile(r"^```.*?^```[ \t]*$", re.M | re.S)
+_INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
+
+
+def _prose_only(text: str) -> str:
+    """Fenced blocks (code, ```visual specs) and inline code are container boilerplate — twin-
+    scanning them reports the format, not the writer. R2-absorption rerun on the accepted course
+    corpus: 12/12 raw twin families were fence noise (visual alt-text, shared CLI commands)."""
+    return _INLINE_CODE_RE.sub(" ", _FENCED_RE.sub(" ", text))
+
+
 def batch_twin_scan(texts: dict) -> list:
     """Within-batch phrase twinning: distinctive word 4-grams shared by >=2 pieces of ONE batch.
     R3 forensics found writers dedupe coinages against history but not against sibling pieces —
@@ -34,7 +45,7 @@ def batch_twin_scan(texts: dict) -> list:
     chars (drops function-word scaffolding); shared by 2-3 pieces (4+ = domain vocabulary)."""
     grams = {}
     for pid, text in texts.items():
-        words = [w for w in WORD_RE.findall(text.lower())]
+        words = WORD_RE.findall(_prose_only(text).lower())
         seen = set()
         for i in range(len(words) - 3):
             g = tuple(words[i:i + 4])

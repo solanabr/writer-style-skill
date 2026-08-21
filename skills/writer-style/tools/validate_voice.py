@@ -379,6 +379,15 @@ def ai_tell_lint(text: str, card: dict | None = None) -> dict:
 
     banlist = set(AI_TELL_WORDS) | set(c.get("avoid_words", []))
     banned = {w: low.count(w) for w in banlist if low.count(w) > 0}
+    # Literal-identifier exemption (R2-absorption): determiner/adjective-preceded "underscore(s)"
+    # names the `_` character ("a leading underscore means intentionally unused" — fired ×2 on an
+    # accepted Rust lesson); the Tier-1 tell is the VERB ("this underscores the need").
+    _lit_us = len(re.findall(r"(?:\b(?:a|an|the|leading|single|double|trailing)[\s-]+|`)underscores?\b", low))
+    for _w in ("underscore", "underscores"):
+        if _w in banned:
+            banned[_w] -= min(banned[_w], _lit_us)
+            if banned[_w] <= 0:
+                del banned[_w]
     banconn = set(AI_TELL_CONNECTIVES) | set(c.get("avoid_connectives", []))
     banned_conn = {cc: low.count(cc) for cc in banconn if low.count(cc) > 0}
     # contrast-frame FAMILY pooled under the card's false-antithesis cap (R1: the single-variant

@@ -47,7 +47,11 @@ never the catchphrase.
    front-loaded, which reads as a quota, because it was one. Zero-confession pieces are allowed. Let "I"
    clump the way humans self-refer — floods and droughts, usually at the edges — not one ration per section.
    Rotate seam TYPES across the piece; never open every section the same way. (Always load the primary's
-   `seam` exemplar.)
+   `seam` exemplar.) Shape-cloning is the batch tell one level up: a seam TYPE may repeat across a
+   series as designed ritual, but its SKELETON may not — five pieces on "[I spent <time-unit>] →
+   [convinced X was broken] → [the system was right]" is a template wearing different facts. The
+   tell lives in the frame, not the string: it survives paraphrase and even translation, so rotate
+   the shape, not just the words.
 5. **Spike, then cool — topology by JOB, not one law.** After a spike (caps/emoji/exclamation/vowel-stretch),
    flat competence before the next; two adjacent spikes = the over-enthusiasm tell. For **explainers**:
    edges hot, middle calm. For **teaching/motivation**: mid-piece warmth IS the payload — the instructor
