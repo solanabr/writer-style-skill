@@ -173,6 +173,11 @@ npx @stbr/writer-style-skill
 - **Build a voice:** `/new-persona` (the **persona-builder** agent) — the adversarial, evidence-bound process.
 - **Validate:** `/validate-voice` (the **voice-validator** agent) — fact diff + AI-tell lint + repetition audit.
 
+Output is **container-aware**: X posts and threads, LinkedIn posts, blog posts, course lessons,
+video scripts (shorts + talking-head), newsletters, and community announcements each carry a
+per-container contract in [skills/writer-style/formats/](skills/writer-style/formats/) — including
+the AI tells specific to that platform's readers.
+
 Start at [skills/writer-style/SKILL.md](skills/writer-style/SKILL.md).
 
 ## How it was built
@@ -185,11 +190,20 @@ readability band, hedge/boost lean, example/code density, favor/avoid word lists
 walled off in `evidence/` for the builder and validator. The strongest signal is the **exemplar bank**: real
 on-register passages, one per rhetorical slot. See [skills/writer-style/authoring-personas.md](skills/writer-style/authoring-personas.md).
 
-## Honest scope
+## How it improves
 
-This produces content **in Kaue's register, with AI tells engineered out and facts verified first** — *not* an
-indistinguishable voice clone. The primary voice is calibrated from a small on-register sample (4 technical
-posts); fidelity is corpus-bounded and improves as more of his on-register writing is added.
+Two empirical loops, both logged, neither vibes-driven:
+
+- **Calibration** (`skills/writer-style/testbed/`, `/calibrate-voice`) — the fixed 8-brief matrix is
+  regenerated each round, the **owner** rates every cell, and each reaction maps to exactly one
+  pack change. Owner ratings are the only authority over the voice's identity markers.
+- **Evolution** (`skills/writer-style/evolution/`, `/evolve-voice`) — the skill improves *itself*:
+  mass-generation across the format matrix → independent adversarial judge panels (slop-hunter /
+  voice-fidelity / format-native) → a stanced master board that distills takeaways into testable
+  candidates → blind A/B probes that must clear a win-rate threshold → a **human gate** before
+  anything is codified. Every round appends to `evolution/EVOLUTION.md`; every knob lives in
+  `evolution/hyperparams.yaml` with a change history. External evidence (deslop research, platform
+  norms, audits of previously-shipped content) refreshes per round under `evolution/research/`.
 
 ## Tools
 

@@ -54,6 +54,16 @@ Now load the pack:
 5. **Substance bank**: scan `profiles/kaue/themes.md` for items whose tags match the brief; shortlist ≤3
    into the fact-sheet (verify their numbers like any fact). Prefer a fitting bank item over exemplar
    content; never force one; respect `burn: high`.
+   **This step runs even when the fact-sheet arrives frozen or imported** (restyle jobs, evolution
+   rounds): bank items are owner-attested material, so append the shortlist under an
+   `## Attested receipts (themes.md)` annex on the sheet — the freeze protects facts; it does not
+   close the receipt lane. Brief-builders stocking sheets must attempt the import for every brief:
+   pull the single best-fitting lived receipt for short containers, or write
+   `receipts: none fit — use a practice or stance seam; do not invent.` **A first-person incident
+   seam may only draw from this annex, the sheet, or the piece's own practice** (see
+   `rules/facts-first.md`) — a dated memory, a named repo, an incident the byline never lived is a
+   fact violation, not a style choice. Batch mode: annexes deal DIFFERENT receipts to sibling
+   pieces — a receipt is a marker for twin purposes.
 
 Then **restyle the frozen fact-sheet into the voice.** The instruction to hold in mind:
 
@@ -76,6 +86,18 @@ and **substance** (a bank anecdote burned by lesson 2 is unavailable to lesson 7
 tracks spends). For a batch/course, a **coordinator pass** deals each piece its mood, opener family,
 closer family (or none), and marker spends BEFORE writers start — parallel writers can't see each other,
 and uncoordinated rotation reproduces the stamp one token over (measured: 'cya' 4/8 in Round 1).
+Launch/announcement warmth is DEALT, not defaulted (owner ruling, evolution R1): the coordinator gives
+roughly one in three launch-type pieces a warm edge (a direct "you", an open door, an edge emoji); the
+rest are licensed to close cold — a warm edge on every launch is a quota, and quotas read as quotas.
+
+**De-twin pass (mandatory batch step — executes LESSONS #6).** After generation, run the batch gate
+(`testbed/check_round.py`); if it reports twin families or lemma tics, one editor agent rewrites the
+LOWER-VALUE occurrence of each — span-local, register-constant, never a dealt marker, never inside
+code/numbers/frozen identifiers — then the gate re-runs; iterate until the twin list is empty (≤2
+iterations expected). Only then panels/publish. Parallel writers structurally cannot de-twin
+themselves; without this phase the codified rule is unenforceable. Verify after edits: `diff` stays
+green and `density` output unchanged on every edited piece (proof no dealt token was touched — the
+R4 editor-cut-a-dealt-marker failure).
 
 ## Pass B.75 — Fresh-eyes revision (a different reader, bounded edits)
 
@@ -98,6 +120,14 @@ reader say this is Kaue, or a rule-follower?* Rule-follower tells: a definition-
 scenario, even cadence, the same seam every section, no loose run-on or hedge, enthusiasm spread evenly. If
 it reads that way, regenerate toward a pain-first felt opener, uneven rhythm, a rotating seam per passage, a
 loose body, and at most one civilizational analogy. Match the exemplars' *texture*, not their topic.
+
+**Paragraph-close census** (threads and multi-post containers: posts = paragraphs): list the final
+clause of every paragraph and mark *snap* (≤8-word shaped verdict/epigram) vs *plain*. Most
+paragraphs must end plain or on a trailing clause; two consecutive snaps = rewrite the weaker one to
+trail on information; KEEP the 2-3 snaps that are warm and load-bearing — a snap count of zero is a
+fail, not a win (LESSONS #3: over-flattening trades warmth 1:1). The stdev gate cannot see
+paragraph-final snaps; this census is the only thing that does. Sentence-mean advisories are not
+dismissible as "container register" unless the container spec names a telegraphic register.
 
 ## Long-form mode (≥1,200 words)
 

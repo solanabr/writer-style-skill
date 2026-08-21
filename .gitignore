@@ -117,3 +117,7 @@ $RECYCLE.BIN/
 # calibration working data (rounds, ledgers, judging) — local dev material; durable knowledge lives in
 # profiles/kaue/LESSONS.md + the pack/rules; golden regression outputs in testbed/accepted/
 skills/writer-style/profiles/kaue/calibration/
+
+# evolution working data (generated pieces, verdicts, probes) — same policy as calibration:
+# durable knowledge lives in evolution/EVOLUTION.md + the codified diffs, raw rounds stay local
+skills/writer-style/evolution/rounds/

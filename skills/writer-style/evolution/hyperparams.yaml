@@ -1,0 +1,57 @@
+# Evolution-engine hyperparameters. Read before every round; every knob change appends to history:
+# with a reason. The loop is only systematic if the knobs are versioned — tweak here, never inline.
+
+version: 1
+round_next: 2                 # next round number; bump when a round's EVOLUTION.md entry lands
+
+generation:
+  briefs: all                 # or an explicit id list for a partial probe round (partial rounds
+                              # can't see portfolio effects — STAMP/twins need the full batch)
+  model: inherit              # generation model; record the actual model in the round entry and
+                              # keep it constant within a round (cross-model deltas are their own study)
+  passes: full                # full = Pass A-import -> B -> B.5 -> C per writing-workflow.md
+  parallel: true              # one writer agent per brief, no shared state
+
+panel:                        # per-piece adversarial judges — lenses, not clones
+  lenses: [slop-hunter, voice-fidelity, format-native]
+  optional_lenses:
+    reader-sim: off           # audience-member lens; turn on for course-heavy rounds
+    fact-checker: off         # off while fact-sheets are imported frozen (diff covers preservation)
+  takeaways_max_per_judge: 5  # forces ranking; a judge that returns 12 notes ranked nothing
+  independence: hard          # judges never see each other's output, ever
+
+mechanical:                   # objective layer, runs between panel and board
+  validator: [tells, density, audit, diff]
+  batch: check_round          # --briefs evolution/briefs — expect blocks + STAMP + batch twins
+
+board:
+  members: 5                  # independent full-slate reads; diversity comes from assigned stances
+  stances: [detector, owner-advocate, reader-advocate, minimalist, contrarian]
+    # detector: what still clocks as AI · owner-advocate: what isn't him · reader-advocate: what
+    # fails the audience · minimalist: which existing rule already covers this / what to DELETE
+    # · contrarian: which panel takeaways are wrong or over-corrections
+  candidates_max: 8           # slate cap after synthesis dedup
+  classify_first: true        # compliance-failure vs rule-gap split is mandatory (README §2)
+
+empirical:
+  probes_per_candidate: 3     # briefs regenerated with the candidate injected, vs round baseline
+  votes_per_probe: 3          # blind pairwise judges per probe (order alternates by index)
+  adopt_threshold: 0.667      # two-thirds of non-tie votes reaches the human gate (exactly 2/3 passes)
+  lexicon_guard: [profiles/kaue/exemplars/kaue, testbed/accepted]   # zero false positives required
+
+human_gate:
+  ask: [adopt_candidates, taste_questions, commit]
+  batch_questions: true       # one consolidated check-in per round, evidence attached — never
+                              # mid-flow pings; the operator decides, the engine prepares
+
+governance:
+  marker_changes: route-to-calibration   # caps/gates move only via logged calibration rounds
+  lessons_cap: 12             # LESSONS.md stays ≤12 entries; adding may mean merging or expiring
+  deadoption_allowed: true    # over-correction repair is a first-class candidate type
+
+# Append-only. Format: {round: N, date: YYYY-MM-DD, change: "knob: old -> new", reason: "..."}
+history:
+  - {round: 1, date: 2026-08-20, change: "adopt_threshold: 0.67 -> 0.667",
+     reason: "intent was two-thirds; 4/6 (0.6667) must pass — R1's xpost-antithesis case exposed the rounding edge"}
+  - {round: 1, date: 2026-08-20, change: "probes_per_candidate: 2 -> 3",
+     reason: "R1 measured high inter-judge agreement WITHIN probes (14/16 unanimous) but high regen variance BETWEEN probes (5 candidates split 3-3 with opposite unanimous probes) — probe count, not vote count, is the binding sample size"}
