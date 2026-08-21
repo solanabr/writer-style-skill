@@ -23,6 +23,20 @@ from validate_voice import (read_card_markers, read_card_targets, marker_density
                             ai_tell_lint, deslop_flags, fact_diff, intra_doc_audit,
                             read_one, _strip_meta, WORD_RE)
 
+_EMOJI_RE = re.compile("[\U0001F300-\U0001FAFF☀-➿\U0001F900-\U0001F9FF]")
+_PLACEHOLDER_LINK_RE = re.compile(r"\[[A-Z][A-Z0-9-]*\]|https?://\S+")
+
+
+_FENCED_RE = re.compile(r"^```.*?^```[ \t]*$", re.M | re.S)
+_INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
+
+
+def _prose_only(text: str) -> str:
+    """Fenced blocks (code, ```visual specs) and inline code are container boilerplate — twin-
+    scanning them reports the format, not the writer. R2-absorption rerun on the accepted course
+    corpus: 12/12 raw twin families were fence noise (visual alt-text, shared CLI commands)."""
+    return _INLINE_CODE_RE.sub(" ", _FENCED_RE.sub(" ", text))
+
 
 def batch_twin_scan(texts: dict) -> list:
     """Within-batch phrase twinning: distinctive word 4-grams shared by >=2 pieces of ONE batch.
@@ -31,7 +45,7 @@ def batch_twin_scan(texts: dict) -> list:
     chars (drops function-word scaffolding); shared by 2-3 pieces (4+ = domain vocabulary)."""
     grams = {}
     for pid, text in texts.items():
-        words = [w for w in WORD_RE.findall(text.lower())]
+        words = WORD_RE.findall(_prose_only(text).lower())
         seen = set()
         for i in range(len(words) - 3):
             g = tuple(words[i:i + 4])
@@ -52,7 +66,7 @@ def load_brief(path: Path) -> dict:
     m = re.match(r"\A﻿?\s*---\n(.*?)\n---", raw, re.S)
     fm = m.group(1) if m else ""
     brief: dict = {"path": path, "expect": {}}
-    for key in ("id", "title", "words_target", "dominant_job", "route_expected"):
+    for key in ("id", "title", "words_target", "dominant_job", "route_expected", "container"):
         km = re.search(rf"^{key}:\s*(.+)$", fm, re.M)
         if km:
             brief[key] = km.group(1).strip().strip('"')
@@ -77,12 +91,16 @@ def check_piece(brief: dict, piece_path: Path, markers: list[dict], card: dict) 
     hard = dens["hard"] or ds["hard"] or fd["hard"] or cadence_hard
     counts = {m["id"]: m for m in dens["markers"]}
     fails, notes = [], []
+    closer_expect = None
     for k, v in brief["expect"].items():
         if k == "hard_fails":
             if hard and v == 0:
                 srcs = [s for s, h in (("density", dens["hard"]), ("deslop", ds["hard"]),
                                        ("fact-diff", fd["hard"]), ("cadence", cadence_hard)) if h]
                 fails.append(f"hard_fails: expected 0, got hard ({'+'.join(srcs)})")
+            continue
+        if k == "closer_family":                     # per-brief register assertion (warm|plain|cool)
+            closer_expect = v
             continue
         if v == "allow":
             notes.append(f"{k}: allow (human-rated cell)")
@@ -103,13 +121,33 @@ def check_piece(brief: dict, piece_path: Path, markers: list[dict], card: dict) 
                 fails.append(f"{k}: count {got} != {v}")
     advisories = sum(1 for f in dens["flags"] + tl["flags"] + ds["flags"]
                      if not f.startswith("ok:") and "[HARD]" not in f and "HARD" not in f)
-    # warmth telemetry (the R1 gap: restraint was measured, temperature wasn't)
+    # warmth telemetry (the R1 gap: restraint was measured, temperature wasn't). Evolution R1
+    # measured the thermometer itself broken: genuinely warm closers ("I'll see you there!",
+    # "See you Thursday 🫡") classified plain, and the dealt sign-off token classified cool.
     excl_per_1k = round(1000 * text.count("!") / max(1, dens["words"]), 1)
     tail = text[-300:].lower()
     warm = any(t in tail for t in ("happy ", "you've got this", "you got this", "keep build",
-                                   "keep shipping", "🚀", "not that hard"))
-    cool = any(t in tail for t in ("cya", "lfb", "see you on the next one", "what a time to be alive"))
+                                   "keep shipping", "not that hard", "see you ", "i'll see you",
+                                   "dms open", "dms are open", "hit reply", "you're in",
+                                   "see you on the next one")) \
+        or "!" in tail[-120:] or _EMOJI_RE.search(tail)
+    cool = any(t in tail for t in ("cya", "lfb", "what a time to be alive"))
     closer_family = "warm" if warm else ("cool" if cool else "plain")
+    if closer_expect and closer_family != closer_expect:
+        fails.append(f"closer_family: {closer_family} != expected {closer_expect} (register-match, LESSONS #5)")
+    # container reality checks (X counts every URL as a fixed 23-char t.co link)
+    container = (brief.get("container") or "").strip()
+    if container == "x-post":
+        eff = len(_PLACEHOLDER_LINK_RE.sub("x" * 23, text.strip()))
+        if eff > 280:
+            fails.append(f"x-post effective length {eff} > 280 chars (URLs count as 23-char t.co links)")
+    elif container == "x-thread":
+        posts = [p.strip() for p in re.split(r"(?m)^---$", text) if p.strip()]
+        over = sum(1 for p in posts if len(_PLACEHOLDER_LINK_RE.sub("x" * 23, p)) > 280)
+        if posts and over > len(posts) / 2:
+            fails.append(f"x-thread: {over}/{len(posts)} posts over 280 effective chars (spec: most posts ≤280)")
+        elif posts and over > len(posts) / 3:
+            notes.append(f"x-thread: {over}/{len(posts)} posts over 280 effective chars — trim toward the spec")
     return {"fails": fails, "notes": notes, "hard": hard, "advisories": advisories,
             "marker_counts": {m["id"]: m["count"] for m in dens["markers"]},
             "marker_lexemes": {m["id"]: m["pattern_hits"] for m in dens["markers"] if m["pattern_hits"]},
@@ -123,6 +161,8 @@ def main(argv=None) -> int:
     ap.add_argument("--card", required=True, help="<voice>.card.yaml (tells targets + markers block)")
     ap.add_argument("--markers", default=None, help="standalone markers yaml (overrides the card's block)")
     ap.add_argument("--briefs", default=str(SKILL / "testbed" / "briefs"))
+    ap.add_argument("--allow-twins", action="store_true",
+                    help="downgrade the >=3-piece twin gate to advisory (partial rounds)")
     a = ap.parse_args(argv)
     markers = read_card_markers(a.markers) if a.markers else read_card_markers(a.card)
     if not markers:
@@ -181,6 +221,21 @@ def main(argv=None) -> int:
             print("  within-batch phrase twins (distinctive 4-grams shared by sibling pieces — de-twin these):")
             for g, pids in twins:
                 print(f"        \"{' '.join(g)}\" — {','.join(pids)}")
+            # the de-twin GATE (evolution R1: 12 twin families shipped under a PASS — LESSONS #6
+            # exists as doctrine; this is its enforcement): a family spanning >=3 pieces fails the
+            # batch until the de-twin pass runs. 2-piece twins stay advisory (churn risk).
+            wide = [(g, pids) for g, pids in twins if len(pids) >= 3]
+            if wide and not a.allow_twins:
+                any_fail = True
+                print(f"  FAIL(twins): {len(wide)} twin famil{'y' if len(wide) == 1 else 'ies'} span >=3 pieces "
+                      f"— run the de-twin pass (writing-workflow.md batch mode), then re-run; "
+                      f"--allow-twins downgrades this gate for partial rounds")
+        if n_pieces >= 4:
+            warm_n = sum(1 for r in rows if len(r) > 2 and any("closer=warm" in d for d in r[2]))
+            if warm_n == 0:
+                print("  [advisory] ZERO warm closers across the whole batch — check register-match "
+                      "(LESSONS #5: teaching/motivation briefs expect warmth; a fully cold batch is "
+                      "the R1-measured over-restraint, not neutrality)")
     if n_pieces and "game-changer" not in portfolio:
         print("  [advisory] verdict-token budget UNSPENT across the whole batch — a cap is not a ban "
               "(~1/2500w is the voice); zero everywhere reads sterile (R1 finding)")

@@ -42,6 +42,7 @@ from style_lexicons import (
     AI_TELL_TIER2, AI_TELL_TIER3, REPLACEMENTS, CRYPTO_CLICHES,
     COPULA_SUBSTITUTES, SYMBOLIC_GLOSS, AI_FINGERPRINTS, HEDGE_STACK_RE,
     SUMMARY_CLOSER_RE, META_HEDGE_RE, AT_ITS_CORE_RE,
+    CONTRAST_FRAME_RES, CANDOR_PREAMBLE_RE, IMPORTANCE_OMISSION_RE,
 )
 from profile_corpus import classify_opener, sentences, first_sentence
 
@@ -378,9 +379,25 @@ def ai_tell_lint(text: str, card: dict | None = None) -> dict:
 
     banlist = set(AI_TELL_WORDS) | set(c.get("avoid_words", []))
     banned = {w: low.count(w) for w in banlist if low.count(w) > 0}
+    # Literal-identifier exemption (R2-absorption): determiner/adjective-preceded "underscore(s)"
+    # names the `_` character ("a leading underscore means intentionally unused" — fired ×2 on an
+    # accepted Rust lesson); the Tier-1 tell is the VERB ("this underscores the need").
+    _lit_us = len(re.findall(r"(?:\b(?:a|an|the|leading|single|double|trailing)[\s-]+|`)underscores?\b", low))
+    for _w in ("underscore", "underscores"):
+        if _w in banned:
+            banned[_w] -= min(banned[_w], _lit_us)
+            if banned[_w] <= 0:
+                del banned[_w]
     banconn = set(AI_TELL_CONNECTIVES) | set(c.get("avoid_connectives", []))
     banned_conn = {cc: low.count(cc) for cc in banconn if low.count(cc) > 0}
-    antithesis = len(FALSE_ANTITHESIS_RE.findall(text))
+    # contrast-frame FAMILY pooled under the card's false-antithesis cap (R1: the single-variant
+    # regex saw ~15% of the family). Variant counts surface so the writer can find the frame.
+    frame_hits = {}
+    for vname, vre in CONTRAST_FRAME_RES:
+        n = len(vre.findall(text))
+        if n:
+            frame_hits[vname] = n
+    antithesis = sum(frame_hits.values())
     # em + en + the SPACED double-hyphen evasion (" -- "). Plain "--" is NOT counted: it false-flagged
     # CLI flags (--features, --no-bip39) at 250/1k on docs with zero real em-dashes.
     emdash_count = text.count("—") + text.count("–") + text.count(" -- ")
@@ -397,7 +414,14 @@ def ai_tell_lint(text: str, card: dict | None = None) -> dict:
     if banned_conn:
         flags.append(f"essay-bot connectives: {banned_conn}")
     if antithesis > max(1, round(fa_cap * nw / 800)):
-        flags.append(f"false-antithesis 'not X, it's Y' overused ({antithesis} > cap {fa_cap}/800w)")
+        flags.append(f"contrast-frame family overused ({antithesis} > cap {fa_cap}/800w; variants: {frame_hits}) "
+                     f"— a ceiling, not a ban: keep the dealt contentful antithesis, recast the empty mirrors")
+    candor = len(CANDOR_PREAMBLE_RE.findall(text))
+    if candor:
+        flags.append(f"announced-candor preamble ×{candor} ('I'll be upfront:'-class) — cut the announcement, keep the honesty")
+    imp_om = len(IMPORTANCE_OMISSION_RE.findall(text))
+    if imp_om:
+        flags.append(f"manufactured-insider framing ×{imp_om} ('the part most X skip') — show the omission, don't claim it")
     # em-dash: rate-AND-count so a single dash in a short passage doesn't trip the /1k metric
     if emdash_count >= 3 and emdash_per_1k > emdash_max:
         flags.append(f"em-dash overuse ({emdash_count}×, {emdash_per_1k}/1k > {emdash_max})")
@@ -603,8 +627,26 @@ def _is_mutation(dropped_fact: str, introduced: list[str]) -> bool:
     return False
 
 
+# Bracketed placeholders ([LINK], [LINK-FEES]) must survive verbatim and match as ONE token —
+# the sub-tokenizers split them and reported both present-and-absent noise on every R1 piece.
+_PLACEHOLDER_RE = re.compile(r"\[[A-Z][A-Z0-9-]*\]")
+# The sheet source is the FACT-SHEET section when the brief marks one — brief prose above it
+# carries container specs (word targets, char caps, format paths) that are instructions, not facts.
+_FACTSHEET_HEAD_RE = re.compile(r"(?im)^#{2,3}\s+.*\b(?:fact-sheet|premise data)\b.*$")
+
+
+def _sheet_scope(facts_sheet: str) -> str:
+    m = _FACTSHEET_HEAD_RE.search(facts_sheet)
+    return facts_sheet[m.start():] if m else facts_sheet
+
+
 def fact_diff(facts_sheet: str, styled: str) -> dict:
+    whole_sheet = facts_sheet                     # placeholders may be dealt in the brief prose,
+    facts_sheet = _sheet_scope(facts_sheet)       # numbers/identifiers only from the fact-sheet block
     a, c = facts_in(facts_sheet), facts_in(styled)
+    for src, bag in ((whole_sheet, a), (styled, c)):          # placeholders as atomic must-survive tokens
+        for ph in _PLACEHOLDER_RE.findall(src):
+            bag.add(ph)
     dropped, introduced = sorted(a - c), sorted(c - a)
     mutated = [d for d in dropped if _is_mutation(d, introduced)]
     omitted = [d for d in dropped if d not in mutated]
@@ -612,7 +654,7 @@ def fact_diff(facts_sheet: str, styled: str) -> dict:
     if mutated:                                               # the one HARD case: a value actually changed
         flags.append(f"HARD FAIL: {len(mutated)} verified fact(s) MUTATED by styling (value changed): {mutated}")
     if omitted:
-        flags.append(f"advisory: {len(omitted)} sheet fact(s) absent from the output — confirm a deliberate "
+        flags.append(f"advisory: {len(omitted)} sheet fact(s) absent (scope-cut?) — confirm a deliberate "
                      f"omission/paraphrase, not a silent drop: {omitted}")
     if introduced:
         flags.append(f"advisory: {len(introduced)} number/identifier in the output but not the fact-sheet — "
@@ -768,17 +810,30 @@ def selftest() -> int:
            "Not hard, but easy. " + ("word word word word word. " * 8))
     rt = ai_tell_lint(bad)
     check(any("delve" in str(f) for f in rt["flags"]), "lint flags 'delve'")
-    check(any("false-antithesis" in f for f in rt["flags"]), "lint flags repeated 'not X, it's Y'")
+    check(any("contrast-frame" in f for f in rt["flags"]), "lint flags repeated 'not X, it's Y'")
     single = "It's not a fee, it's a deposit. " + ("calm steady prose here for a while. " * 6)
-    check(not any("false-antithesis" in f for f in ai_tell_lint(single)["flags"]),
+    check(not any("contrast-frame" in f for f in ai_tell_lint(single)["flags"]),
           "a single 'not X, it's Y' is within cap (not flagged)")
     # the CONTRACTED form ("isn't X, it's Y") must be caught too — it's Kaue's real exemplar-01 form,
     # which the old \bnot\b regex silently missed; and 'cannot' must not false-match.
     contracted = ("This isn't regulation, it's a wall. These aren't shares, it's dilution. "
                   "It wasn't cheap, but worth it. " + ("calm steady prose here. " * 6))
-    check(any("false-antithesis" in f for f in ai_tell_lint(contracted)["flags"]),
+    check(any("contrast-frame" in f for f in ai_tell_lint(contracted)["flags"]),
           "contracted 'isn't/aren't X, it's Y' is caught (was silently missed before)")
     check(not FALSE_ANTITHESIS_RE.search("I cannot, however, agree."), "'cannot' is not a false-match")
+    # the widened family (evolution R1 / course-audit B5): each variant regex fires on its shape,
+    # and the trailing-not checkable-slot exemption protects factual contrasts.
+    fam = dict(CONTRAST_FRAME_RES)
+    check(bool(fam["semicolon-pivot"].search("The fee is not declared; it is inferred.")),
+          "semicolon-pivot antithesis variant is caught")
+    check(bool(fam["cross-sentence"].search("That isn't a queue. It's a race.")),
+          "cross-sentence antithesis variant is caught")
+    check(bool(fam["trailing-not"].search("The agreement is mathematical, not social.")),
+          "trailing-not epigram variant is caught")
+    check(not fam["trailing-not"].search("It takes the program Pubkey, not an AccountInfo."),
+          "trailing-not EXEMPTS a checkable slot (identifier) — factual contrasts never fire")
+    check(bool(CANDOR_PREAMBLE_RE.search("I'll be upfront: weeks 2-3 are hard.")),
+          "announced-candor preamble is caught")
 
     # advisory-vs-hard gate (rules/deslop.md contract): ONLY fingerprints + uniform cadence hard-fail
     check(_is_hard("uniform cadence (sentence stdev 3.0 < card's 9) — reads even/AI"), "uniform cadence is HARD")

@@ -91,6 +91,19 @@ universal guest; hold each voice's guardrail (Hayes builder-optimist not cynical
 Hotz inviting not dismissive · Vitalik warm not flat). The lanes self-differentiate: **no author-vs-author
 special rules.**
 
+**Explicit tone override.** The requester may pin the blend — `tone: hayes`, `tone: helius 0.7 / hotz 0.3`,
+"a touch of vitalik", or `primary-only`. An explicit request **outranks the router**: apply it within the cap
+(backbone + ≤1 guest; rough weights set which is which). If the request crosses a lane guardrail (e.g. hotz
+on security), still honor it, but say so in the tone manifest instead of silently re-routing.
+
+**Tone manifest (always).** Every delivery ends with ONE metadata line in the chat/report — **never inside
+the piece itself**:
+`tone[helius 0.8, hayes 0.2] · mood: dry-competent · markers: sign-off 1 · route: auto`
+Weights are the writer's honest estimate of each secondary's share of the craft (backbone-heavy by
+construction; the always-on primary is not weighted — it owns the floor). `route: auto` vs `route: requested`
+records whether the blend was router-chosen or user-pinned, so the requester can iterate ("same piece,
+hayes 0.5").
+
 ## The naturalness floor (protect above all craft — `rules/naturalness.md`)
 
 The body of every craft, applied thoroughly, *smooths* prose into something that sounds like nobody. Counter it:
@@ -105,8 +118,11 @@ long"). Even enthusiasm + even polish is the #1 AI tell. Always load the **seam*
 `profiles/kaue/themes.md` (the substance bank — pull FITTING stances/anecdotes instead of recycling
 exemplar content) · ~4 exemplars from `exemplars/kaue/` (always the **seam** + opener + close + 1 body slot
 by job; exemplars are rhythm donors, never content donors) · the **one** routed secondary
-(`secondary/<v>.md` + card + its move-demos). **Never** read `evidence/*.profile.json` or
-`calibration/` — builder/validator-only.
+(`secondary/<v>.md` + card + its move-demos) · **if the piece targets a specific container** (X
+post/thread, LinkedIn, blog, course lesson, video script, newsletter, community announcement), the
+one matching contract in `formats/` — container is orthogonal to job; it constrains the vessel, not
+the routing. **Never** read `evidence/*.profile.json`, `calibration/`, or `evolution/` —
+builder/validator-only.
 
 ## Self-check before returning (Pass C)
 - **Burstiness:** sentence lengths vary hard (≥1 short punch & ≥1 long run per section); stdev clears the
@@ -130,6 +146,7 @@ by job; exemplars are rhythm donors, never content donors) · the **one** routed
 |---|---|
 | The two-layer model, the inversion, the cap, how packs plug in | [two-layer-model.md](two-layer-model.md) |
 | The facts-first Pass A/Gate/B/C workflow + MCP grounding | [writing-workflow.md](writing-workflow.md) |
+| Container contracts (X post/thread, LinkedIn, video script, newsletter…) | [formats/README.md](formats/README.md) |
 | The style-card schema, exemplar convention, builder/writer/validator boundary | [style-card-schema.md](style-card-schema.md) |
 | The full router (per-lane triggers, stacking, failure modes) | [profiles/kaue/ROUTING.md](profiles/kaue/ROUTING.md) |
 | The primary voice (Kaue) | [profiles/kaue/kaue.md](profiles/kaue/kaue.md) |
@@ -153,3 +170,4 @@ by job; exemplars are rhythm donors, never content donors) · the **one** routed
 | [/profile-corpus](../../commands/profile-corpus.md) | Regenerate builder-internal evidence + card dials |
 | [/validate-voice](../../commands/validate-voice.md) | Run audit / tells / density / diff on generated output |
 | [/calibrate-voice](../../commands/calibrate-voice.md) | Run a calibration round: regenerate the 8-brief matrix, collect owner ratings, codify changes |
+| [/evolve-voice](../../commands/evolve-voice.md) | Run an evolution round: format-matrix mass-generation → adversarial panels → master board → empirical A/B → human gate |

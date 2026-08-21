@@ -47,7 +47,9 @@ facts first — that's your fact-sheet.)
    them where they land (~1 verdict token per 2,500w IS the voice). Seams are unlimited; markers are
    budgeted — humanity is the seam, never the catchphrase.
 3. **Route** the dominant *job* (not topic) → backbone secondary + ≤1 guest on a different lane (`ROUTING.md`).
-   Cap = 2 secondary layers.
+   Cap = 2 secondary layers. **If the request pins a tone** (`tone: hayes`, `helius 0.7 / hotz 0.3`,
+   `primary-only`), the request outranks the router: apply it within the cap; if it crosses a lane guardrail,
+   honor it and flag the guardrail in the tone manifest instead of silently re-routing.
 4. Load **~4 exemplars** from `exemplars/kaue/`: **always the `seam`** + `opener` + `close` + 1 body slot by
    job; plus the routed secondary's move-demos. **Lean on the exemplars** — they're the strongest signal.
    Exemplars are **rhythm donors, never content donors**: if their example/analogy shows up in your draft on
@@ -98,7 +100,10 @@ budget?* Yes → keep it and stand behind it. Match the exemplars' **texture**, 
 - Then read it yourself against `kaue.md` + the exemplars: does it sound like the author?
 
 ## Deliverable
-The styled piece + a two-line note: route taken (backbone + guest) and the Pass-C result (facts preserved,
+The styled piece + a two-line note: the **tone manifest** —
+`tone[<backbone> <w>, <guest> <w>] · mood: <declared> · markers: <spends|none> · route: auto|requested`
+(weights = your honest estimate of each secondary's craft share; the always-on primary is not weighted; the
+manifest lives in the chat/report, **never inside the piece**) — and the Pass-C result (facts preserved,
 tells clean, markers within budget). The marker ledger is your **private scratchpad** — keep it while
 drafting long-form, don't ship it; the prose is the deliverable, not the bookkeeping. If a fact couldn't
 be verified, say so explicitly rather than smoothing over it.

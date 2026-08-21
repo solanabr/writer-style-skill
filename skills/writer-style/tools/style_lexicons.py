@@ -135,6 +135,31 @@ AI_TELL_CONNECTIVES = ["moreover,", "furthermore,", "additionally,", "in conclus
 # the old \bnot\b regex silently missed while still firing on the formal "is not X".
 FALSE_ANTITHESIS_RE = re.compile(
     r"\b(?:not|(?:is|are|was|were|ai)n['’]?t)\s+[\w ,'’-]{1,40}?,\s+(it['’]?s|but|rather)\b", re.I)
+
+# The contrast-frame FAMILY (evolution R1): the comma-pivot regex above catches ~15% of the real
+# family — course-audit B5 catalogued four grammatical variants that dodge it, and R1 panels found
+# ~20 family instances batch-wide vs 3 lint hits. All variants POOL under the card's existing
+# false-antithesis cap (a ceiling, not a ban — the dealt contentful antithesis is licensed voice).
+# trailing-not exempts a negated slot carrying a digit/`code`/Capitalized entity (checkable content).
+CONTRAST_FRAME_RES = [
+    ("comma-pivot", FALSE_ANTITHESIS_RE),
+    ("semicolon-pivot", re.compile(
+        r"\b(?:not|(?:is|are|was|were|ai)n['’]?t)\s+[\w ,'’-]{1,40}?;\s+(?:it['’]?s|it\s+is|they['’]?re)\b", re.I)),
+    ("cross-sentence", re.compile(
+        r"\b(?:is|are|was|were)n['’]?t\s+[\w '’-]{1,40}\.\s+(?:It|That|This|They)(?:['’]s| is| are)\b")),
+    ("trailing-not", re.compile(
+        r",\s+(?:not|never)\s+(?!(?:[^.!?]*(?:\d|`|[A-Z])))[a-z][\w '’-]{1,30}[.!?]")),
+    ("fragment-not", re.compile(r"(?m)^\s*Not\s+[\w '’-]{1,40}[:—]")),
+    ("less-than", re.compile(r"\bless\s+(?:a|an)\s+[\w '’-]{1,25}\s+than\s+(?:a|an)\b", re.I)),
+]
+# announced candor: performing one's own honesty ("I'll be upfront:") — R1 measured it minted in
+# sibling pieces; course-audit B8 found it lesson-over-lesson. Advisory; attested idiolect exempt.
+CANDOR_PREAMBLE_RE = re.compile(
+    r"\bi['’]ll be (?:upfront|honest|real|straight)\s*[:,]|\blet me be (?:clear|direct|honest)\b|"
+    r"\bto be (?:honest|frank)[:,]", re.I)
+# manufactured-insider framing: "the part most guides skip" — significance by omission-claim.
+IMPORTANCE_OMISSION_RE = re.compile(
+    r"\bthe (?:part|thing|step|bit) (?:most|everyone|nobody|other)\b.{0,24}\b(?:skip|miss|gloss)", re.I)
 # deterministic, voice-neutral machine-paste fingerprints (always flag — near-dispositive).
 # These are real copy-paste artifacts, NOT style — so a hard fail is safe (no false positives on prose).
 AI_FINGERPRINTS = [

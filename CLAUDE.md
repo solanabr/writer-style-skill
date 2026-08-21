@@ -64,6 +64,7 @@ Each voice is a full backbone in its lane; lanes self-differentiate (no author-v
 | [/profile-corpus](commands/profile-corpus.md) | Regenerate builder-internal evidence + dials |
 | [/validate-voice](commands/validate-voice.md) | Run audit / tells / density / diff |
 | [/calibrate-voice](commands/calibrate-voice.md) | Empirical calibration round: regenerate the 8-brief matrix → owner rates → codify changes |
+| [/evolve-voice](commands/evolve-voice.md) | Evolution round: format-matrix mass-generation → adversarial panels → master board → empirical A/B → human gate → codify |
 
 ## Honest scope
 Output is **in the author's register, with AI tells engineered out and facts verified first** — not an
@@ -79,11 +80,14 @@ floor; don't over-promise "it's exactly him."
 ├── package.json · bin/install.js   npm distribution (vendors into a project's .claude/) · .npmignore
 ├── skills/writer-style/        the self-contained skill — everything it reads lives in here
 │   ├── SKILL.md (entry) · two-layer-model · writing-workflow (+long-form mode) · style-card-schema (+markers) · authoring-personas
+│   ├── formats/      container contracts (x-post · x-thread · linkedin · blog · course-lesson · video-script · newsletter · community-announcement)
 │   ├── method/       build refs: process-playbook · agent-prompts · craft-profile · primary-profile · quality-bar · routing-design
 │   ├── profiles/kaue/  PACK.md · kaue.md(+card w/ markers) · themes.md (substance bank) · ROUTING.md · secondary/*
 │   │                   · exemplars/* (16 primary) · evidence/* (builder-internal) · LESSONS.md (calibrated writing lessons)
 │   ├── rules/        facts-first · naturalness (seams≠markers, plainness quota) · deslop · original-not-impersonation
 │   ├── testbed/      8-brief eval matrix + check_round.py (empirical calibration harness, npm-excluded)
+│   ├── evolution/    self-improvement engine: hyperparams · judges/ (adversarial lens charters) · briefs/ (16-piece
+│   │                 format matrix) · research/ · EVOLUTION.md ledger (rounds/ gitignored; npm-excluded)
 │   └── tools/        profile_corpus.py · style_lexicons.py · validate_voice.py (tells/density/audit/diff) · test_tools.py (pure-Python, no deps)
 ├── agents/           voice-writer · persona-builder · voice-validator
 └── commands/         write-in-voice · new-persona · profile-corpus · validate-voice

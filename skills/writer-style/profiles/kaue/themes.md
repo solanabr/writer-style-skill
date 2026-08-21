@@ -57,6 +57,8 @@
 | 23 | Tokenized emerging-market yield (RWA/receivables) is the big DeFi opportunity | "FX-hedged, double-digit emerging markets yield" (tweets) | defi, rwa, latam | high | normal |
 | 24 | Theory and practice are different things — real learning is your own mistakes | "theory and practice are two very different concepts" (essays) | learning | high | normal — register: personal |
 | 25 | Engineering becomes great when fused with other fields | "fuse it with other subjects… truly magnificent" (essays) | engineering | high | normal — register: personal |
+| 26 | Earn/bounty work is meritocracy by delivery, not connections — nobody invites you, nobody decides who "deserves" it | "Não por sorteio, nem por indicação: por trabalho. Se você entregou, você recebeu." (solana-speedrun course, owner-shipped 2026-08) | earn, meritocracy, brazil | high | normal — **gate: identity (Superteam)** |
+| 27 | Ordinary users run the same rails as the largest institutions — the only difference is who paid the cents | "a mesma infraestrutura que a BlackRock usa; a única diferença foi quem pagou os centavos" (solana-speedrun course, owner-shipped 2026-08) | adoption, institutions, accessibility | high | normal |
 
 ## Anecdote / example inventory (real stories with numbers)
 
@@ -87,6 +89,8 @@
 | A23 | The Arduino origin: 10th grade, set on becoming a musician, until his programming teacher handed him an Arduino kit — "little pieces of silica, copper and plastic fused with some programming spells" | essays | education, motivation | personal | normal |
 | A24 | Spent a year structuring robotics teaching across the Objetivo network — 100+ schools nationwide | essays | education | personal | normal |
 | A25 | _(dropped 2026-07-03 — owner rule: hyperspecific + the views figure rested on a single-inference receipt outside the canonical corpus)_ | — | — | — | — |
+| A26 | Superteam Brazil community cases (owner-shipped in the speedrun course, 2026-08; public positive cases, not jabs — rule 6's once-per-batch cap applies to each): BlindPay (stablecoin payments API) won the Brazilian hackathon track and entered a Y Combinator batch · Cloak (Inteli students) raised R$ 1,3 milhão and went to San Francisco for Colosseum acceleration · Triad Markets went from raising angel capital to sponsoring Breakpoint itself | solana-speedrun course | startups, brazil, hackathons, earn | guide | normal — **gate: identity (Superteam)** |
+| A27 | Superteam Brazil own-org receipts (as of 2026-08 — numbers re-verify at use, rule 3): US$ 40 milhões facilitated/raised/negotiated among members; US$ 650 mil paid out through Earn; ≥3 open-source technical bounties per month | solana-speedrun course | superteam, earn, brazil | guide | normal — **gate: identity (Superteam)** |
 
 ## Analogy inventory (beyond Firenze — his real analogy instincts)
 

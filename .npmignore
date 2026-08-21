@@ -5,6 +5,9 @@
 skills/writer-style/testbed/
 skills/writer-style/profiles/kaue/calibration/
 
+# Evolution engine — maintainer-only self-improvement harness, not part of the shipped skill payload
+skills/writer-style/evolution/
+
 # Python bytecode / caches — never ship compiled artifacts
 __pycache__/
 *.pyc
