@@ -25,11 +25,11 @@ content a wrong number or renamed instruction is the worst possible output. So:
    confident wrong claim detonates "don't trust, verify."
 7. **First-person incidents ARE facts.** A lived receipt (a dated memory, a named repo, "last year I…")
    under the author's byline is a factual claim about the author's life; inventing one is a fact violation,
-   not a style choice — and it's the seductive one: evolution R1 measured blind judges preferring fabricated
-   memoirs 6-0 over honest observation. An incident seam may only draw from the fact-sheet's attested-
-   receipts annex (themes.md — see the workflow's substance-bank step), the sheet itself, or the piece's own
-   practice (something the piece actually walks through). **When no receipt fits, the degrade ladder** (owner
-   ruling, R1): on teaching/motivation pieces where the receipt is load-bearing, leave a
+   not a style choice — and it's the seductive one: blind judges preferred fabricated memoirs 6-0 over
+   honest observation. An incident seam may only draw from the fact-sheet's attested-receipts annex
+   (themes.md — see the workflow's substance-bank step), the sheet itself, or the piece's own practice
+   (something the piece actually walks through). **When no receipt fits, the degrade ladder** (owner
+   ruling): on teaching/motivation pieces where the receipt is load-bearing, leave a
    `[RECEIPT — confirm: <one-line claim>]` placeholder for the owner to fill or strike before publish; on
    everything else, degrade silently to a practice or stance seam — a cooler true piece beats a warmer fake
    one. Never fabricate the middle ground.

@@ -40,15 +40,13 @@ empirical:
   lexicon_guard:                # zero false positives required on ALL of these
     - profiles/kaue/exemplars/kaue
     - testbed/accepted
-    # Owner-reviewed shipped courses (absolute paths, sibling repo). SCOPE (R2 governance fix, per
-    # the speedrun audit's flag): these guard HARD fails and Tier-1/lexicon bans only — advisory
-    # detectors MAY fire on them, because acceptance has a visibility horizon (per-lesson review
-    # cannot see cross-lesson clones; freezing advisories to the corpus would freeze its unnoticed
-    # defects in). The PT-BR course is also outside the English tokenizers' reliability. Verified
-    # 2026-08-21: contrast-frame family passes every btc-to-sol lesson; the one Tier-1 hit
-    # (literal-identifier "underscore" ×2) was a real false positive, fixed in validate_voice.
-    - /Users/azrael/Developer/GigaClaude/course-creator-skill/content/courses/btc-to-sol-evolution/lessons/drafts
-    - /Users/azrael/Developer/GigaClaude/course-creator-skill/content/courses/solana-speedrun/lessons/drafts
+    # Owner-reviewed shipped courses (sibling repo, paths relative to this repo's root; skip
+    # silently if absent). SCOPE: these guard HARD fails and Tier-1/lexicon bans only — advisory
+    # detectors MAY fire on them, because per-lesson review cannot see cross-lesson clones;
+    # freezing advisories to the corpus would freeze its unnoticed defects in. The PT-BR course
+    # is also outside the English tokenizers' reliability.
+    - ../course-creator-skill/content/courses/btc-to-sol-evolution/lessons/drafts
+    - ../course-creator-skill/content/courses/solana-speedrun/lessons/drafts
 
 human_gate:
   ask: [adopt_candidates, taste_questions, commit]

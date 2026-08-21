@@ -14,9 +14,7 @@ lesson, and will decide during THIS lesson whether to do the next one. The long-
   away is a defect a named pointer can't have. Still banned: marketing energy ("You won't believe
   what's next!"), teasing content beyond the literal next lesson, comments-invites (a
   standalone-post move). The FINAL lesson inverts the pattern — say there is no next lesson and
-  point outward. (Redrawn in evolution R2 against the owner-accepted corpus: the earlier absolute
-  teaser ban over-generalized a standalone-post ruling; LESSONS #4's actual rule — point to the
-  real next lesson or close plain — stands.)
+  point outward.
 - **One concept per lesson.** Adjacent concepts get named and deferred to their lesson, with the
   lesson named. Scope discipline is what makes a series feel designed.
 - **"You" is the student in the room**, mid-course, terminal open. Address their current state

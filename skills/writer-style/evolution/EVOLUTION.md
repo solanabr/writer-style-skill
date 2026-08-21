@@ -159,10 +159,10 @@ marker minting; formats/course-series.md; the full course-lesson enrichment set 
 checkpoints, fading tiers, code-register block); all 16 detector-decision rescopes for unbuilt
 detectors (thresholds recorded in slate.json).
 
-**Cross-repo handoff** (course-creator-skill's bugs, not ours): rounds/r2/HANDOFF-course-creator.md
-— quiz-layer em-dash hole (97 shipped), dedash comma-splice mapping, cover template leakage,
-mandatory fact-check pass, fanout dialect normalization, incomplete-fix sweeps, audience-model
-contradiction.
+**Cross-repo handoff** (course-creator-skill's bugs, not ours): delivered to the sibling repo as
+`../course-creator-skill/HANDOFF-course-creator.md` — quiz-layer em-dash hole (97 shipped), dedash
+comma-splice mapping, cover template leakage, mandatory fact-check pass, fanout dialect
+normalization, incomplete-fix sweeps, audience-model contradiction.
 
 **PT-BR note.** The toolchain is English-calibrated (WORD_RE splits accented tokens; contrast
 regexes are EN-shaped). Multilingual support = separate project, not incremental tuning; logged,

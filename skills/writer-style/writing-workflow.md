@@ -86,7 +86,7 @@ and **substance** (a bank anecdote burned by lesson 2 is unavailable to lesson 7
 tracks spends). For a batch/course, a **coordinator pass** deals each piece its mood, opener family,
 closer family (or none), and marker spends BEFORE writers start — parallel writers can't see each other,
 and uncoordinated rotation reproduces the stamp one token over (measured: 'cya' 4/8 in Round 1).
-Launch/announcement warmth is DEALT, not defaulted (owner ruling, evolution R1): the coordinator gives
+Launch/announcement warmth is DEALT, not defaulted (owner ruling): the coordinator gives
 roughly one in three launch-type pieces a warm edge (a direct "you", an open door, an edge emoji); the
 rest are licensed to close cold — a warm edge on every launch is a quota, and quotas read as quotas.
 

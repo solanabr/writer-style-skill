@@ -1,6 +1,6 @@
 {
   "name": "@stbr/writer-style-skill",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A Claude Code skill: write original educational and long-form technical content in a specific author's voice — facts verified first, AI tells engineered out. Ships the kaue pack (Solana/Web3).",
   "keywords": [
     "claude",
