@@ -28,8 +28,9 @@ No file for the container you're writing? The default long-form workflow
 2. **Markers scale DOWN faster than length.** The card's budgets are ceilings for FULL pieces; a
    short container has no room to prove the voice. A tweet with a catchphrase AND a sign-off is a
    costume. Under ~200 words, default to zero markers unless one lands perfectly.
-3. **Seams shrink, never vanish.** At short scale a seam is a real number from your own use or a
-   first-person cost ("cost me a weekend"), not a confession paragraph. One seam per short piece.
+3. **Seams shrink with the container.** At short scale a seam is a real number from your own use or a
+   first-person cost ("cost me a weekend"), not a confession paragraph. At most one per short piece —
+   and zero is also human (a tweet doesn't owe you a seam; a scheduled one reads inserted).
 4. **The naturalness floor applies at container scale.** Burstiness inside a tweet is word-level
    (a two-word sentence against a long one); inside a script it's breath-level; the "write
    unevenly" law never turns off, it changes unit.

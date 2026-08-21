@@ -167,3 +167,35 @@ normalization, incomplete-fix sweeps, audience-model contradiction.
 **PT-BR note.** The toolchain is English-calibrated (WORD_RE splits accented tokens; contrast
 regexes are EN-shaped). Multilingual support = separate project, not incremental tuning; logged,
 not attempted.
+
+---
+
+## R2 probe addendum — 2026-08-21 · LATAM-shill regression check + hardcoded-humanizer audit
+
+Owner-requested probe (3 parallel agents): a 2,511-word SVM-lifecycle deep-dive generated on a
+zero-gate-keyword fact-sheet + a 10-path source audit + an adversarial cold read.
+
+**LATAM regression: CLOSED, verified three ways.** 0 identity lexemes in the probe (grep +
+manual, including anonymized proxies); the one Brazilian-origin bank receipt (A2) was used for its
+numbers with geography deliberately stripped and ledger-logged; all 10 documented entry paths
+gated, backstopped by the validator's gate-MISS hard fail and briefs 01/03/04 asserting
+`latam-framing: 0`. Judge score 4/5; residual honor-system leaks noted (annex self-licensing,
+paraphrase evasion, `density` without `--facts` degrades to advisory).
+
+**Codified (the audit's top-3 hardcoded-humanizer fixes — quota→dealt/clump alignment with
+existing owner rulings, R2-03 class):**
+- [R2p][invisible to every detector; H1] "You've got this"-class reassurance demoted from
+  per-piece floor to coordinator-DEALT move (at most one, only after the student survived
+  something) → rule-edit — `profiles/kaue/kaue.md` §5, `writing-workflow.md` coordinator
+- [R2p][8/8-confession measurement vs three unqualified "every passage" statements; H2]
+  seam-per-passage phrasing harmonized to rule 4's clump language in `SKILL.md` (×2),
+  `profiles/kaue/kaue.md` §4, `formats/README.md` #3; ledger's `seam=—` made an explicitly valid
+  row with an example → rule-edit + workflow-edit
+- [R2p][the identically-slotted "honest part" stamp; H4] "always name the trade-off" stays
+  constant as a MOVE, its form+position now varied per piece and coordinator-dealt in batches →
+  rule-edit — `profiles/kaue/kaue.md` §1, `writing-workflow.md` coordinator
+
+**Routed to calibration:** tracking "You've got this"-class lexemes as a card marker (new marker
+family = markers-block change). **R3 backlog:** trade-off-slot batch advisory in check_round;
+probe judge's device-level finding (derivation stem ×3, "not X. It is Y." mold ×3 within one
+piece) folds into the parked closer-shape/frame-variety detector work.

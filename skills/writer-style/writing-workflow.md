@@ -84,8 +84,11 @@ next part is already scheduled), **openers** (continuation opens — "last lesso
 mid-course; credential-disclaimer opens stop making sense once the teacher's authority is established),
 and **substance** (a bank anecdote burned by lesson 2 is unavailable to lesson 7 — the batch ledger
 tracks spends). For a batch/course, a **coordinator pass** deals each piece its mood, opener family,
-closer family (or none), and marker spends BEFORE writers start — parallel writers can't see each other,
-and uncoordinated rotation reproduces the stamp one token over (measured: 'cya' 4/8 in Round 1).
+closer family (or none), marker spends, **the trade-off beat's form and position** (clause vs costed
+sentence vs short section; early vs late — the measured stamp was an identically-slotted "honest part"
+section in every piece), and **which lessons get a direct reassurance beat** (a dealt move, not a
+floor) BEFORE writers start — parallel writers can't see each other, and uncoordinated rotation
+reproduces the stamp one token over (measured: 'cya' 4/8 in Round 1).
 Launch/announcement warmth is DEALT, not defaulted (owner ruling): the coordinator gives
 roughly one in three launch-type pieces a warm edge (a direct "you", an open door, an edge emoji); the
 rest are licensed to close cold — a warm edge on every launch is a quota, and quotas read as quotas.
@@ -149,10 +152,14 @@ Ledger — 2,400w, 6 sections. Gates: identity=PASS (brief is adoption economics
 S1 open:   opener=pain-felt-number · seam=confession   · markers: —
 S2:        shape=flat-mechanics    · seam=real-number  · markers: —            [plain]
 S3:        shape=warm-reasoning    · seam=tool-credit  · markers: coined-handle 1/1
-S4:        shape=flat              · seam=real-number  · markers: —            [plain]
+S4:        shape=flat              · seam=—            · markers: —            [plain]
 S5 stakes: shape=zoom-out          · seam=named-credit · markers: identity 1/1, analogy 1/1
 S6 close:  vision→encouragement→door · sign-off 1/1    · markers: —
 ```
+
+`seam=—` is a valid row — the ledger tracks where seams LAND so they clump like a person's, it never
+obliges one per section (naturalness rule 4: floods and droughts; a filled seam column top to bottom
+is the quota the floor exists to prevent).
 
 Distribution rules across the piece: no marker lexeme twice within any ~800-word window; no seam type
 twice within 3 consecutive sections; each section's opener type differs from the previous two; the

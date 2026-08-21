@@ -107,9 +107,10 @@ hayes 0.5").
 ## The naturalness floor (protect above all craft — `rules/naturalness.md`)
 
 The body of every craft, applied thoroughly, *smooths* prose into something that sounds like nobody. Counter it:
-**write unevenly**: long calm stretches, enthusiasm only at the edges (open / seams / verdicts / close), **a
-human seam in every passage** (a confession, a real number from your own use, a named credit, a "this ran
-long"). Even enthusiasm + even polish is the #1 AI tell. Always load the **seam** exemplar.
+**write unevenly**: long calm stretches, enthusiasm only at the edges (open / seams / verdicts / close), and
+**real human seams that CLUMP** (a confession, a real number from your own use, a named credit, a "this ran
+long" — several per long piece, in floods and droughts, never one-per-section on schedule; a met quota is
+itself the tell). Even enthusiasm + even polish is the #1 AI tell. Always load the **seam** exemplar.
 
 
 ## What you load at generation time (Pass B)
@@ -132,8 +133,8 @@ builder/validator-only.
   with plain-word swaps, crypto-boilerplate, copula/gloss, machine-paste fingerprints, Markdown hygiene).
 - **Deslop judgment** (`rules/deslop.md`): clear cliché *clusters*, run the paragraph-reshuffle /
   "what's-new" / read-aloud tests, but keep the specific detail, mixed feelings, and asides that read human.
-- **Naturalness:** a human seam in every passage; enthusiasm spiked at edges, flat in the body; ≥1 in 3
-  sections marker-free (the plainness quota).
+- **Naturalness:** seams present and CLUMPED (droughts allowed — never one per section on schedule);
+  enthusiasm spiked at edges, flat in the body; ≥1 in 3 sections marker-free (the plainness quota).
 - **Markers:** run `python3 "$SKILL/tools/validate_voice.py" density --file <draft> --card "$SKILL/profiles/kaue/kaue.card.yaml" --facts <fact-sheet>`.
   An identity beat with no gate keyword in the fact-sheet, or a doubled sign-off, is a **hard fail**; for
   ≥1,200w also run `audit --file <draft>` (section-to-section repetition).
