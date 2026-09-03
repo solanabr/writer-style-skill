@@ -14,12 +14,9 @@ CLAUDE.local.md
 tone-lora/
 
 # Fetched corpora for persona builds (raw article HTML + cleaned text). Same policy as
-# tone-lora/: on disk for profiling, never packaged. Default-deny — ignore ALL corpus
-# content, then re-admit only the scripts, so a new working dir can't leak article text.
-corpus/**
-!corpus/*/
-!corpus/*/*.py
-!corpus/*/*.sh
+# tone-lora/: kept on disk for profiling, never committed and never packaged. Default-deny,
+# so a future build can drop a corpus here without any risk of committing article text.
+corpus/
 
 # Secrets / local env — never commit.
 .env

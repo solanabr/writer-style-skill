@@ -271,14 +271,15 @@ notes:
     FIXED (2026-09-03). The first profile run ingested files that still carried their 4-line provenance
     headers, so its signature_trigrams held scrape chrome ("author david potolski", "gmt url https") and its
     counts ran ~5% high; the dials below were re-derived by hand against cleaned body text and the trigram
-    list was discarded. evidence/david.profile.json has since been REGENERATED from corpus/david/style_clean/
-    (header- and footer-free body prose, built by corpus/david/mkstyle.py): 5 posts, 3,707 body words,
+    list was discarded. evidence/david.profile.json has since been REGENERATED from header- and footer-free
+    body prose (the corpus tooling that produced it lives in git history at d7c4284, not in the tree):
+    5 posts, 3,707 body words,
     median sentence 17w, FK 9.1 — i.e. the hand-derived dials were sound (FK moved 9.0 -> 9.1). The trigram
     list is now usable and corroborates the closer ritual independently: "let me know" x6, "in the comments"
     x5, "the comments below" x4.
   corpus_corroboration: >
     Two independent acquisition paths agree, which matters at this sample size. The RSS-derived bodies and
-    the owner's hand-pasted page text (corpus/david/medium.txt -> paste/, split by corpus/david/split_paste.py)
+    the owner's hand-pasted page text (split and diffed by the tooling at d7c4284)
     land within +/-52 words on all five overlapping posts (selling -48, game +8, 2-tips +52, procrastination
     -22, mvp-scope +8), so the feed did not truncate and the extractor did not mangle. The paste covers only
     4 of the 5 style posts (it lacks "Some nice books…"), so style_clean/ remains authoritative.
