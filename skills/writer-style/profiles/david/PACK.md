@@ -27,8 +27,9 @@
   `book-handoff`, and `employer-client-beat`.
 - **`themes.md`** — the substance bank: his real stances, anecdotes, numbers, and named references with
   receipts, topic tags, and burn rates, mined from all 8 posts (off-register files are substance-only
-  sources). **Not yet owner-reviewed** — the banner at the top of that file is binding, and four
-  low-confidence stances ship marked DO NOT USE.
+  sources). **Owner-reviewed and signed off 2026-09-03** — all 44 stances are live. The four that were
+  previously flagged are now `owner-confirmed`: usable, but they carry no verbatim receipt, so argue them
+  as his position and never as a quotation. The banner at the top of that file remains binding.
 - **`exemplars/david/`** — 7 verbatim on-register passages, one per rhetorical slot.
 
 ## The register tension — read this before writing a PM artifact

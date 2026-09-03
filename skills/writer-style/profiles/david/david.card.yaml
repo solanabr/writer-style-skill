@@ -289,8 +289,12 @@ notes:
     the bank runs 5.5 to 14.3 on the same author in the same year — that spread IS the burstiness. Rhythm
     donors, never content donors: substance comes from themes.md.
   themes_review: >
-    themes.md has NOT been signed off by the owner yet. Stances 41-44 are low-confidence inferences and ship
-    marked DO NOT USE. Treat the banner at the top of that file as binding until it carries a dated ruling.
+    SIGNED OFF 2026-09-03 by the owner. All 44 stances are live, including 41-44, which were previously
+    low-confidence inferences shipped as DO NOT USE. Those four are now `owner-confirmed`: authorised to
+    argue, but they carry NO verbatim receipt — write them as his position, never as a quotation, and never
+    manufacture a receipt. Stances 43 and 44 keep a binding scope note (43 is not a security opinion;
+    44's written method derives a point estimate from a range, so do not rewrite the formula to fit the
+    stance). The banner at the top of themes.md remains binding.
   lint_exceptions: >
     "in order to" is on the validator's Tier-1 AI-tell list but is ATTESTED IDIOLECT here: it appears in
     4 of the 5 on-register posts (1-2x each). Treat the `tells` advisory for it as expected, not as a

@@ -1,11 +1,16 @@
 # David — the substance bank (themes.md)
 
-> **⚠ AWAITING OWNER REVIEW — the stance map has NOT been signed off yet.**
-> Every entry below carries a verbatim receipt and a source, but *receipted* is not the same as
-> *endorsed*: a line written for a company blog in 2025 is not automatically an opinion David still holds.
-> **Items 41–44 are `confidence: low` and are marked DO NOT USE until the owner confirms them** —
-> misattributing an opinion is worse than blandness. Until this banner is replaced with a dated
-> owner ruling, treat `high`-confidence items as usable, `medium` as usable-with-care, and `low` as OFF.
+> **✅ OWNER-REVIEWED — signed off 2026-09-03 by David Potolski Lafetá.**
+> The stance map has been reviewed by the owner and **items 41–44 are confirmed ON**. All 44 stances are
+> live: `high` usable, `medium` usable-with-care, `owner-confirmed` usable but **unquotable** (see below).
+>
+> The distinction that still binds: *receipted* is not the same as *endorsed*, and now the reverse also
+> applies. Items 41–44 carry the owner's endorsement but **no verbatim receipt** — they are his positions,
+> not things he wrote. Argue them freely; never present one as a quotation, and never manufacture a receipt
+> for one. Two of them (43, 44) carry a **binding scope note** that bounds what the stance claims. Those
+> notes survived the sign-off because they came from the corpus, not from doubt about his views.
+>
+> Re-open this review if the corpus grows or the owner's position changes.
 
 ## Provenance tags (read these before you pull anything)
 
@@ -14,6 +19,7 @@
 | `[2020-style]` | From the five 2020 Medium posts. **Both** a style source and a substance source. |
 | `[2022-offreg]` | From "What if smart contracts were mutable?" (Jun 2022). **Substance only** — its prose is off-register. |
 | `[2025-offreg]` | From the estimation post (Aug 2025) and the MVP-scoping worksheet (Sep 2025). **Substance only.** These are where all the PM/delivery material lives, and their *voice* is excluded on purpose (2020 = FK 9.0, 2025 = FK 14.0). |
+| `[owner-2026-09-03]` | **Confirmed directly by the owner**, not derived from a corpus receipt. Fully usable — owner endorsement is a stronger authority than an inferred receipt, not a weaker one. The distinction is kept because these carry no quotable evidence: never present one as something he *wrote*, and never attach a fabricated quote to it. |
 
 **The core discipline of this pack:** PM and delivery substance comes from `[2025-offreg]`; the *sentences*
 never do. Run every 2025 item through the translation table in `david.md` §7 before it reaches a draft.
@@ -102,14 +108,21 @@ in your draft, you pasted instead of translating.
 | 39 | Every post-deploy on-chain update costs money — design to avoid updates | "Every update you perform after the contract is deployed costs gas (AKA money)." | smart-contracts, cost | high | 1 in 5 `[2022-offreg]` |
 | 40 | Onboarding friction is the real Web3 problem, and predicted addresses can hide wallet setup | "By knowing a user's account address before it is created, one can ask users to transfer their funds from an exchange to that address and handle account creation without the user needing to deal with all of the steps required to set up a wallet." | Web3, UX, onboarding | high | 1 in 4 `[2022-offreg]` |
 
-### ⛔ FLAGGED — DO NOT USE until the owner rules
+### ✅ OWNER-CONFIRMED — ruled ON 2026-09-03
 
-| # | Inferred stance | Why it is flagged | Status |
+These four were inferred rather than stated, so they shipped OFF pending a ruling. **The owner has confirmed
+all four.** They are live. Their confidence is `owner-confirmed`: authorised to argue, but carrying **no
+quotable receipt** — write them as his position, never as something he wrote, and never invent a quote.
+
+Two keep a scope note. Those notes are not doubts about whether he holds the view; they bound what the view
+actually claims, and the bound came from the corpus.
+
+| # | Stance | Scope note — binding | Status |
 |---|---|---|---|
-| 41 | David prefers iterative/agile over waterfall as general practice | The post never says "use agile". It says waterfall "worked reasonably well for predictable projects with well-understood requirements." This is an inference from the title arc. | `low` — **OFF** |
-| 42 | AI doesn't change PM fundamentals, only the cost curve | A defensible reading of "AI adds a new dimension" + the closing line, but never stated as a claim. | `low` — **OFF** |
-| 43 | David is pro-upgradeable/metamorphic contracts | "CREATE2 is awesome!" is enthusiasm for the *primitive*; the post never weighs the governance/trust downside of metamorphic contracts. **Do not render this as a security opinion.** | `low` — **OFF** |
-| 44 | Estimates should be delivered as ranges rather than single numbers | The three-point method is shown, but it **collapses to a single weighted number** via `(AO + 2×AR + TR)/4`. The corpus supports point-estimates-derived-from-ranges, which is nearly the opposite. | `low` — **OFF** |
+| 41 | Iterative delivery beats waterfall as general practice | He does not dismiss waterfall: it "worked reasonably well for predictable projects with well-understood requirements." Argue the preference, not a caricature of the alternative. | `owner-confirmed` — **ON**, burn 1 in 4 `[owner-2026-09-03]` |
+| 42 | AI doesn't change PM fundamentals, only the cost curve | No corpus receipt states this outright — it is his position, not a quote. | `owner-confirmed` — **ON**, burn 1 in 4 `[owner-2026-09-03]` |
+| 43 | Pro-upgradeable / metamorphic contracts | **Not a security opinion.** The corpus enthusiasm is for the *primitive* ("CREATE2 is awesome!") and never weighs the governance or trust downside. If a lesson raises that downside, reason it there — do not source it to him. | `owner-confirmed` — **ON**, burn 1 in 5 `[owner-2026-09-03]` |
+| 44 | Estimates should be delivered as ranges rather than single numbers | Argue the range as the honest *communication*. But his written three-point method **collapses to one weighted number** via `(AO + 2×AR + TR)/4`, so if you show the method, show it accurately — do not rewrite the formula to fit the stance. | `owner-confirmed` — **ON**, burn 1 in 4 `[owner-2026-09-03]` |
 
 ---
 
