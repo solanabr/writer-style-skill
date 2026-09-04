@@ -1,0 +1,67 @@
+# David primary-voice exemplar bank — 7 real on-register passages, all verbatim from the five 2020 Medium
+# posts. The writer loads ~4: ALWAYS the seam (04), one opener, the close, plus 1 body slot by job.
+# Lean on these harder than on the prose descriptors — exemplars are the top voice signal.
+voice: david
+role: primary
+
+sources:
+  medium-2020-practical: >
+    The five 2020 Medium posts — the ONLY style sources. The 2022/2025 posts are substance-only (see
+    themes.md) and no passage from them appears in this bank, by design.
+
+always_load: [seam]                    # 04 — non-negotiable per piece; the naturalness anchor
+default_load: [opener, seam, close]    # 01 + 04 + 06 on every piece
+body_by_job:                           # add ONE body slot, matched to the job
+  how-to:        [derivation]          # 02 — explain a mechanism plainly
+  worked-example:[worked-example]       # 03 — a dated instance with a real hour (replaces "analogy")
+  reassurance:   [question-hinge]      # 05 — answer the reader's worried question (replaces "verdict")
+  pm-artifact:   [derivation]          # 02, then translate 2025 substance via david.md §7
+  longform:      [restraint]           # 07 — a piece ≥1,200w needs a proven flat stretch
+  default:       [derivation]
+
+# TWO SLOTS DIFFER FROM THE STANDARD SEVEN, AND THAT IS A FINDING, NOT AN OMISSION:
+#   "analogy"  -> replaced by "worked-example". Measured analogy rate in the target register is 0.0/1k;
+#                 there is not one author-built analogy in the corpus. He instantiates, he does not map.
+#   "verdict"  -> replaced by "question-hinge". He never renders a verdict; he asks the reader's question
+#                 and answers it flat, then hands off. There is no conclusion section in any of the 5 posts.
+# "transition" is folded into question-hinge (05) — the hinge IS how his sections turn.
+
+slots:
+  - { slot: opener,        file: 01-opener-qualification.md,      fk: 8.3,  move: "If you are X … this article is for you" + credential downgrade + announce-the-count }
+  - { slot: derivation,    file: 02-derivation-plain-mechanics.md, fk: 8.0,  move: define by plain restatement → "Why is that?" answered in the same breath }
+  - { slot: worked-example,file: 03-worked-example-dated.md,      fk: 8.5,  move: "Let me give you an example:" → named tool, real date, real hour, traced consequence }
+  - { slot: seam,          file: 04-seam-failure-report.md,       fk: 14.3, move: imperative heading (no period) → flat agentless failure → the 56-word run-on }
+  - { slot: question-hinge,file: 05-question-hinge.md,            fk: 5.9,  move: the reader's worried question as a heading → "No." }
+  - { slot: close,         file: 06-close-book-handoff.md,        fk: 12.2, move: real-resource handoff → "Let me know … in the comments!!" + an "If you …" ask }
+  - { slot: restraint,     file: 07-restraint-plain-body.md,      fk: 5.5,  move: THE VOICE AT REST — zero markers, structural humanity only }
+
+rotation:                    # vary these across a multi-section piece and across a batch
+  opener_moves: ["'If you are X … this article is for you' qualification stack",
+                 "bare autobiographical timestamp ('September was the month I decided to learn unity')",
+                 "the technique stated as a bare imperative BEFORE any framing, then the hinge ('Why the day before? Let's find out')",
+                 "credential + colon into a list ('I've been working as a project manager … for around 8 months and here are')",
+                 "meta-frame + sentence fragment ('In this article, I'll go over … A book that can't only change your business, but also your life.')"]
+  seam_types:   ["first-person testimony ('I have used this on many occasions')",
+                 "admitted limit ('I haven't finished the book yet but so far it has been super valuable to me')",
+                 "named credit ('my girlfriend did the assets' / 'recommended to me by my manager at the time')",
+                 "a real date or number from his own week",
+                 "flat agentless failure report ('the game had bugs and unused code')",
+                 "deferral ('A more in-depth article about this will be written in the future')",
+                 "tool-agnostic disclaimer ('Disclaimer: I use Gmail and GCalendar on my daily basis…')"]
+  heading_shapes: ["bare noun fragment ('Timing', 'Game Jams', 'Step-by-step')",
+                   "full imperative sentence, NO terminal period ('Decide the resolution of the pixel arts before you start making them')",
+                   "a question the next line answers ('Motivation?', 'But first, why do we procrastinate?')"]
+  closing_asks: ["'Let me know your thoughts about this article in the comments!!' + an 'If you…' ask",
+                 "'let me know which is YOUR favorite sales book!'",
+                 "'Let me know your opinions on my list … share knowledge on the subject and grow together!!'",
+                 "'If you like it feel free to give it a few claps'"]
+
+note: >
+  FK across the bank runs 5.5 → 14.3 on the SAME author in the SAME year. That spread is the burstiness;
+  a piece that sits flat at 9.0 throughout is smoother than he is. Read these for RHYTHM and SEAMS, never
+  for topic — they are rhythm donors, NEVER content donors. If the Friday-June-26 snooze, the game jam, or
+  A Mind For Numbers turns up in a draft on an unrelated subject, that is the exemplar trap: pull a fitting,
+  receipted item from themes.md instead.
+  The bank is 7 passages from 5 posts / ~3.9k words. It is THIN. Every passage is real; none is synthetic,
+  and none should be — a fabricated "David" line is worth less than a short real one. To deepen the voice,
+  add more real on-register writing (breadth), not more annotation.

@@ -1,6 +1,6 @@
 ---
 name: writer-style
-description: "Write original educational and long-form technical content in a specific author's authentic voice — courses, lessons, explainers, deep-dives, threads — using a two-layer voice pack (an always-on PRIMARY voice that reproduces the author's idiolect + SECONDARY craft borrowed from master writers, applied not impersonated, routed by the piece's job) and a facts-first workflow that verifies technical content BEFORE styling. Ships the kaue pack (Kaue / Superteam Brazil, tuned for Solana/Web3 education) as the default. Use whenever drafting or editing content that should sound like a specific person rather than generic AI — 'write this lesson in my voice', 'in Kaue's voice', 'draft a thread the way <author> would', or 'a Superteam-style explainer'. Also builds new voice packs via the persona-builder agent. Do NOT use for brand-neutral/generic copy, or content that should sound house-styled rather than like a person."
+description: "Write original educational and long-form technical content in a specific author's authentic voice — courses, lessons, explainers, deep-dives, threads — using a two-layer voice pack (an always-on PRIMARY voice that reproduces the author's idiolect + SECONDARY craft borrowed from master writers, applied not impersonated, routed by the piece's job) and a facts-first workflow that verifies technical content BEFORE styling. Ships two packs: kaue (Kaue / Superteam Brazil, tuned for Solana/Web3 education) as the default, and david (David Potolski Lafetá — Solana online-course lessons, plus Medium long-form and PM/delivery artifacts like estimation write-ups, scoping docs and retrospectives; one guest voice, helius, scoped to its evidence layer). Use whenever drafting or editing content that should sound like a specific person rather than generic AI — 'write this lesson in my voice', 'in Kaue's voice', 'in David's voice', 'draft a thread the way <author> would', or 'a Superteam-style explainer'. Also builds new voice packs via the persona-builder agent. Do NOT use for brand-neutral/generic copy, or content that should sound house-styled rather than like a person."
 license: "MIT — Superteam Brazil / Kaue"
 user-invocable: true
 ---
@@ -27,11 +27,25 @@ where voice doesn't matter.
 > the author's on-register writing is added. (The default Kaue pack is calibrated from a small on-register
 > sample; lean on the **exemplars** and the **naturalness floor**, and don't over-promise "it's exactly him.")
 
-## The default pack
+## The packs
 
-Requests like "write this lesson **in my voice**", "in **Kaue's** voice", or "a Superteam-style explainer"
-→ use the **`kaue` pack** (`profiles/kaue/`). For another author/domain, load that pack instead; to create
-one, use the persona-builder. Everything below is the engine; the pack supplies the actual voices.
+| Pack | Voice | Use it when | Shape |
+|---|---|---|---|
+| **`kaue`** (default) | Kaue / Superteam Brazil — Solana & Web3 education | "in **Kaue's** voice", "a Superteam-style explainer", Solana lessons/courses/threads | primary + **5 secondary** craft voices, routed by job |
+| **`david`** | David Potolski Lafetá — Solana online-course material; also Medium long-form (800–2,500w) + PM/delivery artifacts | "in **David's** voice", course lessons, estimation write-ups, scoping docs, retrospectives, practical how-to posts | **one guest: `helius`**, evidence layer only (structure banned), ≈85/15 |
+
+An unqualified "write this **in my voice**" defaults to **`kaue`**. For another author/domain, load that pack
+instead; to create one, use the persona-builder. Everything below is the engine; the pack supplies the voices.
+
+> **`david` routes differently.** Its router (`profiles/david/ROUTING.md`) picks a **register mode** first,
+> then decides whether its one guest is on. That guest is **`helius`, licensed for its evidence layer only** —
+> its *structural* layer (numbered step lists, procedures) is banned, because importing it measured
+> **−4.2 FK grades and −5 words of median sentence length** against the corpus. Weight ≈ 85/15; primary-only
+> for non-technical pieces. The pack also **inverts two engine defaults**: enthusiasm is *tail-loaded* (cold
+> open, hot close, not hot edges), and its measured analogy rate is 0.0/1k, so its exemplar bank swaps the
+> `analogy` and `verdict` slots for `worked-example` and `question-hinge`. Its main container
+> (`course-lesson`) and anything code-bearing are **extrapolations** — the corpus has neither. Read
+> `profiles/david/PACK.md` before writing in it.
 
 ## The two-layer model (summary — full detail in `two-layer-model.md`)
 
@@ -125,6 +139,10 @@ one matching contract in `formats/` — container is orthogonal to job; it const
 the routing. **Never** read `evidence/*.profile.json`, `calibration/`, or `evolution/` —
 builder/validator-only.
 
+*Substitute the pack directory for another pack (`profiles/david/david.md` + card + `themes.md` + ~4
+exemplars). For a **primary-only** pack there is no routed secondary to load — the router hands you a
+register mode instead.*
+
 ## Self-check before returning (Pass C)
 - **Burstiness:** sentence lengths vary hard (≥1 short punch & ≥1 long run per section); stdev clears the
   card's `burstiness_min`. *Uniform cadence is the top tell.*
@@ -152,6 +170,7 @@ builder/validator-only.
 | The full router (per-lane triggers, stacking, failure modes) | [profiles/kaue/ROUTING.md](profiles/kaue/ROUTING.md) |
 | The primary voice (Kaue) | [profiles/kaue/kaue.md](profiles/kaue/kaue.md) |
 | The substance bank (stances/anecdotes/analogies with receipts) | [profiles/kaue/themes.md](profiles/kaue/themes.md) |
+| **The `david` pack** (Solana courses; 2020 register, PM substance, `helius` evidence-layer guest) | [profiles/david/PACK.md](profiles/david/PACK.md) → [david.md](profiles/david/david.md) · [ROUTING.md](profiles/david/ROUTING.md) · [themes.md](profiles/david/themes.md) |
 | A secondary voice's craft | `profiles/kaue/secondary/<voice>.md` |
 | **Building/refreshing a voice** (the adversarial method) | [authoring-personas.md](authoring-personas.md) → `method/` |
 | **Empirical calibration** (the 8-brief testbed + owner-feedback rounds) | [testbed/MATRIX.md](testbed/MATRIX.md) + `profiles/kaue/LESSONS.md` (calibration working data is local-only) |

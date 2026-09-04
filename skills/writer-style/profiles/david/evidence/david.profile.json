@@ -1,0 +1,271 @@
+{
+  "meta": {
+    "n_pieces": 5,
+    "n_words": 3757,
+    "n_sentences": 195,
+    "n_paragraphs": 130,
+    "fenced_code_blocks": 0,
+    "inline_code_spans": 0,
+    "corpus_cleaned": true,
+    "paragraph_metric_valid": true,
+    "warnings": []
+  },
+  "raw": {
+    "sentence_len": {
+      "median": 17,
+      "mean": 19.3,
+      "p10": 7,
+      "p90": 33,
+      "min": 0,
+      "max": 65,
+      "stdev": 11.6,
+      "cv": 0.6
+    },
+    "paragraph_sentences": {
+      "median": 2.0,
+      "p90": 3,
+      "valid": true
+    },
+    "punct_per_1k_words": {
+      ",": 37.5,
+      ";": 0.0,
+      ":": 8.0,
+      "\u2014": 1.1,
+      "(": 2.9,
+      "?": 4.0,
+      "!": 3.2,
+      "...": 0.0
+    },
+    "openers": {
+      "counts": {
+        "claim": 109,
+        "story": 7,
+        "question": 8,
+        "quote": 1,
+        "data": 5
+      },
+      "pct": {
+        "claim": 84,
+        "story": 5,
+        "question": 6,
+        "quote": 1,
+        "data": 4
+      },
+      "n": 130
+    },
+    "lexical": {
+      "content_word_ratio": 0.488,
+      "type_token_ratio": 0.242,
+      "long_word_frac": 0.179,
+      "flesch_kincaid_grade": 9.1
+    },
+    "stance": {
+      "hedges_per_1k": 3.7,
+      "boosters_per_1k": 1.6,
+      "perspective": {
+        "first": 39,
+        "second": 39,
+        "third": 22
+      }
+    },
+    "teaching": {
+      "definition_per_1k": 5.3,
+      "analogy_per_1k": 0.0,
+      "example_per_1k": 0.3,
+      "numeric_per_1k": 5.3,
+      "code_blocks_per_1k": 0.0,
+      "question_per_1k": 4.0
+    },
+    "connectives": {
+      "causal_per_1k": 5.6,
+      "contrastive_per_1k": 4.0,
+      "additive_per_1k": 31.9
+    },
+    "signature_content_words": [
+      [
+        "can",
+        34
+      ],
+      [
+        "will",
+        27
+      ],
+      [
+        "tasks",
+        25
+      ],
+      [
+        "game",
+        25
+      ],
+      [
+        "book",
+        23
+      ],
+      [
+        "one",
+        18
+      ],
+      [
+        "don",
+        18
+      ],
+      [
+        "task",
+        14
+      ],
+      [
+        "read",
+        13
+      ],
+      [
+        "emails",
+        13
+      ],
+      [
+        "know",
+        12
+      ],
+      [
+        "email",
+        12
+      ],
+      [
+        "article",
+        12
+      ],
+      [
+        "prospect",
+        12
+      ],
+      [
+        "let",
+        11
+      ]
+    ],
+    "signature_bigrams": [
+      [
+        "don t",
+        18
+      ],
+      [
+        "if you",
+        16
+      ],
+      [
+        "you can",
+        16
+      ],
+      [
+        "of the",
+        15
+      ],
+      [
+        "in the",
+        13
+      ],
+      [
+        "how to",
+        13
+      ],
+      [
+        "to do",
+        11
+      ],
+      [
+        "on the",
+        10
+      ],
+      [
+        "this article",
+        9
+      ],
+      [
+        "that i",
+        9
+      ],
+      [
+        "is a",
+        9
+      ],
+      [
+        "the prospect",
+        9
+      ]
+    ],
+    "signature_trigrams": [
+      [
+        "you don t",
+        7
+      ],
+      [
+        "let me know",
+        6
+      ],
+      [
+        "if you don",
+        5
+      ],
+      [
+        "in the comments",
+        5
+      ],
+      [
+        "answer the question",
+        5
+      ],
+      [
+        "a lot of",
+        5
+      ],
+      [
+        "one of the",
+        4
+      ],
+      [
+        "in order to",
+        4
+      ],
+      [
+        "the comments below",
+        4
+      ],
+      [
+        "a mind for",
+        4
+      ]
+    ]
+  },
+  "card_suggestions": {
+    "sentence_length": {
+      "median": 17,
+      "short_punch_floor": 7,
+      "long_reach": 33,
+      "burstiness_min": 7
+    },
+    "readability_grade": {
+      "min": 7,
+      "max": 11
+    },
+    "lexical_density": "medium",
+    "hedge_boost_lean": -1,
+    "person_perspective": {
+      "first": 39,
+      "second": 39,
+      "third": 22
+    },
+    "example_density": "low",
+    "code_density": "none",
+    "rhetorical_question_rate": "medium",
+    "definition_marker_rate_per_1k": 5.3,
+    "analogy_per_1k": 0.0,
+    "top_connectives_seen": [
+      "and",
+      "so",
+      "but",
+      "also",
+      "though",
+      "because"
+    ]
+  }
+}
