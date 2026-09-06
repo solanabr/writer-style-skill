@@ -128,8 +128,10 @@ markers:
     class: signoff
     patterns: ["let me know your thoughts", "let me know what you thought", "let me know your opinions",
                "let me know which", "let me know how", "feel free to leave feedback",
-               # "let me know if" REMOVED: ordinary PM English ("let me know if scope changes") -> false hard fail
                "give it a few claps", "grow together", "don't be shy and share"]
+    # "let me know if" REMOVED: ordinary PM English ("let me know if scope changes") -> false hard fail.
+    # Keep comments OUTSIDE the bracket list: a comment inside it was tokenized as a bare "#" pattern
+    # and matched every markdown heading (27 false hits on a 13-section lesson, 2026-09-06).
     cap: 1
     per_words: 0
     enforce: hard
