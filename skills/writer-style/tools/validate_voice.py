@@ -212,11 +212,36 @@ def read_card_targets(path: str | None) -> dict:
 _MARKER_TOKEN_RE = re.compile(r'"([^"]*)"|\'([^\']*)\'|([^,\[\]"\'\n]+)')
 
 
+def _strip_yaml_comments(s: str) -> str:
+    """Drop `# ...` to end of line when the `#` is outside quotes. A comment inside a
+    bracket list used to become a bare "#" pattern that matched every markdown heading."""
+    out_lines = []
+    for line in s.splitlines():
+        q = None
+        cut = len(line)
+        for i, ch in enumerate(line):
+            if q:
+                if ch == q:
+                    q = None
+            elif ch in ("'", '"'):
+                q = ch
+            elif ch == "#":
+                cut = i
+                break
+        out_lines.append(line[:cut])
+    return "\n".join(out_lines)
+
+
 def _parse_bracket_list(s: str) -> list[str]:
     out = []
-    for a, b, c in _MARKER_TOKEN_RE.findall(s):
-        tok = (a or b or c).strip()
-        if tok:
+    for a, b, c in _MARKER_TOKEN_RE.findall(_strip_yaml_comments(s)):
+        # Quoted tokens are kept verbatim: a card may require a leading space (" and, ")
+        # so the pattern cannot fire inside "demand, ". Only bare tokens are stripped.
+        if a or b:
+            tok = a or b
+        else:
+            tok = c.strip()
+        if tok.strip():
             out.append(tok.lower())
     return out
 
