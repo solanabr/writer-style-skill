@@ -33,3 +33,8 @@ written without a person behind it." Forensics: A carried 11 meta-narration sent
    count is a floor on material, never a target to pad toward.
 7. [R1-owner, carried from kaue LESSONS #4] **Never tease a scheduled next part.** Course lessons
    close by naming the actual next lesson's first action, or close plain.
+8. [R2-A/B, 2026-09-06] **Lines 1 to 6 hold: with them applied, the pack arm won the blind A/B on
+   lesson 2** (5 first-person "I" as receipts, 11 sections of 324 to 388 words, 0 announcement stubs)
+   against the same plain-register arm that beat it in round 1. What the owner felt as "someone wrote
+   it" was judgment plus receipts, not seams or markers. Do not raise the marker appetite in course
+   modes on the strength of this win; convergence needs a second consecutive round.
