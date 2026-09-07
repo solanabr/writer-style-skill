@@ -23,6 +23,9 @@ dials:
   hedge_boost_lean: -1                    # measured. "around 8 months", "around 150 pages", "a couple of",
                                           # "I like to think that" — he softens absolutes, including other people's.
   person_perspective: { first: 39, second: 39, third: 22 }
+    # R1 calibration (LESSONS.md, 2026-09-06): these are POST rates. In course-lesson / course-opener
+    # mode, first person is a receipt only (a position, a thing he did, a hedge on a number): budget
+    # <=8 "I" per 3k words. The A/B arm that spent 24 lost to a plain draft that spent 0.
     # Balanced I/you. Per-post rates run you 13-48/1k and I 14-31/1k — a WIDE band, not a floor.
   example_density: { value: high, source: persona_override, measured: low,
                      why: "the announced first-person worked instance ('Let me give you an example:' -> a named tool, a real date, a real hour, a traced consequence) is his ONLY evidence type; a marker count of 'for example' misses all of it" }
@@ -128,8 +131,10 @@ markers:
     class: signoff
     patterns: ["let me know your thoughts", "let me know what you thought", "let me know your opinions",
                "let me know which", "let me know how", "feel free to leave feedback",
-               # "let me know if" REMOVED: ordinary PM English ("let me know if scope changes") -> false hard fail
                "give it a few claps", "grow together", "don't be shy and share"]
+    # "let me know if" REMOVED: ordinary PM English ("let me know if scope changes") -> false hard fail.
+    # Keep comments OUTSIDE the bracket list: a comment inside it was tokenized as a bare "#" pattern
+    # and matched every markdown heading (27 false hits on a 13-section lesson, 2026-09-06).
     cap: 1
     per_words: 0
     enforce: hard
@@ -236,6 +241,18 @@ markers:
     cap: 1
     per_words: 0
     fallback: "The confess-a-limit-and-ship-a-pointer move. One per piece — and it must ship an actual pointer, or it is the wrong shape."
+  - id: announcement-stub
+    class: tic
+    # R1 calibration (LESSONS.md, 2026-09-06): the pack's Medium announcement stubs ("let me say what
+    # X is", "I will name them now", "I am going to say this once") read as padding without a person in
+    # a 3k-word course lesson and lost the blind A/B. One per piece at most, in any container.
+    patterns: ["let me say", "let me give you", "i will name them", "i am going to say", "i want you to see first",
+               "here is the thing", "since i mentioned", "since i have mentioned", "i have not defined yet",
+               "so the headings later"]
+    cap: 1
+    per_words: 0
+    enforce: hard
+    fallback: "Say the thing. Do not announce that you are about to say it, and do not apologize for the order. The reader is inside a lesson, not a post that needs a throat-clear."
   - id: and-comma-splice
     class: tic
     patterns: [" and, "]   # leading space required: bare "and, " fired on demAND, / PolANDd, / brANDd,
